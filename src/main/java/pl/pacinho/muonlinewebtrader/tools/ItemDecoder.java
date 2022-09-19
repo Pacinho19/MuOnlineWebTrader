@@ -1,19 +1,89 @@
 package pl.pacinho.muonlinewebtrader.tools;
 
+import org.springframework.stereotype.Component;
+import pl.pacinho.muonlinewebtrader.entity.Item;
 import pl.pacinho.muonlinewebtrader.model.dto.ItemDto;
+import pl.pacinho.muonlinewebtrader.model.enums.ItemType;
+import pl.pacinho.muonlinewebtrader.service.ItemService;
 
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+@Component
 public class ItemDecoder {
-    public static ItemDto decode(String itemCode) {
-        if (itemCode.startsWith("0x")) itemCode = itemCode.substring(2);
-        return ItemDto.builder()
+
+    private final ItemService itemService;
+    private final Map<String, Item> itemsMap;
+    private final List<Item> items;
+
+    public ItemDecoder(ItemService itemService) {
+        this.itemService = itemService;
+        items = itemService.findAll();
+        this.itemsMap = items
+                .stream()
+                .collect(Collectors.toMap(i ->
+                                "" + i.getNumber() + (i.getLevel() > 0 ? ("#" + i.getLevel()) : "")
+                        , Function.identity()));
+    }
+
+
+    public ItemDto decode(String itemCode) {
+        if (itemCode.replaceAll("F", "").isEmpty()) return null;
+
+        ItemDto itemDto = ItemDto.builder()
                 .id(getId(itemCode))
                 .section(getSection(itemCode))
                 .level(getLevel(itemCode))
                 .exc(checkExc(itemCode))
+                .serialNumber(getSerialNumber(itemCode))
                 .build();
+
+        String key = generateKey(itemDto);
+        if (key == null) return unknownItem(itemDto);
+        else return createItem(itemDto, key);
     }
 
-    private static boolean checkExc(String itemCode) {
+    private ItemDto createItem(ItemDto itemDto, String key) {
+        Item itemDict = itemsMap.get(key);
+        if (itemDict == null) return unknownItem(itemDto);
+
+        itemDto.setName(itemDict.getName());
+        itemDto.setItemType(itemDict.getCategory());
+        return itemDto;
+    }
+
+    private ItemDto unknownItem(ItemDto itemDto) {
+        itemDto.setName("Unknown");
+        itemDto.setItemType(ItemType.UNKNOWN);
+        return itemDto;
+    }
+
+    private String generateKey(ItemDto itemDto) {
+        Item item = items.stream()
+                .filter(i -> i.getNumber() == itemDto.getNumber())
+                .findFirst()
+                .orElse(null);
+
+        if (item == null) return null;
+
+        switch (item.getCategory()) {
+            case MISC, WING_AND_ORB -> {
+                return itemDto.getNumber() + "#" + itemDto.getLevel();
+            }
+            default -> {
+                return "" + itemDto.getNumber();
+            }
+        }
+    }
+
+    private String getSerialNumber(String itemCode) {
+        return itemCode.substring(6, 14)
+                + (itemCode.length() == 40 ? itemCode.substring(32) : "");
+    }
+
+    private boolean checkExc(String itemCode) {
         String exc = itemCode.substring(14, 16);
         exc = CodeUtils.baseConvert(exc, 16, 2);
         exc = CodeUtils.addZero(exc, null);
@@ -22,7 +92,7 @@ public class ItemDecoder {
     }
 
 
-    private static int getLevel(String itemCode) {
+    private int getLevel(String itemCode) {
         String lvlS = itemCode.substring(2, 4);
         lvlS = CodeUtils.baseConvert(lvlS, 16, 2);
         lvlS = CodeUtils.addZero(lvlS, null);
@@ -30,11 +100,11 @@ public class ItemDecoder {
         return Integer.parseInt(CodeUtils.baseConvert(lvlS, 2, 10));
     }
 
-    private static int getSection(String itemCode) {
+    private int getSection(String itemCode) {
         return StringUtils.convertToHexadecimal(itemCode.substring(18, 19));
     }
 
-    private static int getId(String itemCode) {
+    private int getId(String itemCode) {
         int basicSection = StringUtils.convertToHexadecimal(itemCode.substring(0, 2).toUpperCase());
         String extend = itemCode.substring(14, 15);
         int extendI = StringUtils.convertToHexadecimal(extend);

@@ -23,7 +23,9 @@ public enum ItemType {
     ,BOOTS("Boots")
     ,WING_AND_ORB("Wing/Orb")
     ,MISC("MISC")
-    ,DW_SM_MG_SCROLL ("DW/SM/MG Scroll");
+    ,DW_SM_MG_SCROLL ("DW/SM/MG Scroll")
+    ,UNKNOWN("Unknown")
+    ;
 
     private String name;
 

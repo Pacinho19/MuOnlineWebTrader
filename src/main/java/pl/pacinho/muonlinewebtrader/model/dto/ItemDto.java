@@ -1,9 +1,6 @@
 package pl.pacinho.muonlinewebtrader.model.dto;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 import pl.pacinho.muonlinewebtrader.model.enums.ItemType;
 
 @Getter
@@ -13,9 +10,12 @@ public class ItemDto {
 
     private int id;
     private int section;
+    private String serialNumber;
     @Getter(AccessLevel.NONE)
     private int number;
+    @Setter
     private String name;
+    @Setter
     private ItemType itemType;
     private int level;
     private boolean luck;

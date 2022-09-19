@@ -1,678 +1,1347 @@
-index;section;number;category;name
-0;0;0;Sword;Kris
-0;2;1024;Sword;Rapier
-0;4;2048;Sword;Sword of Assassin
-0;6;3072;Sword;Gladius
-0;8;4096;Sword;Serpent Sword
-0;10;5120;Sword;Light Saber
-0;12;6144;Sword;Helical Sword
-0;14;7168;Sword;Lightning Sword
-0;16;8192;Sword;Sword of Destruction
-0;18;9216;Sword;Thunder Blade
-0;20;10240;Sword;Knight Blade
-0;22;11264;Sword;Bone Blade
-0;24;12288;Sword;DayBreak
-0;26;13312;Sword;Flamberge
-0;28;14336;Sword;Imperial sword
-0;30;15360;Sword;Balgass Minion
-0;32;16384;Sword;Blood Spirit Sword
-0;34;17408;Sword;Death Reign Blade
-0;36;18432;Sword;Shadow Blade
-0;38;19456;Sword;Samurai Long Sword
-0;40;20480;Sword;Adamantine Sword
-0;42;21504;Sword;Desolation
-0;44;22528;Sword;Eye of Dragon Sword
-0;46;23552;Sword;Great Heavens Divider
-0;48;24576;Sword;Laneco
-0;50;25600;Sword;Black Reign Sword
-0;52;26624;Sword;Tauio Sword
-0;54;27648;Sword;Xentarlion Sword
-0;56;28672;Sword;Monotype Sword
-1;0;1;Axe;Small Axe
-1;2;1025;Axe;Double Axe
-1;4;2049;Axe;Elven Axe
-1;6;3073;Axe;Nikkea Axe
-1;8;4097;Axe;Crescent Axe
-1;10;5121;Axe;Gigantis Axe
-1;12;6145;Axe;Art of Battle Axe
-1;14;7169;Axe;Evil Rabbit Axe
-1;16;8193;Axe;Werewolf Axe
-1;18;9217;Axe;Heavens Divider
-2;0;2;Mace/Scepter;Mace
-2;2;1026;Mace/Scepter;Flail
-2;4;2050;Mace/Scepter;Crystal Morning Star
-2;6;3074;Mace/Scepter;Chaos Dragon Axe
-2;8;4098;Mace/Scepter;Battle Scepter
-2;10;5122;Mace/Scepter;Great Scepter
-2;12;6146;Mace/Scepter;Great Lord Scepter
-2;14;7170;Mace/Scepter;Solay Scepter
-2;16;8194;Mace/Scepter;Frost Mace
-2;18;9218;Mace/Scepter;Stryker Scepter
-2;20;10242;Mace/Scepter;Larken Scepter
-2;22;11266;Mace/Scepter;Death Spirit
-2;24;12290;Mace/Scepter;Night Mare Scepter
-3;0;3;Spear;Light Spear
-3;2;1027;Spear;Dragon Lance
-3;4;2051;Spear;Serpent Spear
-3;6;3075;Spear;Halberd
-3;8;4099;Spear;Great Scythe
-3;10;5123;Spear;Dragon Spear
-3;12;6147;Spear;Siege Guard Spear
-3;14;7171;Spear;Twin Tail Spear
-3;16;8195;Spear;Werewolf Spear
-3;18;9219;Spear;Night Mare Scepter
-4;0;4;Bow/Crossbow;Short Bow
-4;2;1028;Bow/Crossbow;Elven Bow
-4;4;2052;Bow/Crossbow;Tiger Bow
-4;6;3076;Bow/Crossbow;Chaos Nature Bow
-4;8;4100;Bow/Crossbow;Crossbow
-4;10;5124;Bow/Crossbow;Arquebus
-4;12;6148;Bow/Crossbow;Serpent Crossbow
-4;14;7172;Bow/Crossbow;Aquagold Crossbow
-4;16;8196;Bow/Crossbow;Saint Crossbow
-4;18;9220;Bow/Crossbow;Crossbow of Archangel
-4;20;10244;Bow/Crossbow;Arrow Viper Bow
-4;22;11268;Bow/Crossbow;Albatross Bow
-4;24;12292;Bow/Crossbow;Ari Lyn Bow
-4;26;13316;Bow/Crossbow;Balram Bow
-5;0;5;Staff;Skull Staff
-5;2;1029;Staff;Serpent Staff
-5;4;2053;Staff;Gorgon Staff
-5;6;3077;Staff;Staff of Destruction
-5;8;4101;Staff;Staff of Destruction
-5;10;5125;Staff;Staff of Archangel
-5;12;6149;Staff;Grand Viper Staff
-5;14;7173;Staff;Mistery Staff
-5;16;8197;Staff;Red Wing Staff
-5;18;9221;Staff;Black Rose Staff
-5;20;10245;Staff;Lilium Staff
-5;22;11269;Staff;Book of Neil
-5;30;15365;Staff;Deadly Staff
-5;32;16389;Staff;Demonic Staff
-5;34;17413;Staff;Raven Stick
-5;36;18437;Staff;Divine Stick of the Archangel
-5;38;19461;Staff;Legendary Staff-J
-5;40;20485;Staff;Book of Neil-J
-6;0;6;Shield;Small Shield
-6;2;1030;Shield;Kite Shield
-6;4;2054;Shield;Buckler
-6;6;3078;Shield;Skull Shield
-6;8;4102;Shield;Tower Shield
-6;10;5126;Shield;Large Round Shield
-6;12;6150;Shield;Bronze Shield
-6;14;7174;Shield;Legendary Shield
-6;16;8198;Shield;Elemental Shield
-6;18;9222;Shield;Salamander Shield
-6;20;10246;Shield;Guardian Shield
-6;22;11270;Shield;Dinasty Shield
-6;24;12294;Shield;Divine sheld
-6;26;13318;Shield;Ambition Shield
-6;28;14342;Shield;Serpent Shield-J
-6;49;25094;Shield;Master soul Shield
-6;51;26118;Shield;Dynasty Shield
-6;70;35846;Shield;Cross Shield
-7;0;7;Helm;Bronze Helm
-7;2;1031;Helm;Pad Helm
-7;4;2055;Helm;Bone Helm
-7;6;3079;Helm;Scale Helm
-7;8;4103;Helm;Brass Helm
-7;10;5127;Helm;Vine Helm
-7;12;6151;Helm;Wind Helm
-7;14;7175;Helm;Guardian Helm
-7;16;8199;Helm;Black Dragon Helm
-7;18;9223;Helm;Grand Soul Helm
-7;21;10759;Helm;Great Dragon Helm
-7;24;12295;Helm;Red Spirit Helm
-7;26;13319;Helm;Adamantine Helm
-7;28;14343;Helm;Dark Master Helm
-7;30;15367;Helm;Venom Mist Helm
-7;34;17415;Helm;Ashcrow Helm
-7;36;18439;Helm;Iris Helm
-7;39;19975;Helm;Mistery Helm
-7;41;20999;Helm;Ancient helm
-7;43;22023;Helm;Aura Helm
-7;45;23047;Helm;Titan Helm
-7;48;24583;Helm;Gild Master Helm
-7;50;25607;Helm;Faith Helm
-7;52;26631;Helm;Hades Helm
-7;54;27655;Helm;Titanium Helm
-7;56;28679;Helm;Mystic Helm
-7;58;29703;Helm;Holy Helm
-7;60;30727;Helm;Paewang Helm
-7;62;31751;Helm;Trunks  Helm
-7;64;32775;Helm;Baby Vegeta Helm
-7;66;33799;Helm;Goku SSJ5 Helm
-7;68;34823;Helm;No17 Helm
-7;70;35847;Helm;Cell Helm
-7;72;36871;Helm;Gogeta Helm
-7;74;37895;Helm;Itachi Uchiha Helm
-7;76;38919;Helm;Sakura Haruno Helm
-7;78;39943;Helm;ino yamanaka Helm
-7;80;40967;Helm;Guardian Helm-J
-7;82;41991;Helm;Red Wing Helm-J
-8;0;8;Armor;Bronze Armor
-8;2;1032;Armor;Pad Armor
-8;4;2056;Armor;Bone Armor
-8;6;3080;Armor;Scale Armor
-8;8;4104;Armor;Brass Armor
-8;10;5128;Armor;Vine Armor
-8;12;6152;Armor;Wind Armor
-8;14;7176;Armor;Guardian Armor
-8;16;8200;Armor;Black Dragon Armor
-8;18;9224;Armor;Grand Soul Armor
-8;20;10248;Armor;Thunder Hawk Armor
-8;22;11272;Armor;Dark Soul Armor
-8;24;12296;Armor;Red Spirit Armor
-8;26;13320;Armor;Adamantine Armor
-8;28;14344;Armor;Dark Master Armor
-8;30;15368;Armor;Venom Mist Armor
-8;32;16392;Armor;Volcano Armor
-8;34;17416;Armor;Ashcrow Armor
-8;36;18440;Armor;Iris Armor
-8;38;19464;Armor;Glorious Armor
-8;40;20488;Armor;Red Wing Armor
-8;42;21512;Armor;Black Rose Armor
-8;44;22536;Armor;Lilium Armor
-8;46;23560;Armor;Brave Armor
-8;48;24584;Armor;Phantom Armor
-8;50;25608;Armor;Faith Armor
-8;52;26632;Armor;Hades Armor
-8;54;27656;Armor;Titanium Armor
-8;56;28680;Armor;Panteon Armor
-8;58;29704;Armor;Holy Armor
-8;60;30728;Armor;Paewang Armor
-8;62;31752;Armor;Trunks  Armor
-8;64;32776;Armor;Baby Vegeta Armor
-8;66;33800;Armor;Goku SSJ5 Armor
-8;68;34824;Armor;No17 Armor
-8;70;35848;Armor;Cell Armor
-8;72;36872;Armor;Gogeta Armor
-8;74;37896;Armor;Itachi Uchiha Armor
-8;76;38920;Armor;Sakura Haruno Armor
-8;78;39944;Armor;ino yamanaka Armor
-8;80;40968;Armor;Guardian Armor-J
-8;82;41992;Armor;Red Wing Armor-J
-9;0;9;Pants;Bronze Pants
-9;2;1033;Pants;Pad Pants
-9;4;2057;Pants;Bone Pants
-9;6;3081;Pants;Scale Pants
-9;8;4105;Pants;Brass Pants
-9;10;5129;Pants;Vine Pants
-9;12;6153;Pants;Wind Pants
-9;14;7177;Pants;Guardian Pants
-9;16;8201;Pants;Black Dragon Pants
-9;18;9225;Pants;Grand Soul Pants
-9;20;10249;Pants;Thunder Hawk Pants
-9;22;11273;Pants;Dark Soul Pants
-9;24;12297;Pants;Red Spirit Pants
-9;26;13321;Pants;Adamantine Pants
-9;28;14345;Pants;Dark Master Pants
-9;30;15369;Pants;Venom Mist Pants
-9;32;16393;Pants;Volcano Pants
-9;34;17417;Pants;Ashcrow Pants
-9;36;18441;Pants;Iris Pants
-9;38;19465;Pants;Glorious Pants
-9;40;20489;Pants;Red Wing Pants
-9;42;21513;Pants;Black Rose Pants
-9;44;22537;Pants;Lilium Pants
-9;46;23561;Pants;Brave Pants
-9;48;24585;Pants;Phantom Pants
-9;50;25609;Pants;Faith Pants
-9;52;26633;Pants;Hades Pants
-9;54;27657;Pants;Titanium Pants
-9;56;28681;Pants;Panteon Pants
-9;58;29705;Pants;Holy Pants
-9;60;30729;Pants;Paewang Pants
-9;62;31753;Pants;Trunks  Pants
-9;64;32777;Pants;Baby Vegeta Pants
-9;66;33801;Pants;Goku SSJ5 Pants
-9;68;34825;Pants;No17 Pants
-9;70;35849;Pants;Cell Pants
-9;72;36873;Pants;Gogeta Pants
-9;74;37897;Pants;Itachi Uchiha Pants
-9;76;38921;Pants;Sakura Haruno Pants
-9;78;39945;Pants;ino yamanaka Pants
-9;80;40969;Pants;Guardian Pants-J
-9;82;41993;Pants;Red Wing Pants-J
-10;0;10;Gloves;Bronze Gloves
-10;2;1034;Gloves;Pad Gloves
-10;4;2058;Gloves;Bone Gloves
-10;6;3082;Gloves;Scale Gloves
-10;8;4106;Gloves;Brass Gloves
-10;10;5130;Gloves;Vine Gloves
-10;12;6154;Gloves;Wind Gloves
-10;14;7178;Gloves;Guardian Gloves
-10;16;8202;Gloves;Black Dragon Gloves
-10;18;9226;Gloves;Grand Soul Gloves
-10;20;10250;Gloves;Thunder Hawk Gloves
-10;22;11274;Gloves;Dark Soul Gloves
-10;24;12298;Gloves;Red Spirit Gloves
-10;26;13322;Gloves;Adamantine GLoves
-10;28;14346;Gloves;Dark Master Gloves
-10;30;15370;Gloves;Venom Mist GLoves
-10;32;16394;Gloves;Volcano Gloves
-10;34;17418;Gloves;Ashcrow Gloves
-10;36;18442;Gloves;Iris Gloves
-10;38;19466;Gloves;Glorious Gloves
-10;40;20490;Gloves;Red Wing Gloves
-10;42;21514;Gloves;Black Rose Gloves
-10;44;22538;Gloves;Lilium Gloves
-10;46;23562;Gloves;Brave Gloves
-10;48;24586;Gloves;Phantom Gloves
-10;50;25610;Gloves;Faith Gloves
-10;52;26634;Gloves;Hades Gloves
-10;54;27658;Gloves;Titanium Gloves
-10;56;28682;Gloves;Panteon Gloves
-10;58;29706;Gloves;Holy Gloves
-10;60;30730;Gloves;Paewang Gloves
-10;62;31754;Gloves;Trunks  Gloves
-10;64;32778;Gloves;Baby Vegeta Gloves
-10;66;33802;Gloves;Goku SSJ5 Gloves
-10;68;34826;Gloves;No17 Gloves
-10;70;35850;Gloves;Cell  Gloves
-10;72;36874;Gloves;Gogeta Gloves
-10;74;37898;Gloves;Itachi Uchiha Gloves
-10;76;38922;Gloves;Sakura Haruno Gloves
-10;78;39946;Gloves;ino yamanaka Gloves
-10;80;40970;Gloves;Guardian Gloves-J
-10;82;41994;Gloves;Red Wing Gloves-J
-11;0;11;Boots;Bronze Boots
-11;2;1035;Boots;Pad Boots
-11;4;2059;Boots;Bone Boots
-11;6;3083;Boots;Scale Boots
-11;8;4107;Boots;Brass Boots
-11;10;5131;Boots;Vine Boots
-11;12;6155;Boots;Wind Boots
-11;14;7179;Boots;Guardian Boots
-11;16;8203;Boots;Black Dragon Boots
-11;18;9227;Boots;Grand Soul Boots
-11;20;10251;Boots;Thunder hawk Boots
-11;22;11275;Boots;Dark Soul Boots
-11;24;12299;Boots;Red Spirit Boots
-11;26;13323;Boots;Adamantine Boots
-11;28;14347;Boots;Dark Master Boots
-11;30;15371;Boots;Venom Mist Boots
-11;32;16395;Boots;Volcano Boots
-11;34;17419;Boots;Ashcrow Boots
-11;36;18443;Boots;Iris Boots
-11;38;19467;Boots;Glorious Boots
-11;40;20491;Boots;Red Wing Boots
-11;42;21515;Boots;Black Rose Boots
-11;44;22539;Boots;Lilium Boots
-11;46;23563;Boots;Brave Boots
-11;48;24587;Boots;Phantom Boots
-11;50;25611;Boots;Faith Boots
-11;52;26635;Boots;Hades Boots
-11;54;27659;Boots;Titanium Boots
-11;56;28683;Boots;Panteon Boots
-11;58;29707;Boots;Holy Boots
-11;60;30731;Boots;Paewang Boots
-11;62;31755;Boots;Trunks  Boots
-11;64;32779;Boots;Baby Vegeta Boots
-11;66;33803;Boots;Goku SSJ5 Boots
-11;68;34827;Boots;No17 Boots
-11;70;35851;Boots;Cell  Boots
-11;72;36875;Boots;Gogeta Boots
-11;74;37899;Boots;Itachi Uchiha Boots
-11;76;38923;Boots;Sakura Haruno Boots
-11;78;39947;Boots;ino yamanaka Boots
-11;80;40971;Boots;Guardian Boots-J
-11;82;41995;Boots;Red Wing Boots-J
-12;0;12;Wing/Orb;Wing of Fairy
-12;2;1036;Wing/Orb;Wing of Satan
-12;4;2060;Wing/Orb;Wing of Soul
-12;6;3084;Wing/Orb;Wing of Darkness
-12;8;4108;Wing/Orb;Healing Orb
-12;10;5132;Wing/Orb;Orb of Greater Damage
-12;12;6156;Wing/Orb;Orb of Rageful Blow
-12;14;7180;Wing/Orb;Orb of Great Fortitude
-12;16;8204;Wing/Orb;Orb of Fire Slash
-12;18;9228;Wing/Orb;Orb of Ice Arrow
-12;22;11276;Wing/Orb;Scroll of Summon
-12;24;12300;Wing/Orb;Scroll of Elect Spark
-12;26;13324;Wing/Orb;Jewel of Secret
-12;26;13324;Wing/Orb;Blue Crystal
-12;26;13324;Wing/Orb;Box Of Treasure
-12;30;15372;Wing/Orb;Bundled Jewel of Bless 10
-12;30;15372;Wing/Orb;Bundled Jewel of Bless 30
-12;31;15884;Wing/Orb;Bundled Jewel of Soul 20
-12;32;16396;Wing/Orb;Red Ribbon Box
-12;34;17420;Wing/Orb;Green Ribbon Box
-12;36;18444;Wing/Orb;Wings of Storm
-12;38;19468;Wing/Orb;Wings of Illusion
-12;40;20492;Wing/Orb;Mantle of Monarch
-12;42;21516;Wing/Orb;Wing of Despair
-12;44;22540;Wing/Orb;Orb of Explotion
-12;46;23564;Wing/Orb;Orb of Reduce Dmg Shield
-12;48;24588;Wing/Orb;Scroll Of Birds
-12;50;25612;Wing/Orb;Wing of Divine
-12;52;26636;Wing/Orb;Wing of Glorius
-12;54;27660;Wing/Orb;Wing of Zephyr
-12;56;28684;Wing/Orb;Wing of Flame Illusion
-12;58;29708;Wing/Orb;Wing of Invisible
-12;61;31244;Wing/Orb;Seed Water
-12;63;32268;Wing/Orb;Seed Wind
-12;65;33292;Wing/Orb;Seed Ground
-12;71;36364;Wing/Orb;Spear 2
-12;73;37388;Wing/Orb;Spear 4
-12;100;51212;Wing/Orb;Seed Spear 1 of Fire
-12;102;52236;Wing/Orb;Seed Spear 1 of Ice
-12;104;53260;Wing/Orb;Seed Spear 1 of Lighting
-12;106;54284;Wing/Orb;Seed Spear 2 Fire
-12;108;55308;Wing/Orb;Seed Spear 2 Ice
-12;110;56332;Wing/Orb;Seed Spear 2 Lighting
-12;112;57356;Wing/Orb;Seed Spear 3 Fire
-12;114;58380;Wing/Orb;Seed Spear 3 Ice
-12;116;59404;Wing/Orb;Seed Spear 3 Lighting
-12;118;60428;Wing/Orb;Seed Spear 4 Fire
-12;120;61452;Wing/Orb;Seed Spear 4 Ice
-12;122;62476;Wing/Orb;Seed Spear 4 Lighting
-12;124;63500;Wing/Orb;Seed Spear 5 Fire
-12;126;64524;Wing/Orb;Seed Spear 5 Ice
-12;128;65548;Wing/Orb;Seed Spear 5 Lighting
-12;130;66572;Wing/Orb;Small Cape of Lords
-12;132;67596;Wing/Orb;Small Wings of Elf
-12;134;68620;Wing/Orb;Small Wings of Satan
-12;136;69644;Wing/Orb;Jewel of Life Bundle
-12;138;70668;Wing/Orb;Jewel of Guardian Bundle
-12;140;71692;Wing/Orb;Jewel of Harmony Bundle
-12;142;72716;Wing/Orb;Lower Refining Stone Bundle
-12;144;73740;Wing/Orb;Mithril Fragment
-12;146;74764;Wing/Orb;Elixir Fragment
-12;148;75788;Wing/Orb;Mithril Fragment Bunch
-12;150;76812;Wing/Orb;Jewel Combination Frame
-12;200;102412;Wing/Orb;Muren's Book of Magic
-12;202;103436;Wing/Orb;Lorencia Knights' Iron Shield
-12;204;104460;Wing/Orb;Hero Elixir
-12;206;105484;Wing/Orb;Gladiator's Dagger
-12;208;106508;Wing/Orb;Kundun's Madness Blade
-12;210;107532;Wing/Orb;Empire Guardians' Stronghold
-12;212;108556;Wing/Orb;Arca's Prophecy
-12;214;109580;Wing/Orb;Kundun's Seal Scroll
-12;231;118284;Wing/Orb;Errtel of Blessing
-12;251;128524;Wing/Orb;Errtel of Divinity
-12;262;134156;Wing/Orb;Cloak of Death
-12;264;135180;Wing/Orb;Wings of Magic
-12;266;136204;Wing/Orb;Wings of Conqueror
-13;0;13;MISC;Guardian Angel
-13;2;1037;MISC;Horn of Uniria
-13;4;2061;MISC;Dark Horse
-13;7;3597;MISC;Archer
-13;8;4109;MISC;Ring of Ice
-13;10;5133;MISC;Ring of Transform in Dragonin
-13;10;5133;MISC;Ring of Transform in Skeleton
-13;10;5133;MISC;Ring of Transform in Linch
-13;11;5645;MISC;Scroll of guardian
-13;12;6157;MISC;Pendant of Lighting
-13;14;7181;MISC;Lochs Feather
-13;15;7693;MISC;Energy Fruit
-13;15;7693;MISC;Agility Fruit
-13;15;7693;MISC;Command Fruit
-13;16;8205;MISC;Scroll of Archangel 1
-13;16;8205;MISC;Scroll of Archangel 3
-13;16;8205;MISC;Scroll of Archangel 5
-13;16;8205;MISC;Scroll of Archangel 7
-13;16;8205;MISC;Scroll of Archangel 9
-13;17;8717;MISC;Blood Bone 1
-13;17;8717;MISC;Blood Bone 3
-13;17;8717;MISC;Blood Bone 5
-13;17;8717;MISC;Blood Bone 7
-13;17;8717;MISC;Blood Bone 9
-13;18;9229;MISC;Invisibility Cloak 1
-13;18;9229;MISC;Invisibility Cloak 3
-13;18;9229;MISC;Invisibility Cloak 5
-13;18;9229;MISC;Invisibility Cloak 7
-13;18;9229;MISC;Invisibility Cloak 9
-13;19;9741;MISC;Divine Sword of Archangel
-13;20;10253;MISC;Wizards Ring
-13;20;10253;MISC;Ring of Warrior lvl 80
-13;21;10765;MISC;Ring of Fire
-13;23;11789;MISC;Ring of Wind
-13;25;12813;MISC;Pendant of Ice
-13;27;13837;MISC;Pendant of Water
-13;29;14861;MISC;Armor of Guardman
-13;31;15885;MISC;Dark Horse Spirit
-13;32;16397;MISC;Splinter of Armor 2
-13;32;16397;MISC;Splinter of Armor 4
-13;32;16397;MISC;Splinter of Armor 7
-13;32;16397;MISC;Splinter of Armor 11
-13;32;16397;MISC;Splinter of Armor 15
-13;33;16909;MISC;Bless of Guardian
-13;33;16909;MISC;Bless of Guardian 3
-13;33;16909;MISC;Bless of Guardian 5
-13;33;16909;MISC;Bless of Guardian 9
-13;33;16909;MISC;Bless of Guardian 13
-13;33;16909;MISC;Bless of Guardian 18
-13;34;17421;MISC;Claw of Beast 2
-13;34;17421;MISC;Claw of Beast 4
-13;34;17421;MISC;Claw of Beast 7
-13;34;17421;MISC;Claw of Beast 11
-13;34;17421;MISC;Claw of Beast 15
-13;35;17933;MISC;Piece of Horn
-13;37;18957;MISC;Red Fenrir
-13;37;18957;MISC;Blue Fenrir
-13;39;19981;MISC;Ring 1
-13;41;21005;MISC;Christmas turkey Ring
-13;43;22029;MISC;Green Symbol
-13;45;23053;MISC;Yellow Symbol
-13;47;24077;MISC;Blood Castle Ticket
-13;49;25101;MISC;Illusion Pergament 
-13;49;25101;MISC;Illusion Pergament 2
-13;49;25101;MISC;Illusion Pergament 4
-13;49;25101;MISC;Illusion Pergament 6
-13;50;25613;MISC;Illusion Blood
-13;50;25613;MISC;Illusion Blood 2
-13;50;25613;MISC;Illusion Blood 4
-13;50;25613;MISC;Illusion Blood 6
-13;51;26125;MISC;Illusion Entrance Ticket
-13;51;26125;MISC;Illusion Entrance Ticket 2
-13;51;26125;MISC;Illusion Entrance Ticket 4
-13;51;26125;MISC;Illusion Entrance Ticket 6
-13;52;26637;MISC;Flame of Condor
-13;54;27661;MISC;Kalima Ticket
-13;56;28685;MISC;Reset Fruit Health
-13;58;29709;MISC;Reset Fruit Control
-13;60;30733;MISC;Indulgence
-13;62;31757;MISC;Seal of Healing
-13;64;32781;MISC;Evil Satan
-13;66;33805;MISC;Mountain Village Invitation
-13;68;34829;MISC;SnowMan Ring
-13;70;35853;MISC;Talisman of Mobility
-13;72;36877;MISC;Staff
-13;74;37901;MISC;Scepter
-13;76;38925;MISC;Panda Ring transformation
-13;78;39949;MISC;Pink Panda Ring
-13;81;41485;MISC;Talisman of Guardian
-13;83;42509;MISC;Talisman of Wings of Satan
-13;85;43533;MISC;Talisman of Wings of Elf
-13;87;44557;MISC;Talisman of Cape of Emperor
-13;89;45581;MISC;Talisman of Wings of Soul
-13;91;46605;MISC;Talisman of Wing of Despair
-13;93;47629;MISC;Master Seal of Ascension
-13;95;48653;MISC;Gladiator Glory
-13;97;49677;MISC;Mageom sakaerikteo Card
-13;99;50701;MISC;Key for unlock Character Slot
-13;103;52749;MISC;Party EXP Scroll
-13;105;53773;MISC;Max SD Boost Aura
-13;107;54797;MISC;Lethal Wizard's Ring
-13;110;56333;MISC;Ring of Ruby
-13;112;57357;MISC;Ring of Amethyst
-13;114;58381;MISC;Pendant of Emerald
-13;116;59405;MISC;Tensile of Richness
-13;118;60429;MISC;Small Elixir of Vitality
-13;120;61453;MISC;Large Elixir of Vitality
-13;122;62477;MISC;Skeleton Ring
-13;124;63501;MISC;Paid Channel Access Ticket
-13;126;64525;MISC;Access Ticket to Varka
-13;128;65549;MISC;Hawk Figurine
-13;130;66573;MISC;Oak Charm
-13;132;67597;MISC;Golden Oak Charm
-13;134;68621;MISC;Worn Horseshoe
-13;136;69645;MISC;1st Lucky Pants Ticket
-13;138;70669;MISC;1st Lucky Gloves Ticket
-13;140;71693;MISC;2nd Lucky Armor Ticket
-13;142;72717;MISC;2nd Lucky Helm Ticket
-13;144;73741;MISC;2nd Lucky Boots Ticket
-13;146;74765;MISC;Spirit Map
-13;148;75789;MISC;Green Ink
-13;150;76813;MISC;Red Ink
-13;152;77837;MISC;Scroll of Green Oblivion
-13;154;78861;MISC;Scroll of Red Oblivion
-13;156;79885;MISC;Sealed Green Oblivion Scroll
-13;158;80909;MISC;Sealed Red Oblivion  Scroll
-13;160;81933;MISC;Protection Talisman
-13;164;83981;MISC;Mini Robot Ring
-13;166;85005;MISC;Brown Panda Ring
-13;169;86541;MISC;Decoration Ring
-14;0;14;MISC;Apple
-14;2;1038;MISC;Medium Healing Potion
-14;4;2062;MISC;Small Mana Potion
-14;6;3086;MISC;Large Mana Potion
-14;7;3598;MISC;Potion Of Soul
-14;9;4622;MISC;Ale
-14;10;5134;MISC;Town Scroll Portal
-14;11;5646;MISC;Star of Sacred Birth
-14;11;5646;MISC;Heart of Love
-14;11;5646;MISC;Gold Medal
-14;11;5646;MISC;Bok of Kundun+1
-14;11;5646;MISC;Bok of Kundun+3
-14;11;5646;MISC;Bok of Kundun+5
-14;11;5646;MISC;Blue Luck Pouch
-14;12;6158;MISC;Sing Of Zen
-14;12;6158;MISC;Pergamin
-14;14;7182;MISC;Jewel of Soul
-14;16;8206;MISC;Jewel of Life
-14;17;8718;MISC;Devil Eye 1
-14;17;8718;MISC;Devil Eye 3
-14;17;8718;MISC;Devil Eye 5
-14;17;8718;MISC;Devil Eye 7
-14;18;9230;MISC;Devil Key 1
-14;18;9230;MISC;Devil Key 3
-14;18;9230;MISC;Devil Key 5
-14;18;9230;MISC;Devil Key 7
-14;19;9742;MISC;Devil Invitation 1
-14;19;9742;MISC;Devil Invitation 3
-14;19;9742;MISC;Devil Invitation 5
-14;19;9742;MISC;Devil Invitation 7
-14;21;10766;MISC;Rena
-14;21;10766;MISC;Sing Of Lord
-14;23;11790;MISC;Scroll of Emperor
-14;24;12302;MISC;Broken Sword
-14;25;12814;MISC;Tear of Elf
-14;27;13838;MISC;Ancient Metal
-14;28;14350;MISC;Lost Map 1
-14;28;14350;MISC;Lost Map 3
-14;28;14350;MISC;Lost Map 5
-14;28;14350;MISC;Lost Map 7
-14;29;14862;MISC;Symbol of Kundun 1
-14;29;14862;MISC;Symbol of Kundun 3
-14;29;14862;MISC;Symbol of Kundun 5
-14;29;14862;MISC;Symbol of Kundun 7
-14;31;15886;MISC;Jewel of Guardian
-14;32;16398;MISC;Lilac Chocolate Box
-14;33;16910;MISC;Orange Chocolate Box
-14;34;17422;MISC;Navy Chocolate Box
-14;36;18446;MISC;Medium SD Potion
-14;38;19470;MISC;Small AG Potion
-14;40;20494;MISC;Large AG Potion
-14;42;21518;MISC;Jewel of Harmony
-14;44;22542;MISC;Higher Refining Stone
-14;46;23566;MISC;Hallwoeen Event Scroll 1
-14;48;24590;MISC;Halloween Event Scroll 3
-14;50;25614;MISC;Haloween Event Pumpkin
-14;51;26126;MISC;Sky Event Ticket 1
-14;51;26126;MISC;Sky Event Ticket 3
-14;51;26126;MISC;Sky Event Ticket 5
-14;51;26126;MISC;Sky Event Ticket 7
-14;51;26126;MISC;Sky Event Ticket 9
-14;53;27150;MISC;Talisman of Luck
-14;55;28174;MISC;Green Chaos Box
-14;57;29198;MISC;Purple Chaos Box
-14;59;30222;MISC;Rare Item Ticket2
-14;61;31246;MISC;Rare Item Ticket4
-14;63;32270;MISC;Not Apear Item
-14;65;33294;MISC;Flame of Death Beam Knight
-14;67;34318;MISC;Feather of Phoenix of Darkness
-14;70;35854;MISC;Elite Healing Potion
-14;72;36878;MISC;Scroll of Quickness
-14;74;37902;MISC;Scroll of Wrath
-14;76;38926;MISC;Scroll of Health
-14;78;39950;MISC;Elixir of Strength
-14;80;40974;MISC;Elixir of Health
-14;82;41998;MISC;Elixir of Control
-14;84;43022;MISC;Cherry Blossoms Box
-14;86;44046;MISC;Cherry Blossoms Dumpling
-14;88;45070;MISC;White Cherry Blossoms
-14;90;46094;MISC;Golden Cherry Blossoms 
-14;92;47118;MISC;Gold Cherry Blossom
-14;94;48142;MISC;Medium Elite Healing Potion
-14;96;49166;MISC;Chaos machine rate
-14;98;50190;MISC;Scroll of Strengthener
-14;100;51214;MISC;East Fortune
-14;102;52238;MISC;Gaion's Order
-14;104;53262;MISC;Second Secromicon Fragment
-14;106;54286;MISC;Fourth Secromicon Fragment
-14;108;55310;MISC;Sixth Secromicon Fragment
-14;110;56334;MISC;Sign of Dimensions
-14;112;57358;MISC;Silbeoki
-14;114;58382;MISC;Initializing the master skill
-14;116;59406;MISC;Character before the service
-14;118;60430;MISC;Server Relocation Service
-14;120;61454;MISC;Goblin gold
-14;122;62478;MISC;The seal as a silver box
-14;124;63502;MISC;Silver Box
-14;126;64526;MISC;30-Day Pass
-14;128;65550;MISC;30-Day Pass - Points
-14;130;66574;MISC;3-Hour Pass
-14;132;67598;MISC;10-Hour Pass
-14;134;68622;MISC;Package Box A
-14;136;69646;MISC;Package Box C
-14;138;70670;MISC;Package Box E
-14;140;71694;MISC;Scroll of Healing
-14;142;72718;MISC;Sophisticated Jewelry Box
-14;144;73742;MISC;Old Jewelry Box
-14;146;74766;MISC;Rare Item Ticket 8
-14;148;75790;MISC;Rare Item Ticket 10
-14;150;76814;MISC;Rare Item Ticket 12
-14;152;77838;MISC;Lv. 1 Completion Certificate
-14;154;78862;MISC;Kalt Stone
-14;156;79886;MISC;Burnt Murderer's Club
-14;158;80910;MISC;Red Box
-14;160;81934;MISC;Jewel of Extension
-14;162;82958;MISC;Magic Backpack
-14;170;87054;MISC;Lv. 2 letter of Request
-14;176;90126;MISC;Death King's Bone
-14;178;91150;MISC;Dark Phoenix Flame
-14;180;92174;MISC;Ice Walker's Mane
-14;182;93198;MISC;Giant's Icicle
-14;184;94222;MISC;Iron Knight's Heart
-14;186;95246;MISC;Dark Giant's Axe
-14;188;96270;MISC;Dark Iron Knight's Sword
-14;190;97294;MISC;Elemental Talisman of Chaos
-14;192;98318;MISC;Cyclone Combination Note
-14;194;99342;MISC;Magma Combination Note
-14;196;100366;MISC;Angelic Combination Note
-14;198;101390;MISC;Miracle Combination Note
-14;200;102414;MISC;Asura Combination Note
-14;202;103438;MISC;Soul Combination Note
-14;210;107534;MISC;Summon Scroll (Lv1)
-14;212;108558;MISC;Summon Scroll (Lv3)
-15;0;15;DW/SM/MG Scroll;Scroll of Poison
-15;2;1039;DW/SM/MG Scroll;Scroll of Lighting
-15;4;2063;DW/SM/MG Scroll;Scroll of Flame
-15;6;3087;DW/SM/MG Scroll;Scroll of Ice
-15;8;4111;DW/SM/MG Scroll;Scroll of Evil Spirit
-15;10;5135;DW/SM/MG Scroll;Scroll of Power Wave
-15;12;6159;DW/SM/MG Scroll;Scroll of Cometfall
-15;14;7183;DW/SM/MG Scroll;Scroll of Teleport
-15;16;8207;DW/SM/MG Scroll;Scroll of Decay
-15;18;9231;DW/SM/MG Scroll;Scroll of Nova
-15;20;10255;DW/SM/MG Scroll;Scroll of Chain Lighting
-15;22;11279;DW/SM/MG Scroll;Scroll of Damage Reflex
-15;24;12303;DW/SM/MG Scroll;Scroll of Sleep
-15;26;13327;DW/SM/MG Scroll;Scroll of Magic Defense Up
-15;28;14351;DW/SM/MG Scroll;Horse Power Scroll
-15;30;15375;DW/SM/MG Scroll;Chain Driver Parchment
-15;32;16399;DW/SM/MG Scroll;Dragon Lore Parchment
-15;34;17423;DW/SM/MG Scroll;Red Armor Ignore Parchment
-15;36;18447;DW/SM/MG Scroll;Defense Rate Parchment
+section;index;number;category;name
+0;0;0;0;Sword;Kris
+0;1;0;512;Sword;Short Sword
+0;2;0;1024;Sword;Rapier
+0;3;0;1536;Sword;Katana
+0;4;0;2048;Sword;Sword of Assassin
+0;5;0;2560;Sword;Blade
+0;6;0;3072;Sword;Gladius
+0;7;0;3584;Sword;Falchion
+0;8;0;4096;Sword;Serpent Sword
+0;9;0;4608;Sword;Salamander
+0;10;0;5120;Sword;Light Saber
+0;11;0;5632;Sword;Legendary Sword
+0;12;0;6144;Sword;Helical Sword
+0;13;0;6656;Sword;Double Blade
+0;14;0;7168;Sword;Lightning Sword
+0;15;0;7680;Sword;Giant Sword
+0;16;0;8192;Sword;Sword of Destruction
+0;17;0;8704;Sword;Spirit Sword
+0;18;0;9216;Sword;Thunder Blade
+0;19;0;9728;Sword;Sword of Archangel
+0;20;0;10240;Sword;Knight Blade
+0;21;0;10752;Sword;Black Reign Blade
+0;22;0;11264;Sword;Bone Blade
+0;23;0;11776;Sword;Explosion Blade
+0;24;0;12288;Sword;DayBreak
+0;25;0;12800;Sword;Sword Dancer
+0;26;0;13312;Sword;Flamberge
+0;27;0;13824;Sword;Sword Bracker
+0;28;0;14336;Sword;Imperial sword
+0;29;0;14848;Sword;Arhangel Guard
+0;30;0;15360;Sword;Balgass Minion
+0;31;0;15872;Sword;Rune Blade
+0;32;0;16384;Sword;Blood Spirit Sword
+0;33;0;16896;Sword;Dark Knight Blade
+0;34;0;17408;Sword;Death Reign Blade
+0;35;0;17920;Sword;Kundun Blade
+0;36;0;18432;Sword;Shadow Blade
+0;37;0;18944;Sword;Dread Weave Sword
+0;38;0;19456;Sword;Samurai Long Sword
+0;39;0;19968;Sword;Shadow Short Sword
+0;40;0;20480;Sword;Adamantine Sword
+0;41;0;20992;Sword;Broken Sword
+0;42;0;21504;Sword;Desolation
+0;43;0;22016;Sword;Dragon Slayer
+0;44;0;22528;Sword;Eye of Dragon Sword
+0;45;0;23040;Sword;Forgotten Blade
+0;46;0;23552;Sword;Great Heavens Divider
+0;47;0;24064;Sword;Karlush
+0;48;0;24576;Sword;Laneco
+0;49;0;25088;Sword;Dark Reign Sword
+0;50;0;25600;Sword;Black Reign Sword
+0;51;0;26112;Sword;Nostro Sword
+0;52;0;26624;Sword;Tauio Sword
+0;53;0;27136;Sword;Vortex Sword
+0;54;0;27648;Sword;Xentarlion Sword
+0;55;0;28160;Sword;Volver Sword
+0;56;0;28672;Sword;Monotype Sword
+1;0;0;1;Axe;Small Axe
+1;1;0;513;Axe;Hand Axe
+1;2;0;1025;Axe;Double Axe
+1;3;0;1537;Axe;Tomahawk
+1;4;0;2049;Axe;Elven Axe
+1;5;0;2561;Axe;Battle Axe
+1;6;0;3073;Axe;Nikkea Axe
+1;7;0;3585;Axe;Larkan Axe
+1;8;0;4097;Axe;Crescent Axe
+1;9;0;4609;Axe;Berserc Axe
+1;10;0;5121;Axe;Gigantis Axe
+1;11;0;5633;Axe;Blunt Beast Axe
+1;12;0;6145;Axe;Art of Battle Axe
+1;13;0;6657;Axe;Duel Axe
+1;14;0;7169;Axe;Evil Rabbit Axe
+1;15;0;7681;Axe;Shadow War Axe
+1;16;0;8193;Axe;Werewolf Axe
+1;17;0;8705;Axe;Sirr Blade
+1;18;0;9217;Axe;Heavens Divider
+2;0;0;2;Mace/Scepter;Mace
+2;1;0;514;Mace/Scepter;Morning Star
+2;2;0;1026;Mace/Scepter;Flail
+2;3;0;1538;Mace/Scepter;Great Hammer
+2;4;0;2050;Mace/Scepter;Crystal Morning Star
+2;5;0;2562;Mace/Scepter;Crystal Sword
+2;6;0;3074;Mace/Scepter;Chaos Dragon Axe
+2;7;0;3586;Mace/Scepter;Elemental Mace
+2;8;0;4098;Mace/Scepter;Battle Scepter
+2;9;0;4610;Mace/Scepter;Master Scepter
+2;10;0;5122;Mace/Scepter;Great Scepter
+2;11;0;5634;Mace/Scepter;Lord Scepter
+2;12;0;6146;Mace/Scepter;Great Lord Scepter
+2;13;0;6658;Mace/Scepter;Scepter of Archangel
+2;14;0;7170;Mace/Scepter;Solay Scepter
+2;15;0;7682;Mace/Scepter;Shining Scepter
+2;16;0;8194;Mace/Scepter;Frost Mace
+2;17;0;8706;Mace/Scepter;Absolute Scepter
+2;18;0;9218;Mace/Scepter;Stryker Scepter
+2;19;0;9730;Mace/Scepter;Sceleton Scepter
+2;20;0;10242;Mace/Scepter;Larken Scepter
+2;21;0;10754;Mace/Scepter;Dark King
+2;22;0;11266;Mace/Scepter;Death Spirit
+2;23;0;11778;Mace/Scepter;Conquer Scepter
+2;24;0;12290;Mace/Scepter;Night Mare Scepter
+3;0;0;3;Spear;Light Spear
+3;1;0;515;Spear;Spear
+3;2;0;1027;Spear;Dragon Lance
+3;3;0;1539;Spear;Giant Trident
+3;4;0;2051;Spear;Serpent Spear
+3;5;0;2563;Spear;Double Poleaxe
+3;6;0;3075;Spear;Halberd
+3;7;0;3587;Spear;Berdysh
+3;8;0;4099;Spear;Great Scythe
+3;9;0;4611;Spear;Bill of Balrog
+3;10;0;5123;Spear;Dragon Spear
+3;11;0;5635;Spear;Beuroba Spear
+3;12;0;6147;Spear;Siege Guard Spear
+3;13;0;6659;Spear;Dreadfear Spear
+3;14;0;7171;Spear;Twin Tail Spear
+3;15;0;7683;Spear;Scout Spear
+3;16;0;8195;Spear;Werewolf Spear
+3;17;0;8707;Spear;Bill of Balgass
+3;18;0;9219;Spear;Night Mare Scepter
+4;0;0;4;Bow/Crossbow;Short Bow
+4;1;0;516;Bow/Crossbow;Bow
+4;2;0;1028;Bow/Crossbow;Elven Bow
+4;3;0;1540;Bow/Crossbow;Battle Bow
+4;4;0;2052;Bow/Crossbow;Tiger Bow
+4;5;0;2564;Bow/Crossbow;Silver Bow
+4;6;0;3076;Bow/Crossbow;Chaos Nature Bow
+4;7;0;3588;Bow/Crossbow;Bolt
+4;8;0;4100;Bow/Crossbow;Crossbow
+4;9;0;4612;Bow/Crossbow;Golden Crossbow
+4;10;0;5124;Bow/Crossbow;Arquebus
+4;11;0;5636;Bow/Crossbow;Light Crossbow
+4;12;0;6148;Bow/Crossbow;Serpent Crossbow
+4;13;0;6660;Bow/Crossbow;Bluewing Crossbow
+4;14;0;7172;Bow/Crossbow;Aquagold Crossbow
+4;15;0;7684;Bow/Crossbow;Arrows
+4;16;0;8196;Bow/Crossbow;Saint Crossbow
+4;17;0;8708;Bow/Crossbow;Celestial Bow
+4;18;0;9220;Bow/Crossbow;Crossbow of Archangel
+4;19;0;9732;Bow/Crossbow;Great Reign Crossbow
+4;20;0;10244;Bow/Crossbow;Arrow Viper Bow
+4;21;0;10756;Bow/Crossbow;Sylph Wind Bow
+4;22;0;11268;Bow/Crossbow;Albatross Bow
+4;23;0;11780;Bow/Crossbow;Stinger Bow
+4;24;0;12292;Bow/Crossbow;Ari Lyn Bow
+4;25;0;12804;Bow/Crossbow;Deadfear Bow
+4;26;0;13316;Bow/Crossbow;Balram Bow
+4;27;0;13828;Bow/Crossbow;Silver Bow-J
+5;0;0;5;Staff;Skull Staff
+5;1;0;517;Staff;Angelic Staff
+5;2;0;1029;Staff;Serpent Staff
+5;3;0;1541;Staff;Thunder Staff
+5;4;0;2053;Staff;Gorgon Staff
+5;5;0;2565;Staff;Legendary Staff
+5;6;0;3077;Staff;Staff of Destruction
+5;7;0;3589;Staff;Chaos Lightning Staff
+5;8;0;4101;Staff;Staff of Destruction
+5;9;0;4613;Staff;Dragon Soul Staff
+5;10;0;5125;Staff;Staff of Archangel
+5;11;0;5637;Staff;Kundun Staff
+5;12;0;6149;Staff;Grand Viper Staff
+5;13;0;6661;Staff;Platina Wing Staff
+5;14;0;7173;Staff;Mistery Staff
+5;15;0;7685;Staff;Violent Wind Staff
+5;16;0;8197;Staff;Red Wing Staff
+5;17;0;8709;Staff;Ancient Staff
+5;18;0;9221;Staff;Black Rose Staff
+5;19;0;9733;Staff;Aura Staff
+5;20;0;10245;Staff;Lilium Staff
+5;21;0;10757;Staff;Book of Sahamutt
+5;22;0;11269;Staff;Book of Neil
+5;23;0;11781;Staff;Book of Ghost Phantom
+5;30;0;15365;Staff;Deadly Staff
+5;31;0;15877;Staff;Imperial Staff
+5;32;0;16389;Staff;Demonic Staff
+5;33;0;16901;Staff;Chroma Stick
+5;34;0;17413;Staff;Raven Stick
+5;35;0;17925;Staff;Miracle Staff
+5;36;0;18437;Staff;Divine Stick of the Archangel
+5;37;0;18949;Staff;Spite Staff
+5;38;0;19461;Staff;Legendary Staff-J
+5;39;0;19973;Staff;Red Wing Stick-J
+5;40;0;20485;Staff;Book of Neil-J
+6;0;0;6;Shield;Small Shield
+6;1;0;518;Shield;Horn Shield
+6;2;0;1030;Shield;Kite Shield
+6;3;0;1542;Shield;Elven Shield
+6;4;0;2054;Shield;Buckler
+6;5;0;2566;Shield;Dragon Slayer Shield
+6;6;0;3078;Shield;Skull Shield
+6;7;0;3590;Shield;Spike Shield
+6;8;0;4102;Shield;Tower Shield
+6;9;0;4614;Shield;Plate Shield
+6;10;0;5126;Shield;Large Round Shield
+6;11;0;5638;Shield;Serpent Shield
+6;12;0;6150;Shield;Bronze Shield
+6;13;0;6662;Shield;Chaos Dragon Shield
+6;14;0;7174;Shield;Legendary Shield
+6;15;0;7686;Shield;Grand Soul Shield
+6;16;0;8198;Shield;Elemental Shield
+6;17;0;8710;Shield;Crimson Glory
+6;18;0;9222;Shield;Salamander Shield
+6;19;0;9734;Shield;Frost Barrier
+6;20;0;10246;Shield;Guardian Shield
+6;21;0;10758;Shield;Cross Shiled
+6;22;0;11270;Shield;Dinasty Shield
+6;23;0;11782;Shield;Master soul Shield
+6;24;0;12294;Shield;Divine sheld
+6;25;0;12806;Shield;Magic Knight Shield
+6;26;0;13318;Shield;Ambition Shield
+6;27;0;13830;Shield;Legendary Shield-J
+6;28;0;14342;Shield;Serpent Shield-J
+6;48;0;24582;Shield;King Shield
+6;49;0;25094;Shield;Master soul Shield
+6;50;0;25606;Shield;Divine sheld
+6;51;0;26118;Shield;Dynasty Shield
+6;52;0;26630;Shield;Balrog Shield
+6;70;0;35846;Shield;Cross Shield
+7;0;0;7;Helm;Bronze Helm
+7;1;0;519;Helm;Dragon Helm
+7;2;0;1031;Helm;Pad Helm
+7;3;0;1543;Helm;Legendary Helm
+7;4;0;2055;Helm;Bone Helm
+7;5;0;2567;Helm;Leather Helm
+7;6;0;3079;Helm;Scale Helm
+7;7;0;3591;Helm;Sphinx Helm
+7;8;0;4103;Helm;Brass Helm
+7;9;0;4615;Helm;Plate Helm
+7;10;0;5127;Helm;Vine Helm
+7;11;0;5639;Helm;Silk Helm
+7;12;0;6151;Helm;Wind Helm
+7;13;0;6663;Helm;Spirit Helm
+7;14;0;7175;Helm;Guardian Helm
+7;16;0;8199;Helm;Black Dragon Helm
+7;17;0;8711;Helm;Dark Phoenix Helm
+7;18;0;9223;Helm;Grand Soul Helm
+7;19;0;9735;Helm;Divine Helm
+7;21;0;10759;Helm;Great Dragon Helm
+7;22;0;11271;Helm;Dark Soul Helm
+7;24;0;12295;Helm;Red Spirit Helm
+7;25;0;12807;Helm;Light Plate Helm
+7;26;0;13319;Helm;Adamantine Helm
+7;27;0;13831;Helm;Dark Steel Helm
+7;28;0;14343;Helm;Dark Master Helm
+7;29;0;14855;Helm;Dragon Knight Helm
+7;30;0;15367;Helm;Venom Mist Helm
+7;31;0;15879;Helm;Sylpid Ray Helm
+7;33;0;16903;Helm;Sunlight Helm
+7;34;0;17415;Helm;Ashcrow Helm
+7;35;0;17927;Helm;Eclipse Helm
+7;36;0;18439;Helm;Iris Helm
+7;38;0;19463;Helm;Glorious Helm
+7;39;0;19975;Helm;Mistery Helm
+7;40;0;20487;Helm;Red Wing Helm
+7;41;0;20999;Helm;Ancient helm
+7;42;0;21511;Helm;Black Rose Helm
+7;43;0;22023;Helm;Aura Helm
+7;44;0;22535;Helm;Lilium Helm
+7;45;0;23047;Helm;Titan Helm
+7;46;0;23559;Helm;Brave Helm
+7;48;0;24583;Helm;Gild Master Helm
+7;49;0;25095;Helm;Seraphim Helm
+7;50;0;25607;Helm;Faith Helm
+7;51;0;26119;Helm;Phaewang Mask
+7;52;0;26631;Helm;Hades Helm
+7;53;0;27143;Helm;Queen Helm
+7;54;0;27655;Helm;Titanium Helm
+7;55;0;28167;Helm;Duelist Helm
+7;56;0;28679;Helm;Mystic Helm
+7;57;0;29191;Helm;Predador Helm
+7;58;0;29703;Helm;Holy Helm
+7;59;0;30215;Helm;Seraphim Helm
+7;60;0;30727;Helm;Paewang Helm
+7;61;0;31239;Helm;Hades Helm
+7;62;0;31751;Helm;Trunks  Helm
+7;63;0;32263;Helm;Gohan SSJ Helm
+7;64;0;32775;Helm;Baby Vegeta Helm
+7;65;0;33287;Helm;Goku SSJ4 Helm
+7;66;0;33799;Helm;Goku SSJ5 Helm
+7;67;0;34311;Helm;Goku SSJ3 Helm
+7;68;0;34823;Helm;No17 Helm
+7;69;0;35335;Helm;Goku Helm
+7;70;0;35847;Helm;Cell Helm
+7;71;0;36359;Helm;Vegeta Helm
+7;72;0;36871;Helm;Gogeta Helm
+7;73;0;37383;Helm;Naruto Shippuden Helm
+7;74;0;37895;Helm;Itachi Uchiha Helm
+7;75;0;38407;Helm;Shikamaru Helm
+7;76;0;38919;Helm;Sakura Haruno Helm
+7;77;0;39431;Helm;Kakashi Helm
+7;78;0;39943;Helm;ino yamanaka Helm
+7;79;0;40455;Helm;Rock Lee Helm
+7;80;0;40967;Helm;Guardian Helm-J
+7;81;0;41479;Helm;Light Plate Mask-J
+7;82;0;41991;Helm;Red Wing Helm-J
+7;83;0;42503;Helm;Sacred Fire Helm-J
+8;0;0;8;Armor;Bronze Armor
+8;1;0;520;Armor;Dragon Armor
+8;2;0;1032;Armor;Pad Armor
+8;3;0;1544;Armor;Legendary Armor
+8;4;0;2056;Armor;Bone Armor
+8;5;0;2568;Armor;Leather Armor
+8;6;0;3080;Armor;Scale Armor
+8;7;0;3592;Armor;Sphinx Armor
+8;8;0;4104;Armor;Brass Armor
+8;9;0;4616;Armor;Plate Armor
+8;10;0;5128;Armor;Vine Armor
+8;11;0;5640;Armor;Silk Armor
+8;12;0;6152;Armor;Wind Armor
+8;13;0;6664;Armor;Spirit Armor
+8;14;0;7176;Armor;Guardian Armor
+8;15;0;7688;Armor;Storm Crow Armor
+8;16;0;8200;Armor;Black Dragon Armor
+8;17;0;8712;Armor;Dark Phoenix Armor
+8;18;0;9224;Armor;Grand Soul Armor
+8;19;0;9736;Armor;Divine Armor
+8;20;0;10248;Armor;Thunder Hawk Armor
+8;21;0;10760;Armor;Great Dragon Armor
+8;22;0;11272;Armor;Dark Soul Armor
+8;23;0;11784;Armor;Hurricane Armor
+8;24;0;12296;Armor;Red Spirit Armor
+8;25;0;12808;Armor;Light Plate Armor
+8;26;0;13320;Armor;Adamantine Armor
+8;27;0;13832;Armor;Dark Steel Armor
+8;28;0;14344;Armor;Dark Master Armor
+8;29;0;14856;Armor;Dragon Knight Armor
+8;30;0;15368;Armor;Venom Mist Armor
+8;31;0;15880;Armor;Sylpid Ray Armor
+8;32;0;16392;Armor;Volcano Armor
+8;33;0;16904;Armor;Sunlight Armor
+8;34;0;17416;Armor;Ashcrow Armor
+8;35;0;17928;Armor;Eclipse Armor
+8;36;0;18440;Armor;Iris Armor
+8;37;0;18952;Armor;Valiant Armor
+8;38;0;19464;Armor;Glorious Armor
+8;39;0;19976;Armor;Mistery Armor
+8;40;0;20488;Armor;Red Wing Armor
+8;41;0;21000;Armor;Ancient Armor
+8;42;0;21512;Armor;Black Rose Armor
+8;43;0;22024;Armor;Aura Armor
+8;44;0;22536;Armor;Lilium Armor
+8;45;0;23048;Armor;Titanium Armor
+8;46;0;23560;Armor;Brave Armor
+8;47;0;24072;Armor;Destory Armor
+8;48;0;24584;Armor;Phantom Armor
+8;49;0;25096;Armor;Seraphim Armor
+8;50;0;25608;Armor;Faith Armor
+8;51;0;26120;Armor;Phaewang Armor
+8;52;0;26632;Armor;Hades Armor
+8;53;0;27144;Armor;Queen Armor
+8;54;0;27656;Armor;Titanium Armor
+8;55;0;28168;Armor;Duelist Armor
+8;56;0;28680;Armor;Panteon Armor
+8;57;0;29192;Armor;Destroyer Armor
+8;58;0;29704;Armor;Holy Armor
+8;59;0;30216;Armor;Seraphim Armor
+8;60;0;30728;Armor;Paewang Armor
+8;61;0;31240;Armor;Hades Armor
+8;62;0;31752;Armor;Trunks  Armor
+8;63;0;32264;Armor;Gohan SSJ Armor
+8;64;0;32776;Armor;Baby Vegeta Armor
+8;65;0;33288;Armor;Goku SSJ4 Armor
+8;66;0;33800;Armor;Goku SSJ5 Armor
+8;67;0;34312;Armor;Goku SSJ3 Armor
+8;68;0;34824;Armor;No17 Armor
+8;69;0;35336;Armor;Goku Armor
+8;70;0;35848;Armor;Cell Armor
+8;71;0;36360;Armor;Vegeta Armor
+8;72;0;36872;Armor;Gogeta Armor
+8;73;0;37384;Armor;Naruto Shippuden Armor
+8;74;0;37896;Armor;Itachi Uchiha Armor
+8;75;0;38408;Armor;Shikamaru Armor
+8;76;0;38920;Armor;Sakura Haruno Armor
+8;77;0;39432;Armor;Kakashi Armor
+8;78;0;39944;Armor;ino yamanaka Armor
+8;79;0;40456;Armor;Rock Lee Armor
+8;80;0;40968;Armor;Guardian Armor-J
+8;81;0;41480;Armor;Light Plate Armor-J
+8;82;0;41992;Armor;Red Wing Armor-J
+8;83;0;42504;Armor;Sacred Fire Armor-J
+9;0;0;9;Pants;Bronze Pants
+9;1;0;521;Pants;Dragon Pants
+9;2;0;1033;Pants;Pad Pants
+9;3;0;1545;Pants;Legendary Pants
+9;4;0;2057;Pants;Bone Pants
+9;5;0;2569;Pants;Leather Pants
+9;6;0;3081;Pants;Scale Pants
+9;7;0;3593;Pants;Sphinx Pants
+9;8;0;4105;Pants;Brass Pants
+9;9;0;4617;Pants;Plate Pants
+9;10;0;5129;Pants;Vine Pants
+9;11;0;5641;Pants;Silk Pants
+9;12;0;6153;Pants;Wind Pants
+9;13;0;6665;Pants;Spirit Pants
+9;14;0;7177;Pants;Guardian Pants
+9;15;0;7689;Pants;Storm Crow Pants
+9;16;0;8201;Pants;Black Dragon Pants
+9;17;0;8713;Pants;Dark Phoenix Pants
+9;18;0;9225;Pants;Grand Soul Pants
+9;19;0;9737;Pants;Divine Pants
+9;20;0;10249;Pants;Thunder Hawk Pants
+9;21;0;10761;Pants;Great Dragon Pants
+9;22;0;11273;Pants;Dark Soul Pants
+9;23;0;11785;Pants;Hurricane Pants
+9;24;0;12297;Pants;Red Spirit Pants
+9;25;0;12809;Pants;Light Plate Pants
+9;26;0;13321;Pants;Adamantine Pants
+9;27;0;13833;Pants;Dark Steel Pants
+9;28;0;14345;Pants;Dark Master Pants
+9;29;0;14857;Pants;Dragon Knight Pants
+9;30;0;15369;Pants;Venom Mist Pants
+9;31;0;15881;Pants;Sylpid Ray Pants
+9;32;0;16393;Pants;Volcano Pants
+9;33;0;16905;Pants;Sunlight Pants
+9;34;0;17417;Pants;Ashcrow Pants
+9;35;0;17929;Pants;Eclipse Pants
+9;36;0;18441;Pants;Iris Pants
+9;37;0;18953;Pants;Valiant Pants
+9;38;0;19465;Pants;Glorious Pants
+9;39;0;19977;Pants;Mistery Pants
+9;40;0;20489;Pants;Red Wing Pants
+9;41;0;21001;Pants;Ancient Pants
+9;42;0;21513;Pants;Black Rose Pants
+9;43;0;22025;Pants;Aura Pants
+9;44;0;22537;Pants;Lilium Pants
+9;45;0;23049;Pants;Titanium Pants
+9;46;0;23561;Pants;Brave Pants
+9;47;0;24073;Pants;Destory Pants
+9;48;0;24585;Pants;Phantom Pants
+9;49;0;25097;Pants;Seraphim Pants
+9;50;0;25609;Pants;Faith Pants
+9;51;0;26121;Pants;Phaewang Pants
+9;52;0;26633;Pants;Hades Pants
+9;53;0;27145;Pants;Queen Pants
+9;54;0;27657;Pants;Titanium Pants
+9;55;0;28169;Pants;Duelist Pants
+9;56;0;28681;Pants;Panteon Pants
+9;57;0;29193;Pants;Destroyer Pants
+9;58;0;29705;Pants;Holy Pants
+9;59;0;30217;Pants;Seraphim Pants
+9;60;0;30729;Pants;Paewang Pants
+9;61;0;31241;Pants;Hades Pants
+9;62;0;31753;Pants;Trunks  Pants
+9;63;0;32265;Pants;Gohan SSJ Pants
+9;64;0;32777;Pants;Baby Vegeta Pants
+9;65;0;33289;Pants;Goku SSJ4 Pants
+9;66;0;33801;Pants;Goku SSJ5 Pants
+9;67;0;34313;Pants;Goku SSJ3 Pants
+9;68;0;34825;Pants;No17 Pants
+9;69;0;35337;Pants;Goku Pants
+9;70;0;35849;Pants;Cell Pants
+9;71;0;36361;Pants;Vegeta Pants
+9;72;0;36873;Pants;Gogeta Pants
+9;73;0;37385;Pants;Naruto Shippuden Pants
+9;74;0;37897;Pants;Itachi Uchiha Pants
+9;75;0;38409;Pants;Shikamaru Pants
+9;76;0;38921;Pants;Sakura Haruno Pants
+9;77;0;39433;Pants;Kakashi Pants
+9;78;0;39945;Pants;ino yamanaka Pants
+9;79;0;40457;Pants;Rock Lee Pants
+9;80;0;40969;Pants;Guardian Pants-J
+9;81;0;41481;Pants;Light Plate Pants-J
+9;82;0;41993;Pants;Red Wing Pants-J
+9;83;0;42505;Pants;Sacred Fire Pants-J
+10;0;0;10;Gloves;Bronze Gloves
+10;1;0;522;Gloves;Dragon Gloves
+10;2;0;1034;Gloves;Pad Gloves
+10;3;0;1546;Gloves;Legendary Gloves
+10;4;0;2058;Gloves;Bone Gloves
+10;5;0;2570;Gloves;Leather Gloves
+10;6;0;3082;Gloves;Scale Gloves
+10;7;0;3594;Gloves;Sphinx Gloves
+10;8;0;4106;Gloves;Brass Gloves
+10;9;0;4618;Gloves;Plate Gloves
+10;10;0;5130;Gloves;Vine Gloves
+10;11;0;5642;Gloves;Silk Gloves
+10;12;0;6154;Gloves;Wind Gloves
+10;13;0;6666;Gloves;Spirit Gloves
+10;14;0;7178;Gloves;Guardian Gloves
+10;15;0;7690;Gloves;Storm Crow Gloves
+10;16;0;8202;Gloves;Black Dragon Gloves
+10;17;0;8714;Gloves;Dark Phoenix Gloves
+10;18;0;9226;Gloves;Grand Soul Gloves
+10;19;0;9738;Gloves;Divine Gloves
+10;20;0;10250;Gloves;Thunder Hawk Gloves
+10;21;0;10762;Gloves;Great Dragon Gloves
+10;22;0;11274;Gloves;Dark Soul Gloves
+10;23;0;11786;Gloves;Hurricane Gloves
+10;24;0;12298;Gloves;Red Spirit Gloves
+10;25;0;12810;Gloves;Light Plate Gloves
+10;26;0;13322;Gloves;Adamantine GLoves
+10;27;0;13834;Gloves;Dark Steel Gloves
+10;28;0;14346;Gloves;Dark Master Gloves
+10;29;0;14858;Gloves;Dragon Knight Gloves
+10;30;0;15370;Gloves;Venom Mist GLoves
+10;31;0;15882;Gloves;Sylpid Ray Gloves
+10;32;0;16394;Gloves;Volcano Gloves
+10;33;0;16906;Gloves;Sunlight Gloves
+10;34;0;17418;Gloves;Ashcrow Gloves
+10;35;0;17930;Gloves;Eclipse Gloves
+10;36;0;18442;Gloves;Iris Gloves
+10;37;0;18954;Gloves;Valiant Gloves
+10;38;0;19466;Gloves;Glorious Gloves
+10;39;0;19978;Gloves;Mistery Gloves
+10;40;0;20490;Gloves;Red Wing Gloves
+10;41;0;21002;Gloves;Ancient Gloves
+10;42;0;21514;Gloves;Black Rose Gloves
+10;43;0;22026;Gloves;Aura Gloves
+10;44;0;22538;Gloves;Lilium Gloves
+10;45;0;23050;Gloves;Titanium Gloves
+10;46;0;23562;Gloves;Brave Gloves
+10;47;0;24074;Gloves;Destory Gloves
+10;48;0;24586;Gloves;Phantom Gloves
+10;49;0;25098;Gloves;Seraphim Gloves
+10;50;0;25610;Gloves;Faith Gloves
+10;51;0;26122;Gloves;Phaewang Gloves
+10;52;0;26634;Gloves;Hades Gloves
+10;53;0;27146;Gloves;Queen Gloves
+10;54;0;27658;Gloves;Titanium Gloves
+10;55;0;28170;Gloves;Duelist Gloves
+10;56;0;28682;Gloves;Panteon Gloves
+10;57;0;29194;Gloves;Destroyer Gloves
+10;58;0;29706;Gloves;Holy Gloves
+10;59;0;30218;Gloves;Seraphim Gloves
+10;60;0;30730;Gloves;Paewang Gloves
+10;61;0;31242;Gloves;Hades Gloves
+10;62;0;31754;Gloves;Trunks  Gloves
+10;63;0;32266;Gloves;Gohan SSJ Gloves
+10;64;0;32778;Gloves;Baby Vegeta Gloves
+10;65;0;33290;Gloves;Goku SSJ4 Gloves
+10;66;0;33802;Gloves;Goku SSJ5 Gloves
+10;67;0;34314;Gloves;Goku SSJ3 Gloves
+10;68;0;34826;Gloves;No17 Gloves
+10;69;0;35338;Gloves;Goku  Gloves
+10;70;0;35850;Gloves;Cell  Gloves
+10;71;0;36362;Gloves;Vegeta Gloves
+10;72;0;36874;Gloves;Gogeta Gloves
+10;73;0;37386;Gloves;Naruto Shippuden Gloves
+10;74;0;37898;Gloves;Itachi Uchiha Gloves
+10;75;0;38410;Gloves;Shikamaru Gloves
+10;76;0;38922;Gloves;Sakura Haruno Gloves
+10;77;0;39434;Gloves;Kakashi Gloves
+10;78;0;39946;Gloves;ino yamanaka Gloves
+10;79;0;40458;Gloves;Rock Lee Gloves
+10;80;0;40970;Gloves;Guardian Gloves-J
+10;81;0;41482;Gloves;Light Plate Gloves-J
+10;82;0;41994;Gloves;Red Wing Gloves-J
+11;0;0;11;Boots;Bronze Boots
+11;1;0;523;Boots;Dragon Boots
+11;2;0;1035;Boots;Pad Boots
+11;3;0;1547;Boots;Legendary Boots
+11;4;0;2059;Boots;Bone Boots
+11;5;0;2571;Boots;Leather Boots
+11;6;0;3083;Boots;Scale Boots
+11;7;0;3595;Boots;Sphinx Boots
+11;8;0;4107;Boots;Brass Boots
+11;9;0;4619;Boots;Plate Boots
+11;10;0;5131;Boots;Vine Boots
+11;11;0;5643;Boots;Silk Boots
+11;12;0;6155;Boots;Wind Boots
+11;13;0;6667;Boots;Spirit Boots
+11;14;0;7179;Boots;Guardian Boots
+11;15;0;7691;Boots;Storm Crow Boots
+11;16;0;8203;Boots;Black Dragon Boots
+11;17;0;8715;Boots;Dark Phoenix Boots
+11;18;0;9227;Boots;Grand Soul Boots
+11;19;0;9739;Boots;Divine Boots
+11;20;0;10251;Boots;Thunder hawk Boots
+11;21;0;10763;Boots;Great Dragon Boots
+11;22;0;11275;Boots;Dark Soul Boots
+11;23;0;11787;Boots;Hurricane Boots
+11;24;0;12299;Boots;Red Spirit Boots
+11;25;0;12811;Boots;Light Plate Boots
+11;26;0;13323;Boots;Adamantine Boots
+11;27;0;13835;Boots;Dark Steel Boots
+11;28;0;14347;Boots;Dark Master Boots
+11;29;0;14859;Boots;Dragon Knight Boots
+11;30;0;15371;Boots;Venom Mist Boots
+11;31;0;15883;Boots;Sylpid Ray Boots
+11;32;0;16395;Boots;Volcano Boots
+11;33;0;16907;Boots;Sunlight Boots
+11;34;0;17419;Boots;Ashcrow Boots
+11;35;0;17931;Boots;Eclipse Boots
+11;36;0;18443;Boots;Iris Boots
+11;37;0;18955;Boots;Valiant Boots
+11;38;0;19467;Boots;Glorious Boots
+11;39;0;19979;Boots;Mistery Boots
+11;40;0;20491;Boots;Red Wing Boots
+11;41;0;21003;Boots;Ancient Boots
+11;42;0;21515;Boots;Black Rose Boots
+11;43;0;22027;Boots;Aura Boots
+11;44;0;22539;Boots;Lilium Boots
+11;45;0;23051;Boots;Titanium Boots
+11;46;0;23563;Boots;Brave Boots
+11;47;0;24075;Boots;Destory Boots
+11;48;0;24587;Boots;Phantom Boots
+11;49;0;25099;Boots;Seraphim Boots
+11;50;0;25611;Boots;Faith Boots
+11;51;0;26123;Boots;Phaewang Boots
+11;52;0;26635;Boots;Hades Boots
+11;53;0;27147;Boots;Queen Boots
+11;54;0;27659;Boots;Titanium Boots
+11;55;0;28171;Boots;Duelist Boots
+11;56;0;28683;Boots;Panteon Boots
+11;57;0;29195;Boots;Destroyer Boots
+11;58;0;29707;Boots;Holy Boots
+11;59;0;30219;Boots;Seraphim Boots
+11;60;0;30731;Boots;Paewang Boots
+11;61;0;31243;Boots;Hades Boots
+11;62;0;31755;Boots;Trunks  Boots
+11;63;0;32267;Boots;Gohan SSJ Boots
+11;64;0;32779;Boots;Baby Vegeta Boots
+11;65;0;33291;Boots;Goku SSJ4 Boots
+11;66;0;33803;Boots;Goku SSJ5 Boots
+11;67;0;34315;Boots;Goku SSJ3 Boots
+11;68;0;34827;Boots;No17 Boots
+11;69;0;35339;Boots;Goku  Boots
+11;70;0;35851;Boots;Cell  Boots
+11;71;0;36363;Boots;Vegeta Boots
+11;72;0;36875;Boots;Gogeta Boots
+11;73;0;37387;Boots;Naruto Shippuden Boots
+11;74;0;37899;Boots;Itachi Uchiha Boots
+11;75;0;38411;Boots;Shikamaru Boots
+11;76;0;38923;Boots;Sakura Haruno Boots
+11;77;0;39435;Boots;Kakashi Boots
+11;78;0;39947;Boots;ino yamanaka Boots
+11;79;0;40459;Boots;Rock Lee Boots
+11;80;0;40971;Boots;Guardian Boots-J
+11;81;0;41483;Boots;Light Plate Boots-J
+11;82;0;41995;Boots;Red Wing Boots-J
+11;83;0;42507;Boots;Sacred Fire Boots-J
+12;0;0;12;Wing/Orb;Wing of Fairy
+12;1;0;524;Wing/Orb;Wing of Angel
+12;2;0;1036;Wing/Orb;Wing of Satan
+12;3;0;1548;Wing/Orb;Wing of Spirit
+12;4;0;2060;Wing/Orb;Wing of Soul
+12;5;0;2572;Wing/Orb;Wing of Devil
+12;6;0;3084;Wing/Orb;Wing of Darkness
+12;7;0;3596;Wing/Orb;Orb of Twisting Slash
+12;8;0;4108;Wing/Orb;Healing Orb
+12;9;0;4620;Wing/Orb;Orb of Great Defense
+12;10;0;5132;Wing/Orb;Orb of Greater Damage
+12;11;0;5644;Wing/Orb;Orb of Summoning
+12;12;0;6156;Wing/Orb;Orb of Rageful Blow
+12;13;0;6668;Wing/Orb;Orb of Impale
+12;14;0;7180;Wing/Orb;Orb of Great Fortitude
+12;15;0;7692;Wing/Orb;Jewel of Chaos
+12;16;0;8204;Wing/Orb;Orb of Fire Slash
+12;17;0;8716;Wing/Orb;Orb of Penetration
+12;18;0;9228;Wing/Orb;Orb of Ice Arrow
+12;19;0;9740;Wing/Orb;Orb of Death Stab
+12;21;0;10764;Wing/Orb;Scroll of FireBurst
+12;22;0;11276;Wing/Orb;Scroll of Summon
+12;23;0;11788;Wing/Orb;Scroll of Critical Damage
+12;24;0;12300;Wing/Orb;Scroll of Elect Spark
+12;25;0;12812;Wing/Orb;Scroll of Sacrifice
+12;26;0;13324;Wing/Orb;Jewel of Secret
+12;26;1;13324;Wing/Orb;Red Crystal
+12;26;2;13324;Wing/Orb;Blue Crystal
+12;26;3;13324;Wing/Orb;Darck Crystal
+12;26;4;13324;Wing/Orb;Box Of Treasure
+12;26;5;13324;Wing/Orb;Box Of Surprise
+12;30;0;15372;Wing/Orb;Bundled Jewel of Bless 10
+12;30;1;15372;Wing/Orb;Bundled Jewel of Bless 20
+12;30;2;15372;Wing/Orb;Bundled Jewel of Bless 30
+12;31;0;15884;Wing/Orb;Bundled Jewel of Soul 10
+12;31;1;15884;Wing/Orb;Bundled Jewel of Soul 20
+12;31;2;15884;Wing/Orb;Bundled Jewel of Soul 30
+12;32;0;16396;Wing/Orb;Red Ribbon Box
+12;33;0;16908;Wing/Orb;Blue Ribbon Box
+12;34;0;17420;Wing/Orb;Green Ribbon Box
+12;35;0;17932;Wing/Orb;Scroll of Fire Scream
+12;36;0;18444;Wing/Orb;Wings of Storm
+12;37;0;18956;Wing/Orb;Wings of Space
+12;38;0;19468;Wing/Orb;Wings of Illusion
+12;39;0;19980;Wing/Orb;Wings of Hurricane
+12;40;0;20492;Wing/Orb;Mantle of Monarch
+12;41;0;21004;Wing/Orb;Wing of Misery
+12;42;0;21516;Wing/Orb;Wing of Despair
+12;43;0;22028;Wing/Orb;Wing of Violent Wind
+12;44;0;22540;Wing/Orb;Orb of Explotion
+12;45;0;23052;Wing/Orb;Orb of Five Shot
+12;46;0;23564;Wing/Orb;Orb of Reduce Dmg Shield
+12;47;0;24076;Wing/Orb;Orb of Sword Slash
+12;48;0;24588;Wing/Orb;Scroll Of Birds
+12;49;0;25100;Wing/Orb;Wing of Illusive
+12;50;0;25612;Wing/Orb;Wing of Divine
+12;51;0;26124;Wing/Orb;Wing of Angel
+12;52;0;26636;Wing/Orb;Wing of Glorius
+12;53;0;27148;Wing/Orb;Wing of Dragon Maine
+12;54;0;27660;Wing/Orb;Wing of Zephyr
+12;55;0;28172;Wing/Orb;Wing of Brow
+12;56;0;28684;Wing/Orb;Wing of Flame Illusion
+12;57;0;29196;Wing/Orb;Wing of Hell Maine
+12;58;0;29708;Wing/Orb;Wing of Invisible
+12;60;0;30732;Wing/Orb;Seed of Fire
+12;61;0;31244;Wing/Orb;Seed Water
+12;62;0;31756;Wing/Orb;Seed Ice
+12;63;0;32268;Wing/Orb;Seed Wind
+12;64;0;32780;Wing/Orb;Seed Lighting
+12;65;0;33292;Wing/Orb;Seed Ground
+12;70;0;35852;Wing/Orb;Spear 1 
+12;71;0;36364;Wing/Orb;Spear 2
+12;72;0;36876;Wing/Orb;Spear 3
+12;73;0;37388;Wing/Orb;Spear 4
+12;74;0;37900;Wing/Orb;Spear 5
+12;100;0;51212;Wing/Orb;Seed Spear 1 of Fire
+12;101;0;51724;Wing/Orb;Seed Spear 1 of Water
+12;102;0;52236;Wing/Orb;Seed Spear 1 of Ice
+12;103;0;52748;Wing/Orb;Seed Spear 1 of  Wind
+12;104;0;53260;Wing/Orb;Seed Spear 1 of Lighting
+12;105;0;53772;Wing/Orb;Seed Spear 1 of Ground
+12;106;0;54284;Wing/Orb;Seed Spear 2 Fire
+12;107;0;54796;Wing/Orb;Seed Spear 2 Water
+12;108;0;55308;Wing/Orb;Seed Spear 2 Ice
+12;109;0;55820;Wing/Orb;Seed Spear 2 Wind
+12;110;0;56332;Wing/Orb;Seed Spear 2 Lighting
+12;111;0;56844;Wing/Orb;Seed Spear 2 Ground
+12;112;0;57356;Wing/Orb;Seed Spear 3 Fire
+12;113;0;57868;Wing/Orb;Seed Spear 3 Water
+12;114;0;58380;Wing/Orb;Seed Spear 3 Ice
+12;115;0;58892;Wing/Orb;Seed Spear 3 Wind
+12;116;0;59404;Wing/Orb;Seed Spear 3 Lighting
+12;117;0;59916;Wing/Orb;Seed Spear 3 Ground
+12;118;0;60428;Wing/Orb;Seed Spear 4 Fire
+12;119;0;60940;Wing/Orb;Seed Spear 4 Water
+12;120;0;61452;Wing/Orb;Seed Spear 4 Ice
+12;121;0;61964;Wing/Orb;Seed Spear 4 Wind
+12;122;0;62476;Wing/Orb;Seed Spear 4 Lighting
+12;123;0;62988;Wing/Orb;Seed Spear 4 Ground
+12;124;0;63500;Wing/Orb;Seed Spear 5 Fire
+12;125;0;64012;Wing/Orb;Seed Spear 5 Water
+12;126;0;64524;Wing/Orb;Seed Spear 5 Ice
+12;127;0;65036;Wing/Orb;Seed Spear 5 Wind
+12;128;0;65548;Wing/Orb;Seed Spear 5 Lighting
+12;129;0;66060;Wing/Orb;Seed Spear 5 Ground
+12;130;0;66572;Wing/Orb;Small Cape of Lords
+12;131;0;67084;Wing/Orb;Small Wings of Curse
+12;132;0;67596;Wing/Orb;Small Wings of Elf
+12;133;0;68108;Wing/Orb;Small Wings of Heaven
+12;134;0;68620;Wing/Orb;Small Wings of Satan
+12;135;0;69132;Wing/Orb;Small Cloak of Warrior
+12;136;0;69644;Wing/Orb;Jewel of Life Bundle
+12;137;0;70156;Wing/Orb;Jewel of Creation Bundle
+12;138;0;70668;Wing/Orb;Jewel of Guardian Bundle
+12;139;0;71180;Wing/Orb;Gemstone Bundle
+12;140;0;71692;Wing/Orb;Jewel of Harmony Bundle
+12;141;0;72204;Wing/Orb;Jewel of Chaos Bundle
+12;142;0;72716;Wing/Orb;Lower Refining Stone Bundle
+12;143;0;73228;Wing/Orb;Higher Refining Stone Bundle
+12;144;0;73740;Wing/Orb;Mithril Fragment
+12;145;0;74252;Wing/Orb;Mithril
+12;146;0;74764;Wing/Orb;Elixir Fragment
+12;147;0;75276;Wing/Orb;Elixir
+12;148;0;75788;Wing/Orb;Mithril Fragment Bunch
+12;149;0;76300;Wing/Orb;Elixir Fragment Bunch
+12;150;0;76812;Wing/Orb;Jewel Combination Frame
+12;151;0;77324;Wing/Orb;Spirit Powder
+12;200;0;102412;Wing/Orb;Muren's Book of Magic
+12;201;0;102924;Wing/Orb;Scroll of Etramu
+12;202;0;103436;Wing/Orb;Lorencia Knights' Iron Shield
+12;203;0;103948;Wing/Orb;Iron Shield of the Magic
+12;204;0;104460;Wing/Orb;Hero Elixir
+12;205;0;104972;Wing/Orb;Brave Hero Elixir
+12;206;0;105484;Wing/Orb;Gladiator's Dagger
+12;207;0;105996;Wing/Orb;Merciless Gladiator's Dagger
+12;208;0;106508;Wing/Orb;Kundun's Madness Blade
+12;209;0;107020;Wing/Orb;Kundun's Magic Spell Scroll
+12;210;0;107532;Wing/Orb;Empire Guardians' Stronghold
+12;211;0;108044;Wing/Orb;Ancient Icarus Scroll
+12;212;0;108556;Wing/Orb;Arca's Prophecy
+12;213;0;109068;Wing/Orb;Antonia's Sword
+12;214;0;109580;Wing/Orb;Kundun's Seal Scroll
+12;221;0;113164;Wing/Orb;Errtel of Anger
+12;231;0;118284;Wing/Orb;Errtel of Blessing
+12;241;0;123404;Wing/Orb;Errtel of Integrity
+12;251;0;128524;Wing/Orb;Errtel of Divinity
+12;261;0;133644;Wing/Orb;Errtel of Gale
+12;262;0;134156;Wing/Orb;Cloak of Death
+12;263;0;134668;Wing/Orb;Wings of Chaos
+12;264;0;135180;Wing/Orb;Wings of Magic
+12;265;0;135692;Wing/Orb;Wings of Life
+12;266;0;136204;Wing/Orb;Wings of Conqueror
+12;267;0;136716;Wing/Orb;Wings of Angel and Devil
+13;0;0;13;MISC;Guardian Angel
+13;1;0;525;MISC;Imp
+13;2;0;1037;MISC;Horn of Uniria
+13;3;0;1549;MISC;Dinorant
+13;4;0;2061;MISC;Dark Horse
+13;5;0;2573;MISC;Dark Raven
+13;7;0;3597;MISC;Archer
+13;7;1;3597;MISC;Sperman
+13;8;0;4109;MISC;Ring of Ice
+13;9;0;4621;MISC;Ring of Poison
+13;10;0;5133;MISC;Ring of Transform in Dragonin
+13;10;1;5133;MISC;Ring of Transform in Gigant
+13;10;2;5133;MISC;Ring of Transform in Skeleton
+13;10;3;5133;MISC;Ring of Transform in Bull
+13;10;4;5133;MISC;Ring of Transform in Linch
+13;10;5;5133;MISC;Ring of Transform in Death Cow
+13;11;0;5645;MISC;Scroll of guardian
+13;11;1;5645;MISC;Life Stone
+13;12;0;6157;MISC;Pendant of Lighting
+13;13;0;6669;MISC;Pendant of Fire
+13;14;0;7181;MISC;Lochs Feather
+13;14;1;7181;MISC;Crest Of Monarch
+13;15;0;7693;MISC;Energy Fruit
+13;15;1;7693;MISC;Stamina Fruit
+13;15;2;7693;MISC;Agility Fruit
+13;15;3;7693;MISC;Strangth Fruit
+13;15;4;7693;MISC;Command Fruit
+13;16;0;8205;MISC;Scroll of Archangel
+13;16;1;8205;MISC;Scroll of Archangel 1
+13;16;2;8205;MISC;Scroll of Archangel 2
+13;16;3;8205;MISC;Scroll of Archangel 3
+13;16;4;8205;MISC;Scroll of Archangel 4
+13;16;5;8205;MISC;Scroll of Archangel 5
+13;16;6;8205;MISC;Scroll of Archangel 6
+13;16;7;8205;MISC;Scroll of Archangel 7
+13;16;8;8205;MISC;Scroll of Archangel 8
+13;16;9;8205;MISC;Scroll of Archangel 9
+13;17;0;8717;MISC;Blood Bone
+13;17;1;8717;MISC;Blood Bone 1
+13;17;2;8717;MISC;Blood Bone 2
+13;17;3;8717;MISC;Blood Bone 3
+13;17;4;8717;MISC;Blood Bone 4
+13;17;5;8717;MISC;Blood Bone 5
+13;17;6;8717;MISC;Blood Bone 6
+13;17;7;8717;MISC;Blood Bone 7
+13;17;8;8717;MISC;Blood Bone 8
+13;17;9;8717;MISC;Blood Bone 9
+13;18;0;9229;MISC;Invisibility Cloak 
+13;18;1;9229;MISC;Invisibility Cloak 1
+13;18;2;9229;MISC;Invisibility Cloak 2
+13;18;3;9229;MISC;Invisibility Cloak 3
+13;18;4;9229;MISC;Invisibility Cloak 4
+13;18;5;9229;MISC;Invisibility Cloak 5
+13;18;6;9229;MISC;Invisibility Cloak 6
+13;18;7;9229;MISC;Invisibility Cloak 7
+13;18;8;9229;MISC;Invisibility Cloak 8
+13;18;9;9229;MISC;Invisibility Cloak 9
+13;19;0;9741;MISC;Divine Staf of Archangel
+13;19;1;9741;MISC;Divine Sword of Archangel
+13;19;2;9741;MISC;Divine CrossBow of Archangel
+13;20;0;10253;MISC;Wizards Ring
+13;20;1;10253;MISC;Ring of Warrior lvl 40
+13;20;2;10253;MISC;Ring of Warrior lvl 80
+13;20;3;10253;MISC;Ring of Honor
+13;21;0;10765;MISC;Ring of Fire
+13;22;0;11277;MISC;Ring of Earth
+13;23;0;11789;MISC;Ring of Wind
+13;24;0;12301;MISC;Ring of Magic
+13;25;0;12813;MISC;Pendant of Ice
+13;26;0;13325;MISC;Pendant of Wind
+13;27;0;13837;MISC;Pendant of Water
+13;28;0;14349;MISC;Pendant of Ability
+13;29;0;14861;MISC;Armor of Guardman
+13;30;0;15373;MISC;Cape of Lord
+13;31;0;15885;MISC;Dark Horse Spirit
+13;32;0;16397;MISC;Splinter of Armor
+13;32;1;16397;MISC;Splinter of Armor 2
+13;32;2;16397;MISC;Splinter of Armor 3
+13;32;3;16397;MISC;Splinter of Armor 4
+13;32;4;16397;MISC;Splinter of Armor 5
+13;32;5;16397;MISC;Splinter of Armor 7
+13;32;6;16397;MISC;Splinter of Armor 9
+13;32;7;16397;MISC;Splinter of Armor 11
+13;32;8;16397;MISC;Splinter of Armor 13
+13;32;9;16397;MISC;Splinter of Armor 15
+13;32;10;16397;MISC;Splinter of Armor 18
+13;33;0;16909;MISC;Bless of Guardian
+13;33;1;16909;MISC;Bless of Guardian 2
+13;33;2;16909;MISC;Bless of Guardian 3
+13;33;3;16909;MISC;Bless of Guardian 4
+13;33;4;16909;MISC;Bless of Guardian 5
+13;33;5;16909;MISC;Bless of Guardian 7
+13;33;6;16909;MISC;Bless of Guardian 9
+13;33;7;16909;MISC;Bless of Guardian 11
+13;33;8;16909;MISC;Bless of Guardian 13
+13;33;9;16909;MISC;Bless of Guardian 15
+13;33;10;16909;MISC;Bless of Guardian 18
+13;34;0;17421;MISC;Claw of Beast
+13;34;1;17421;MISC;Claw of Beast 2
+13;34;2;17421;MISC;Claw of Beast 3
+13;34;3;17421;MISC;Claw of Beast 4
+13;34;4;17421;MISC;Claw of Beast 5
+13;34;5;17421;MISC;Claw of Beast 7
+13;34;6;17421;MISC;Claw of Beast 9
+13;34;7;17421;MISC;Claw of Beast 11
+13;34;8;17421;MISC;Claw of Beast 13
+13;34;9;17421;MISC;Claw of Beast 15
+13;34;10;17421;MISC;Claw of Beast 18
+13;35;0;17933;MISC;Piece of Horn
+13;36;0;18445;MISC;Broken Horn
+13;37;0;18957;MISC;Red Fenrir
+13;37;1;18957;MISC;Black Fenrir
+13;37;2;18957;MISC;Blue Fenrir
+13;38;0;19469;MISC;MoonStone Ring
+13;39;0;19981;MISC;Ring 1
+13;40;0;20493;MISC;Ring 2
+13;41;0;21005;MISC;Christmas turkey Ring
+13;42;0;21517;MISC;GM Ring
+13;43;0;22029;MISC;Green Symbol
+13;44;0;22541;MISC;Pink Symbol
+13;45;0;23053;MISC;Yellow Symbol
+13;46;0;23565;MISC;Devil Square Ticket
+13;47;0;24077;MISC;Blood Castle Ticket
+13;48;0;24589;MISC;Kalima Ticket
+13;49;0;25101;MISC;Illusion Pergament 
+13;49;1;25101;MISC;Illusion Pergament 1
+13;49;2;25101;MISC;Illusion Pergament 2
+13;49;3;25101;MISC;Illusion Pergament 3
+13;49;4;25101;MISC;Illusion Pergament 4
+13;49;5;25101;MISC;Illusion Pergament 5
+13;49;6;25101;MISC;Illusion Pergament 6
+13;49;7;25101;MISC;Illusion Pergament 7
+13;50;0;25613;MISC;Illusion Blood
+13;50;1;25613;MISC;Illusion Blood 1
+13;50;2;25613;MISC;Illusion Blood 2
+13;50;3;25613;MISC;Illusion Blood 3
+13;50;4;25613;MISC;Illusion Blood 4
+13;50;5;25613;MISC;Illusion Blood 5
+13;50;6;25613;MISC;Illusion Blood 6
+13;50;7;25613;MISC;Illusion Blood 7
+13;51;0;26125;MISC;Illusion Entrance Ticket
+13;51;1;26125;MISC;Illusion Entrance Ticket 1
+13;51;2;26125;MISC;Illusion Entrance Ticket 2
+13;51;3;26125;MISC;Illusion Entrance Ticket 3
+13;51;4;26125;MISC;Illusion Entrance Ticket 4
+13;51;5;26125;MISC;Illusion Entrance Ticket 5
+13;51;6;26125;MISC;Illusion Entrance Ticket 6
+13;51;7;26125;MISC;Illusion Entrance Ticket 7
+13;52;0;26637;MISC;Flame of Condor
+13;53;0;27149;MISC;Feather of Condor
+13;54;0;27661;MISC;Kalima Ticket
+13;55;0;28173;MISC;Reset Fruit Quickness
+13;56;0;28685;MISC;Reset Fruit Health
+13;57;0;29197;MISC;Reset Fruit Energy
+13;58;0;29709;MISC;Reset Fruit Control
+13;59;0;30221;MISC;Seal of Mobility
+13;60;0;30733;MISC;Indulgence
+13;61;0;31245;MISC;Illusion Temple Ticket
+13;62;0;31757;MISC;Seal of Healing
+13;63;0;32269;MISC;Seal of Divinity
+13;64;0;32781;MISC;Evil Satan
+13;65;0;33293;MISC;Hada
+13;66;0;33805;MISC;Mountain Village Invitation
+13;67;0;34317;MISC;Rudolf
+13;68;0;34829;MISC;SnowMan Ring
+13;69;0;35341;MISC;Talisman of Resurrection
+13;70;0;35853;MISC;Talisman of Mobility
+13;71;0;36365;MISC;Sword/BluntObject/Window
+13;72;0;36877;MISC;Staff
+13;73;0;37389;MISC;Bow/Crossbow
+13;74;0;37901;MISC;Scepter
+13;75;0;38413;MISC;Sticks
+13;76;0;38925;MISC;Panda Ring transformation
+13;77;0;39437;MISC;Brown Panda Ring
+13;78;0;39949;MISC;Pink Panda Ring
+13;80;0;40973;MISC;Paendeopet
+13;81;0;41485;MISC;Talisman of Guardian
+13;82;0;41997;MISC;Talisman of Item Protection
+13;83;0;42509;MISC;Talisman of Wings of Satan
+13;84;0;43021;MISC;Talisman of Wings of Heaven
+13;85;0;43533;MISC;Talisman of Wings of Elf
+13;86;0;44045;MISC;Talisman of Wing of Curse
+13;87;0;44557;MISC;Talisman of Cape of Emperor
+13;88;0;45069;MISC;Talisman of Wings of Dragon
+13;89;0;45581;MISC;Talisman of Wings of Soul
+13;90;0;46093;MISC;Talisman of Wings of Spirits
+13;91;0;46605;MISC;Talisman of Wing of Despair
+13;92;0;47117;MISC;Talisman of Wings of Darkness
+13;93;0;47629;MISC;Master Seal of Ascension
+13;94;0;48141;MISC;Master Seal of Wealth
+13;95;0;48653;MISC;Gladiator Glory
+13;96;0;49165;MISC;Seal of Strength
+13;97;0;49677;MISC;Mageom sakaerikteo Card
+13;98;0;50189;MISC;Dakeurodeu Character Cards
+13;99;0;50701;MISC;Key for unlock Character Slot
+13;103;0;52749;MISC;Party EXP Scroll
+13;104;0;53261;MISC;Max AG Boost Aura
+13;105;0;53773;MISC;Max SD Boost Aura
+13;106;0;54285;MISC;Pork
+13;107;0;54797;MISC;Lethal Wizard's Ring
+13;109;0;55821;MISC;Ring of Sapphire
+13;110;0;56333;MISC;Ring of Ruby
+13;111;0;56845;MISC;Ring of Topaz
+13;112;0;57357;MISC;Ring of Amethyst
+13;113;0;57869;MISC;Pendant of Ruby
+13;114;0;58381;MISC;Pendant of Emerald
+13;115;0;58893;MISC;Pendant of Sapphire
+13;116;0;59405;MISC;Tensile of Richness
+13;117;0;59917;MISC;Little Elixir of Energy
+13;118;0;60429;MISC;Small Elixir of Vitality
+13;119;0;60941;MISC;Medium Elixir of Vitality
+13;120;0;61453;MISC;Large Elixir of Vitality
+13;121;0;61965;MISC;Kaohseukaeseul free tickets
+13;122;0;62477;MISC;Skeleton Ring
+13;123;0;62989;MISC;Unicorn
+13;124;0;63501;MISC;Paid Channel Access Ticket
+13;125;0;64013;MISC;Doppelganger
+13;126;0;64525;MISC;Access Ticket to Varka
+13;127;0;65037;MISC;Access Ticket to Varka Map 7
+13;128;0;65549;MISC;Hawk Figurine
+13;129;0;66061;MISC;Goat Figurine
+13;130;0;66573;MISC;Oak Charm
+13;131;0;67085;MISC;Maple Charm
+13;132;0;67597;MISC;Golden Oak Charm
+13;133;0;68109;MISC;Golden Maple Charm
+13;134;0;68621;MISC;Worn Horseshoe
+13;135;0;69133;MISC;1st Lucky Armor Ticket
+13;136;0;69645;MISC;1st Lucky Pants Ticket
+13;137;0;70157;MISC;1st Lucky Helm Ticket
+13;138;0;70669;MISC;1st Lucky Gloves Ticket
+13;139;0;71181;MISC;1st Lucky Boots Ticket
+13;140;0;71693;MISC;2nd Lucky Armor Ticket
+13;141;0;72205;MISC;2nd Lucky Pants Ticket
+13;142;0;72717;MISC;2nd Lucky Helm Ticket
+13;143;0;73229;MISC;2nd Lucky Gloves Ticket
+13;144;0;73741;MISC;2nd Lucky Boots Ticket
+13;145;0;74253;MISC;Spirit Map Fragment
+13;146;0;74765;MISC;Spirit Map
+13;147;0;75277;MISC;Trophies of Battle
+13;148;0;75789;MISC;Green Ink
+13;149;0;76301;MISC;Blue Ink
+13;150;0;76813;MISC;Red Ink
+13;151;0;77325;MISC;Parchment of Soul
+13;152;0;77837;MISC;Scroll of Green Oblivion
+13;153;0;78349;MISC;Scroll of Blue Oblivion
+13;154;0;78861;MISC;Scroll of Red Oblivion
+13;155;0;79373;MISC;Scroll of Gray Oblivion
+13;156;0;79885;MISC;Sealed Green Oblivion Scroll
+13;157;0;80397;MISC;Sealed Blue Oblivion Scroll
+13;158;0;80909;MISC;Sealed Red Oblivion  Scroll
+13;159;0;81421;MISC;Sealed Gray Oblivion Scroll
+13;160;0;81933;MISC;Protection Talisman
+13;161;0;82445;MISC;Cooperation Talisman
+13;163;0;83469;MISC;Robot Knight Ring
+13;164;0;83981;MISC;Mini Robot Ring
+13;165;0;84493;MISC;Great Heavenly Mage Ring
+13;166;0;85005;MISC;Brown Panda Ring
+13;169;0;86541;MISC;Decoration Ring
+13;170;0;87053;MISC;Blessed Decoration Ring
+14;0;0;14;MISC;Apple
+14;1;0;526;MISC;Small Healing Potion
+14;2;0;1038;MISC;Medium Healing Potion
+14;3;0;1550;MISC;Large Healing Potion
+14;4;0;2062;MISC;Small Mana Potion
+14;5;0;2574;MISC;Medium Mana Potion
+14;6;0;3086;MISC;Large Mana Potion
+14;7;0;3598;MISC;Potion Of Bles
+14;7;1;3598;MISC;Potion Of Soul
+14;8;0;4110;MISC;Antidote
+14;9;0;4622;MISC;Ale
+14;9;1;4622;MISC;Olive of love
+14;10;0;5134;MISC;Town Scroll Portal
+14;11;0;5646;MISC;Box of Luck
+14;11;1;5646;MISC;Star of Sacred Birth
+14;11;2;5646;MISC;Firecracker
+14;11;3;5646;MISC;Heart of Love
+14;11;5;5646;MISC;Silver Medal
+14;11;6;5646;MISC;Gold Medal
+14;11;7;5646;MISC;Bok of Heaven
+14;11;8;5646;MISC;Bok of Kundun+1
+14;11;9;5646;MISC;Bok of Kundun+2
+14;11;10;5646;MISC;Bok of Kundun+3
+14;11;11;5646;MISC;Bok of Kundun+4
+14;11;12;5646;MISC;Bok of Kundun+5
+14;11;13;5646;MISC;Heart of Dark Lord
+14;11;14;5646;MISC;Blue Luck Pouch
+14;11;15;5646;MISC;Red Luck Pouch
+14;12;0;6158;MISC;Sing Of Zen
+14;12;1;6158;MISC;Heart
+14;12;2;6158;MISC;Pergamin
+14;13;0;6670;MISC;Jewel of Bless
+14;14;0;7182;MISC;Jewel of Soul
+14;15;0;7694;MISC;Zen
+14;16;0;8206;MISC;Jewel of Life
+14;17;0;8718;MISC;Devil Eye
+14;17;1;8718;MISC;Devil Eye 1
+14;17;2;8718;MISC;Devil Eye 2
+14;17;3;8718;MISC;Devil Eye 3
+14;17;4;8718;MISC;Devil Eye 4
+14;17;5;8718;MISC;Devil Eye 5
+14;17;6;8718;MISC;Devil Eye 6
+14;17;7;8718;MISC;Devil Eye 7
+14;18;0;9230;MISC;Devil Key
+14;18;1;9230;MISC;Devil Key 1
+14;18;2;9230;MISC;Devil Key 2
+14;18;3;9230;MISC;Devil Key 3
+14;18;4;9230;MISC;Devil Key 4
+14;18;5;9230;MISC;Devil Key 5
+14;18;6;9230;MISC;Devil Key 6
+14;18;7;9230;MISC;Devil Key 7
+14;19;0;9742;MISC;Devil Invitation
+14;19;1;9742;MISC;Devil Invitation 1
+14;19;2;9742;MISC;Devil Invitation 2
+14;19;3;9742;MISC;Devil Invitation 3
+14;19;4;9742;MISC;Devil Invitation 4
+14;19;5;9742;MISC;Devil Invitation 5
+14;19;6;9742;MISC;Devil Invitation 6
+14;19;7;9742;MISC;Devil Invitation 7
+14;20;0;10254;MISC;Remedy of Love
+14;21;0;10766;MISC;Rena
+14;21;1;10766;MISC;Stone
+14;21;3;10766;MISC;Sing Of Lord
+14;22;0;11278;MISC;Jewel of Creation
+14;23;0;11790;MISC;Scroll of Emperor
+14;23;1;11790;MISC;Ring Of Honor
+14;24;0;12302;MISC;Broken Sword
+14;24;1;12302;MISC;Dark Stone
+14;25;0;12814;MISC;Tear of Elf
+14;26;0;13326;MISC;Soul Shard of Wizard
+14;27;0;13838;MISC;Ancient Metal
+14;28;0;14350;MISC;Lost Map
+14;28;1;14350;MISC;Lost Map 1
+14;28;2;14350;MISC;Lost Map 2
+14;28;3;14350;MISC;Lost Map 3
+14;28;4;14350;MISC;Lost Map 4
+14;28;5;14350;MISC;Lost Map 5
+14;28;6;14350;MISC;Lost Map 6
+14;28;7;14350;MISC;Lost Map 7
+14;29;0;14862;MISC;Symbol of Kundun
+14;29;1;14862;MISC;Symbol of Kundun 1
+14;29;2;14862;MISC;Symbol of Kundun 2
+14;29;3;14862;MISC;Symbol of Kundun 3
+14;29;4;14862;MISC;Symbol of Kundun 4
+14;29;5;14862;MISC;Symbol of Kundun 5
+14;29;6;14862;MISC;Symbol of Kundun 6
+14;29;7;14862;MISC;Symbol of Kundun 7
+14;31;0;15886;MISC;Jewel of Guardian
+14;32;0;16398;MISC;Pink Chocolate Box
+14;32;1;16398;MISC;Lilac Chocolate Box
+14;33;0;16910;MISC;Red Chocolate Box
+14;33;1;16910;MISC;Orange Chocolate Box
+14;34;0;17422;MISC;Blue Chocolate Box
+14;34;1;17422;MISC;Navy Chocolate Box
+14;35;0;17934;MISC;Small SD Potion
+14;36;0;18446;MISC;Medium SD Potion
+14;37;0;18958;MISC;Large SD Potion
+14;38;0;19470;MISC;Small AG Potion
+14;39;0;19982;MISC;Medium AG Potion
+14;40;0;20494;MISC;Large AG Potion
+14;41;0;21006;MISC;Gemstone
+14;42;0;21518;MISC;Jewel of Harmony
+14;43;0;22030;MISC;Lower Refining Stone
+14;44;0;22542;MISC;Higher Refining Stone
+14;45;0;23054;MISC;Halloween  PumpKin
+14;46;0;23566;MISC;Hallwoeen Event Scroll 1
+14;47;0;24078;MISC;Halloween Event Scroll 2
+14;48;0;24590;MISC;Halloween Event Scroll 3
+14;49;0;25102;MISC;Halloween Event Strange Item
+14;50;0;25614;MISC;Haloween Event Pumpkin
+14;51;0;26126;MISC;Sky Event Ticket
+14;51;1;26126;MISC;Sky Event Ticket 1
+14;51;2;26126;MISC;Sky Event Ticket 2
+14;51;3;26126;MISC;Sky Event Ticket 3
+14;51;4;26126;MISC;Sky Event Ticket 4
+14;51;5;26126;MISC;Sky Event Ticket 5
+14;51;6;26126;MISC;Sky Event Ticket 6
+14;51;7;26126;MISC;Sky Event Ticket 7
+14;51;8;26126;MISC;Sky Event Ticket 8
+14;51;9;26126;MISC;Sky Event Ticket 9
+14;52;15;26638;MISC;GM Box
+14;53;0;27150;MISC;Talisman of Luck
+14;54;0;27662;MISC;Chaos Card
+14;55;0;28174;MISC;Green Chaos Box
+14;56;0;28686;MISC;Red Chaos Box
+14;57;0;29198;MISC;Purple Chaos Box
+14;58;0;29710;MISC;Rare Item Ticket1
+14;59;0;30222;MISC;Rare Item Ticket2
+14;60;0;30734;MISC;Rare Item Ticket3
+14;61;0;31246;MISC;Rare Item Ticket4
+14;62;0;31758;MISC;Rare Item Ticket5
+14;63;0;32270;MISC;Not Apear Item
+14;64;0;32782;MISC;Strange Item
+14;65;0;33294;MISC;Flame of Death Beam Knight
+14;66;0;33806;MISC;Horn of Hell Maine
+14;67;0;34318;MISC;Feather of Phoenix of Darkness
+14;68;0;34830;MISC;Churchill Eyes
+14;70;0;35854;MISC;Elite Healing Potion
+14;71;0;36366;MISC;Elite Mana Potion
+14;72;0;36878;MISC;Scroll of Quickness
+14;73;0;37390;MISC;Scroll of Defense
+14;74;0;37902;MISC;Scroll of Wrath
+14;75;0;38414;MISC;Scroll of Wizardry
+14;76;0;38926;MISC;Scroll of Health
+14;77;0;39438;MISC;Scroll of Mana
+14;78;0;39950;MISC;Elixir of Strength
+14;79;0;40462;MISC;Elixir of Agility
+14;80;0;40974;MISC;Elixir of Health
+14;81;0;41486;MISC;Elixir of Energy
+14;82;0;41998;MISC;Elixir of Control
+14;83;0;42510;MISC;Rare Item Ticket
+14;84;0;43022;MISC;Cherry Blossoms Box
+14;85;0;43534;MISC;Cherry Blossoms Alcoholic Beve
+14;86;0;44046;MISC;Cherry Blossoms Dumpling
+14;87;0;44558;MISC;Cherry Blossoms Petal
+14;88;0;45070;MISC;White Cherry Blossoms
+14;89;0;45582;MISC;Red Cherry Blossoms
+14;90;0;46094;MISC;Golden Cherry Blossoms 
+14;91;0;46606;MISC;Red Cherry Blossom
+14;92;0;47118;MISC;Gold Cherry Blossom
+14;93;0;47630;MISC;Chaos Card Rare
+14;94;0;48142;MISC;Medium Elite Healing Potion
+14;95;0;48654;MISC;Chaos Card  Mini
+14;96;0;49166;MISC;Chaos machine rate
+14;97;0;49678;MISC;Scroll of Battle
+14;98;0;50190;MISC;Scroll of Strengthener
+14;99;0;50702;MISC;Width Gruel 2
+14;100;0;51214;MISC;East Fortune
+14;101;0;51726;MISC;Suspicious Scrap of Paper
+14;102;0;52238;MISC;Gaion's Order
+14;103;0;52750;MISC;First Secromicon Fragment
+14;104;0;53262;MISC;Second Secromicon Fragment
+14;105;0;53774;MISC;Third Secromicon Fragment
+14;106;0;54286;MISC;Fourth Secromicon Fragment
+14;107;0;54798;MISC;Fifth Secromicon Fragment
+14;108;0;55310;MISC;Sixth Secromicon Fragment
+14;109;0;55822;MISC;Complete Secromicon
+14;110;0;56334;MISC;Sign of Dimensions
+14;111;0;56846;MISC;Mirror of Dimensions
+14;112;0;57358;MISC;Silbeoki
+14;113;0;57870;MISC;Goldeuki
+14;114;0;58382;MISC;Initializing the master skill
+14;115;0;58894;MISC;Stat-tuning
+14;116;0;59406;MISC;Character before the service
+14;117;0;59918;MISC;Character Rename Service
+14;118;0;60430;MISC;Server Relocation Service
+14;119;0;60942;MISC;Premium Package
+14;120;0;61454;MISC;Goblin gold
+14;121;0;61966;MISC;Sealed box as gold
+14;122;0;62478;MISC;The seal as a silver box
+14;123;0;62990;MISC;Gold Box
+14;124;0;63502;MISC;Silver Box
+14;125;0;64014;MISC;Package Box
+14;126;0;64526;MISC;30-Day Pass
+14;127;0;65038;MISC;90-Day Pass
+14;128;0;65550;MISC;30-Day Pass - Points
+14;129;0;66062;MISC;90-Day Pass - Points
+14;130;0;66574;MISC;3-Hour Pass
+14;131;0;67086;MISC;5-Hour Pass
+14;132;0;67598;MISC;10-Hour Pass
+14;133;0;68110;MISC;Elite SD Potion
+14;134;0;68622;MISC;Package Box A
+14;135;0;69134;MISC;Package Box B
+14;136;0;69646;MISC;Package Box C
+14;137;0;70158;MISC;Package Box D
+14;138;0;70670;MISC;Package Box E
+14;139;0;71182;MISC;Package Box F
+14;140;0;71694;MISC;Scroll of Healing
+14;141;0;72206;MISC;Winning Jewelry Box
+14;142;0;72718;MISC;Sophisticated Jewelry Box
+14;143;0;73230;MISC;Metal Jewelry Box
+14;144;0;73742;MISC;Old Jewelry Box
+14;145;0;74254;MISC;Rare Item Ticket 7
+14;146;0;74766;MISC;Rare Item Ticket 8
+14;147;0;75278;MISC;Rare Item Ticket 9
+14;148;0;75790;MISC;Rare Item Ticket 10
+14;149;0;76302;MISC;Rare Item Ticket 11
+14;150;0;76814;MISC;Rare Item Ticket 12
+14;151;0;77326;MISC;Lv. 1 Letter of Request
+14;152;0;77838;MISC;Lv. 1 Completion Certificate
+14;153;0;78350;MISC;Stardust
+14;154;0;78862;MISC;Kalt Stone
+14;155;0;79374;MISC;Tantalos's Armor
+14;156;0;79886;MISC;Burnt Murderer's Club
+14;157;0;80398;MISC;Green Box
+14;158;0;80910;MISC;Red Box
+14;159;0;81422;MISC;Purple Box
+14;160;0;81934;MISC;Jewel of Extension
+14;161;0;82446;MISC;Jewel of Elevation
+14;162;0;82958;MISC;Magic Backpack
+14;163;0;83470;MISC;Vault Expansion Certificate
+14;169;0;86542;MISC;RageFighter Character Card
+14;170;0;87054;MISC;Lv. 2 letter of Request
+14;171;0;87566;MISC;Lv. 2 Completion Certificate
+14;176;0;90126;MISC;Death King's Bone
+14;177;0;90638;MISC;Hell Maine's Leather
+14;178;0;91150;MISC;Dark Phoenix Flame
+14;179;0;91662;MISC;Death Beam Knight Soul
+14;180;0;92174;MISC;Ice Walker's Mane
+14;181;0;92686;MISC;Mammoth's Bundle of Fur
+14;182;0;93198;MISC;Giant's Icicle
+14;183;0;93710;MISC;Coolutin's Poison
+14;184;0;94222;MISC;Iron Knight's Heart
+14;185;0;94734;MISC;Dark Mammoth's Horn
+14;186;0;95246;MISC;Dark Giant's Axe
+14;187;0;95758;MISC;Dark Coolutin's Blood
+14;188;0;96270;MISC;Dark Iron Knight's Sword
+14;189;0;96782;MISC;Elemental Talisman of Luck
+14;190;0;97294;MISC;Elemental Talisman of Chaos
+14;191;0;97806;MISC;Sonic Combination Note
+14;192;0;98318;MISC;Cyclone Combination Note
+14;193;0;98830;MISC;Blast Combination Note
+14;194;0;99342;MISC;Magma Combination Note
+14;195;0;99854;MISC;Horn Combination Note
+14;196;0;100366;MISC;Angelic Combination Note
+14;197;0;100878;MISC;Devil Cross Combination Note
+14;198;0;101390;MISC;Miracle Combination Note
+14;199;0;101902;MISC;Spite Combination Note
+14;200;0;102414;MISC;Asura Combination Note
+14;201;0;102926;MISC;Thunder Combination Note
+14;202;0;103438;MISC;Soul Combination Note
+14;209;0;107022;MISC;Tradeable Seal
+14;210;0;107534;MISC;Summon Scroll (Lv1)
+14;211;0;108046;MISC;Summon Scroll (Lv2)
+14;212;0;108558;MISC;Summon Scroll (Lv3)
+14;213;0;109070;MISC;Summon Scroll (Lv4)
+15;0;0;15;DW/SM/MG Scroll;Scroll of Poison
+15;1;0;527;DW/SM/MG Scroll;Scroll of Meteorite
+15;2;0;1039;DW/SM/MG Scroll;Scroll of Lighting
+15;3;0;1551;DW/SM/MG Scroll;Scroll of Fire Ball
+15;4;0;2063;DW/SM/MG Scroll;Scroll of Flame
+15;5;0;2575;DW/SM/MG Scroll;Scroll of Teleport
+15;6;0;3087;DW/SM/MG Scroll;Scroll of Ice
+15;7;0;3599;DW/SM/MG Scroll;Scroll of Twister
+15;8;0;4111;DW/SM/MG Scroll;Scroll of Evil Spirit
+15;9;0;4623;DW/SM/MG Scroll;Scroll of Hellfire
+15;10;0;5135;DW/SM/MG Scroll;Scroll of Power Wave
+15;11;0;5647;DW/SM/MG Scroll;Scroll of Aqua Beam
+15;12;0;6159;DW/SM/MG Scroll;Scroll of Cometfall
+15;13;0;6671;DW/SM/MG Scroll;Scroll of Inferno
+15;14;0;7183;DW/SM/MG Scroll;Scroll of Teleport
+15;15;0;7695;DW/SM/MG Scroll;Scroll of Soul Barrier
+15;16;0;8207;DW/SM/MG Scroll;Scroll of Decay
+15;17;0;8719;DW/SM/MG Scroll;Scroll of Ice Storm
+15;18;0;9231;DW/SM/MG Scroll;Scroll of Nova
+15;19;0;9743;DW/SM/MG Scroll;Scroll of Drain Life
+15;20;0;10255;DW/SM/MG Scroll;Scroll of Chain Lighting
+15;21;0;10767;DW/SM/MG Scroll;Scroll of Electric Surge
+15;22;0;11279;DW/SM/MG Scroll;Scroll of Damage Reflex
+15;23;0;11791;DW/SM/MG Scroll;Scroll of Night
+15;24;0;12303;DW/SM/MG Scroll;Scroll of Sleep
+15;25;0;12815;DW/SM/MG Scroll;Scroll of Magic Speed Up
+15;26;0;13327;DW/SM/MG Scroll;Scroll of Magic Defense Up
+15;27;0;13839;DW/SM/MG Scroll;Scroll of Hemp
+15;28;0;14351;DW/SM/MG Scroll;Horse Power Scroll
+15;29;0;14863;DW/SM/MG Scroll;Duration Scroll
+15;30;0;15375;DW/SM/MG Scroll;Chain Driver Parchment
+15;31;0;15887;DW/SM/MG Scroll;Dark Side Parchment
+15;32;0;16399;DW/SM/MG Scroll;Dragon Lore Parchment
+15;33;0;16911;DW/SM/MG Scroll;Dragon Slayer Parchment
+15;34;0;17423;DW/SM/MG Scroll;Red Armor Ignore Parchment
+15;35;0;17935;DW/SM/MG Scroll;Fitness Parchment
+15;36;0;18447;DW/SM/MG Scroll;Defense Rate Parchment

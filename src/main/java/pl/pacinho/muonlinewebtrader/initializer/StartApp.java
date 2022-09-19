@@ -17,17 +17,18 @@ public class StartApp {
 
     private final ItemService itemService;
 
-    //@EventListener(ApplicationReadyEvent.class)
+//    @EventListener(ApplicationReadyEvent.class)
     public void appReady() {
         FileUtils.readTxt(new File("items.csv"))
                 .stream()
                 .skip(1)
                 .map(s -> s.split(";"))
                 .map(arr -> new Item(
-                        Integer.parseInt(arr[0]),
                         Integer.parseInt(arr[1]),
-                        ItemType.getItemType(arr[3]),
-                        arr[4]
+                        Integer.parseInt(arr[0]),
+                        Integer.parseInt(arr[2]),
+                        ItemType.getItemType(arr[4]),
+                        arr[5]
                 ))
                 .forEach(itemService::save);
     }
