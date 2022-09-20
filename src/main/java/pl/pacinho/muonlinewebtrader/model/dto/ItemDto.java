@@ -2,6 +2,9 @@ package pl.pacinho.muonlinewebtrader.model.dto;
 
 import lombok.*;
 import pl.pacinho.muonlinewebtrader.model.enums.ItemType;
+import pl.pacinho.muonlinewebtrader.model.enums.options.ExcOption;
+
+import java.util.List;
 
 @Getter
 @Builder
@@ -21,6 +24,8 @@ public class ItemDto {
     private boolean luck;
     private boolean skill;
     private boolean exc;
+    @Setter
+    private List<ExcOption> excOptions;
 
     public int getNumber() {
         return (section * 512) + id;

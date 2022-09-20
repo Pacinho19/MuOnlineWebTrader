@@ -4,12 +4,15 @@ import org.springframework.stereotype.Component;
 import pl.pacinho.muonlinewebtrader.entity.Item;
 import pl.pacinho.muonlinewebtrader.model.dto.ItemDto;
 import pl.pacinho.muonlinewebtrader.model.enums.ItemType;
+import pl.pacinho.muonlinewebtrader.model.enums.options.ExcOption;
 import pl.pacinho.muonlinewebtrader.service.ItemService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Component
 public class ItemDecoder {
@@ -40,17 +43,31 @@ public class ItemDecoder {
                 .serialNumber(getSerialNumber(itemCode))
                 .build();
 
-        String key = generateKey(itemDto);
-        if (key == null) return unknownItem(itemDto);
-        else return createItem(itemDto, key);
+        return createItem(itemDto, itemCode, true);
     }
 
-    private ItemDto createItem(ItemDto itemDto, String key) {
+    private List<ExcOption> getExcOptions(String itemCode, ItemDto itemDto) {
+        String exc = itemCode.substring(14, 16);
+        exc = CodeUtils.baseConvert(exc, 16, 2);
+        exc = CodeUtils.addZero(exc, null);
+
+        final String excFinal = exc;
+        return IntStream.range(0, 6)
+                .boxed()
+                .filter(i -> excFinal.charAt(i + 2) == '1')
+                .map(i -> ExcOptionParser.parse(i, itemDto))
+                .toList();
+    }
+
+    private ItemDto createItem(ItemDto itemDto, String itemCode, boolean checkWithLevel) {
+        String key = generateKey(itemDto, checkWithLevel);
         Item itemDict = itemsMap.get(key);
-        if (itemDict == null) return unknownItem(itemDto);
+        if (itemDict == null && !checkWithLevel) return unknownItem(itemDto);
+        else if (itemDict == null && checkWithLevel) return createItem(itemDto, itemCode, false);
 
         itemDto.setName(itemDict.getName());
         itemDto.setItemType(itemDict.getCategory());
+        if (itemDto.isExc()) itemDto.setExcOptions(getExcOptions(itemCode, itemDto));
         return itemDto;
     }
 
@@ -60,7 +77,7 @@ public class ItemDecoder {
         return itemDto;
     }
 
-    private String generateKey(ItemDto itemDto) {
+    private String generateKey(ItemDto itemDto, boolean checkWithLevel) {
         Item item = items.stream()
                 .filter(i -> i.getNumber() == itemDto.getNumber())
                 .findFirst()
@@ -68,14 +85,10 @@ public class ItemDecoder {
 
         if (item == null) return null;
 
-        switch (item.getCategory()) {
-            case MISC, WING_AND_ORB -> {
-                return itemDto.getNumber() + "#" + itemDto.getLevel();
-            }
-            default -> {
-                return "" + itemDto.getNumber();
-            }
-        }
+        if (checkWithLevel)
+            return itemDto.getNumber() + "#" + itemDto.getLevel();
+        else
+            return "" + itemDto.getNumber();
     }
 
     private String getSerialNumber(String itemCode) {
