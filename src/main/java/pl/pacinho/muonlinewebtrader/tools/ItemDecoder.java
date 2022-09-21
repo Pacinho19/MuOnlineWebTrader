@@ -33,17 +33,22 @@ public class ItemDecoder {
 
 
     public ItemDto decode(String itemCode) {
-        if (itemCode.replaceAll("F", "").isEmpty()) return null;
+        try {
+            if (itemCode.replaceAll("F", "").isEmpty()) return null;
 
-        ItemDto itemDto = ItemDto.builder()
-                .id(getId(itemCode))
-                .section(getSection(itemCode))
-                .level(getLevel(itemCode))
-                .exc(checkExc(itemCode))
-                .serialNumber(getSerialNumber(itemCode))
-                .build();
+            ItemDto itemDto = ItemDto.builder()
+                    .id(getId(itemCode))
+                    .section(getSection(itemCode))
+                    .level(getLevel(itemCode))
+                    .exc(checkExc(itemCode))
+                    .serialNumber(getSerialNumber(itemCode))
+                    .build();
 
-        return createItem(itemDto, itemCode, true);
+            return createItem(itemDto, itemCode, true);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return unknownItem(ItemDto.builder().build());
     }
 
     private List<ExcOption> getExcOptions(String itemCode, ItemDto itemDto) {
@@ -93,7 +98,7 @@ public class ItemDecoder {
 
     private String getSerialNumber(String itemCode) {
         return itemCode.substring(6, 14)
-                + (itemCode.length() == 40 ? itemCode.substring(32) : "");
+               + (itemCode.length() == 40 ? itemCode.substring(32) : "");
     }
 
     private boolean checkExc(String itemCode) {

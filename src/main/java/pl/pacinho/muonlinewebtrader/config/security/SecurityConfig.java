@@ -7,6 +7,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import pl.pacinho.muonlinewebtrader.frontend.config.UIConfig;
 import pl.pacinho.muonlinewebtrader.service.AccountService;
 
 @RequiredArgsConstructor
@@ -30,8 +31,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/**").permitAll()
+                .antMatchers(UIConfig.HOME_URL).permitAll()
+                .antMatchers(UIConfig.DECODE_ITEM_URL).permitAll()
+                .antMatchers(UIConfig.ITEM_LIST_URL).permitAll()
                 .antMatchers("/mu-online/web-trader/**").authenticated()
                 .and()
-                .formLogin();
+                .formLogin()
+                .and()
+                .logout()
+                .logoutSuccessUrl(UIConfig.HOME_URL);
     }
 }

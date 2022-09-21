@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MuOnline WebTrader Home Page</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+    <style>
+         body {
+            background:#333;
+        }
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+<div th:replace="fragments/topnav :: navbar"/>
+
+<div class="row" style="margin-top:1%;">
+    <div class="col-sm-3"></div>
+    <div class="col-md-6">
+        <div class="container" style="text-align:center;">
+            <br/>
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-10 col-lg-8">
+                    <form th:method="post" th:action="@{/mu-online/web-trader/item/decode}"
+                          class="card card-sm">
+                        <div class="card-body row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <i class="fas fa-search h4 text-body"></i>
+                            </div>
+                            <!--end of col-->
+                            <div class="col">
+                                <input required minlength="32" maxlength="32" th:value="${code}"
+                                       name="code" id="code"
+                                       class="form-control form-control-lg form-control-borderless" type="search"
+                                       placeholder="Search Item"
+                                       style="width: 99%;">
+                            </div>
+                            <!--end of col-->
+                            <div class="col-auto">
+                                <button class="btn btn-lg btn-success" type="submit"> Search</button>
+                            </div>
+                            <!--end of col-->
+                        </div>
+                    </form>
+                </div>
+                <!--end of col-->
+            </div>
+        </div>
+
+        <div th:if="${code!=null && itemDetails.itemType.name=='Unknown'}" style="text-align:center; margin-top:1%" class="alert alert-danger">
+            <h3 class="error">Invalid item code!</h3>
+        </div>
+
+        <div class="card card-sm" th:if="${itemDetails.itemType.name!='Unknown'}" style="text-align:center;margin-top:2%">
+            <div class="card-header">
+                <label th:text="${itemDetails.name + ' [' +  itemDetails.itemType.name + ']'}">ITEM DETAILS</label>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div style="margin-left:1%" class="custom-control custom-checkbox mb-6">
+                        <input id="exc" type="checkbox" class="radio custom-control-input"
+                               disabled
+                               th:checked="${itemDetails.exc}"/>
+                        <label class="custom-control-label" for="exc">Exc</label>
+                    </div>
+                    <div style="margin-left:1%" class="custom-control custom-checkbox mb-6">
+                        <input id="skill" type="checkbox" class="radio custom-control-input"
+                               disabled
+                               th:checked="${itemDetails.skill}"/>
+                        <label class="custom-control-label" for="skill">Skill</label>
+                    </div>
+                    <div style="margin-left:1%" class="custom-control custom-checkbox mb-6">
+                        <input id="luck" type="checkbox" class="radio custom-control-input"
+                               disabled
+                               th:checked="${itemDetails.luck}"/>
+                        <label class="custom-control-label" for="luck">Luck</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3"></div>
+</div>
+
+</body>
+</html>
