@@ -1,14 +1,13 @@
 package pl.pacinho.muonlinewebtrader.tools;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import pl.pacinho.muonlinewebtrader.model.dto.ItemDto;
+import pl.pacinho.muonlinewebtrader.model.dto.ExtendedItemDto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ItemDecoderTest {
 
-    private static ItemDto itemDto;
+    private static ExtendedItemDto extendedItemDto;
 
     @BeforeAll
     static void init() {
@@ -18,16 +17,16 @@ class ItemDecoderTest {
 
 //    @Test
     void idTest() {
-        assertEquals(itemDto.getId(), 0);
+        assertEquals(extendedItemDto.getId(), 0);
     }
 
 //    @Test
     void sectionTest() {
-        assertEquals(itemDto.getSection(), 7);
+        assertEquals(extendedItemDto.getSection(), 7);
     }
 
 //    @Test
     void levelTest() {
-        assertEquals(itemDto.getLevel(), 15);
+        assertEquals(extendedItemDto.getLevel(), 15);
     }
 }

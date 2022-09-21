@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import pl.pacinho.muonlinewebtrader.frontend.config.UIConfig;
-import pl.pacinho.muonlinewebtrader.model.dto.ItemDto;
+import pl.pacinho.muonlinewebtrader.model.dto.ExtendedItemDto;
+import pl.pacinho.muonlinewebtrader.model.dto.SimpleItemDto;
 import pl.pacinho.muonlinewebtrader.model.dto.mapper.ItemDtoMapper;
 import pl.pacinho.muonlinewebtrader.service.ItemService;
 import pl.pacinho.muonlinewebtrader.tools.ItemDecoder;
@@ -35,7 +36,7 @@ public class ItemController {
 
     @GetMapping(UIConfig.ITEM_LIST_URL)
     public String itemList(Model model) {
-        List<ItemDto> items = ItemDtoMapper.parseList(itemService.findAll());
+        List<SimpleItemDto> items = ItemDtoMapper.parseList(itemService.findAll());
         model.addAttribute("items", items);
         return "item-list";
     }

@@ -1,19 +1,20 @@
 package pl.pacinho.muonlinewebtrader.model.dto.mapper;
 
 import pl.pacinho.muonlinewebtrader.entity.Item;
-import pl.pacinho.muonlinewebtrader.model.dto.ItemDto;
+import pl.pacinho.muonlinewebtrader.model.dto.ExtendedItemDto;
+import pl.pacinho.muonlinewebtrader.model.dto.SimpleItemDto;
 
 import java.util.List;
 
 public class ItemDtoMapper {
-    public static List<ItemDto> parseList(List<Item> items) {
+    public static List<SimpleItemDto> parseList(List<Item> items) {
         return items.stream()
                 .map(ItemDtoMapper::parse)
                 .toList();
     }
 
-    private static ItemDto parse(Item item) {
-        return ItemDto.builder()
+    private static SimpleItemDto parse(Item item) {
+        return SimpleItemDto.builder()
                 .name(item.getName())
                 .itemType(item.getCategory())
                 .id(item.getIdx())

@@ -21,10 +21,106 @@
          body {
             background:#333;
         }
+
+        .card-wrap {
+          flex: 0 0 33.333%;
+          display: flex;
+          padding: 10px; /* gutter width */
+        }
+
+        .card {
+          box-shadow: 0 0 4px rgba(0,0,0,0.4);
+          flex: 0 0 100%;
+        }
+
+
+
+
+
     </style>
 </head>
 <body>
 <div th:replace="fragments/topnav :: navbar"/>
 
+<div class="row" style="margin-top:1%;">
+    <div class="col-md-1"></div>
+    <div class="col-md-10" style="text-align:center">
+
+        <div class="card" style=" background:#333;">
+            <div class="card-title">
+                <h3 style="color:white">Most viewed items</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div id="carouselExampleSlidesOnly" class="carousel slide col-md-12" data-ride="carousel"
+                         data-interval="5000">
+                        <div class="carousel-inner">
+                            <div class="carousel-item " th:classappend="${rowStat.index==0} ? active : none"
+                                 th:each="itemsPart, rowStat : ${items}">
+                                <div style="display: inline-block" class="card" th:attr="data-slide-to=${rowStat.index}"
+                                     th:each="item, rowStat : ${itemsPart}">
+                                    <div class="card-header" style="text-align:center">
+                                        <h3 class="card-title" th:text="${item.name}">Name</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <table id="myTable" style="margin-top:1%;" class="table">
+                                            <tbody>
+                                            <tr class="table">
+                                                <td><strong>Category</strong></td>
+                                                <td><span th:text="${item.itemType.name}">text</span></td>
+                                            </tr>
+                                            <tr class="table">
+                                                <td><strong>Section</strong></td>
+                                                <td><span th:text="${item.section}">text</span></td>
+                                            </tr>
+                                            <tr class="table">
+                                                <td><strong>Index</strong></td>
+                                                <td><span th:text="${item.id}">text</span></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3 style="color:white;margin-top:3%">Latest added items</h3>
+        <div style="display:flex;flex-flow: row wrap;margin-top:1%;">
+            <div class="card-wrap" th:each="item, rowStat : ${itemsRecentlyAdded}">
+                <div class="card"
+                     style=";margin-top:1%;margin-left:1%">
+                    <div class="card-header" style="text-align:center;">
+                        <h3 class="card-title" th:text="${item.name}">Name</h3>
+                    </div>
+                    <div class="card-body">
+                        <table id="myTable2" style="margin-top:1%;" class="table">
+                            <tbody>
+                            <tr class="table">
+                                <td><strong>Category</strong></td>
+                                <td><span th:text="${item.itemType.name}">text</span></td>
+                            </tr>
+                            <tr class="table">
+                                <td><strong>Section</strong></td>
+                                <td><span th:text="${item.section}">text</span></td>
+                            </tr>
+                            <tr class="table">
+                                <td><strong>Index</strong></td>
+                                <td><span th:text="${item.id}">text</span></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="col-md-1"></div>
+</div>
 </body>
 </html>

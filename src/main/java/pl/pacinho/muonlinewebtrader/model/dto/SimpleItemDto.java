@@ -1,33 +1,34 @@
 package pl.pacinho.muonlinewebtrader.model.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import pl.pacinho.muonlinewebtrader.model.enums.ItemType;
 import pl.pacinho.muonlinewebtrader.model.enums.options.ExcOption;
 
 import java.util.List;
 
 @Getter
-@Builder
+@SuperBuilder(toBuilder = true)
 @AllArgsConstructor
-public class ItemDto {
+public class SimpleItemDto {
 
     private int id;
     private int section;
-    private String serialNumber;
-    @Getter(AccessLevel.NONE)
-    private int number;
     @Setter
     private String name;
     @Setter
     private ItemType itemType;
+    @Setter
+    private List<ExcOption> excOptions;
+
     private int level;
     private boolean luck;
     private boolean skill;
     private boolean exc;
-    @Setter
-    private List<ExcOption> excOptions;
 
     public int getNumber() {
-        return (section * 512) + id;
+        return (this.getSection() * 512) + this.getId();
     }
 }

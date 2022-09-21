@@ -2,12 +2,11 @@ package pl.pacinho.muonlinewebtrader.tools;
 
 import org.springframework.stereotype.Component;
 import pl.pacinho.muonlinewebtrader.entity.Item;
-import pl.pacinho.muonlinewebtrader.model.dto.ItemDto;
+import pl.pacinho.muonlinewebtrader.model.dto.ExtendedItemDto;
 import pl.pacinho.muonlinewebtrader.model.enums.ItemType;
 import pl.pacinho.muonlinewebtrader.model.enums.options.ExcOption;
 import pl.pacinho.muonlinewebtrader.service.ItemService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -32,11 +31,11 @@ public class ItemDecoder {
     }
 
 
-    public ItemDto decode(String itemCode) {
+    public ExtendedItemDto decode(String itemCode) {
         try {
             if (itemCode.replaceAll("F", "").isEmpty()) return null;
 
-            ItemDto itemDto = ItemDto.builder()
+            ExtendedItemDto extendedItemDto = ExtendedItemDto.builder()
                     .id(getId(itemCode))
                     .section(getSection(itemCode))
                     .level(getLevel(itemCode))
@@ -44,14 +43,14 @@ public class ItemDecoder {
                     .serialNumber(getSerialNumber(itemCode))
                     .build();
 
-            return createItem(itemDto, itemCode, true);
+            return createItem(extendedItemDto, itemCode, true);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return unknownItem(ItemDto.builder().build());
+        return unknownItem(ExtendedItemDto.builder().build());
     }
 
-    private List<ExcOption> getExcOptions(String itemCode, ItemDto itemDto) {
+    private List<ExcOption> getExcOptions(String itemCode, ExtendedItemDto extendedItemDto) {
         String exc = itemCode.substring(14, 16);
         exc = CodeUtils.baseConvert(exc, 16, 2);
         exc = CodeUtils.addZero(exc, null);
@@ -60,40 +59,40 @@ public class ItemDecoder {
         return IntStream.range(0, 6)
                 .boxed()
                 .filter(i -> excFinal.charAt(i + 2) == '1')
-                .map(i -> ExcOptionParser.parse(i, itemDto))
+                .map(i -> ExcOptionParser.parse(i, extendedItemDto))
                 .toList();
     }
 
-    private ItemDto createItem(ItemDto itemDto, String itemCode, boolean checkWithLevel) {
-        String key = generateKey(itemDto, checkWithLevel);
+    private ExtendedItemDto createItem(ExtendedItemDto extendedItemDto, String itemCode, boolean checkWithLevel) {
+        String key = generateKey(extendedItemDto, checkWithLevel);
         Item itemDict = itemsMap.get(key);
-        if (itemDict == null && !checkWithLevel) return unknownItem(itemDto);
-        else if (itemDict == null && checkWithLevel) return createItem(itemDto, itemCode, false);
+        if (itemDict == null && !checkWithLevel) return unknownItem(extendedItemDto);
+        else if (itemDict == null && checkWithLevel) return createItem(extendedItemDto, itemCode, false);
 
-        itemDto.setName(itemDict.getName());
-        itemDto.setItemType(itemDict.getCategory());
-        if (itemDto.isExc()) itemDto.setExcOptions(getExcOptions(itemCode, itemDto));
-        return itemDto;
+        extendedItemDto.setName(itemDict.getName());
+        extendedItemDto.setItemType(itemDict.getCategory());
+        if (extendedItemDto.isExc()) extendedItemDto.setExcOptions(getExcOptions(itemCode, extendedItemDto));
+        return extendedItemDto;
     }
 
-    private ItemDto unknownItem(ItemDto itemDto) {
-        itemDto.setName("Unknown");
-        itemDto.setItemType(ItemType.UNKNOWN);
-        return itemDto;
+    private ExtendedItemDto unknownItem(ExtendedItemDto extendedItemDto) {
+        extendedItemDto.setName("Unknown");
+        extendedItemDto.setItemType(ItemType.UNKNOWN);
+        return extendedItemDto;
     }
 
-    private String generateKey(ItemDto itemDto, boolean checkWithLevel) {
+    private String generateKey(ExtendedItemDto extendedItemDto, boolean checkWithLevel) {
         Item item = items.stream()
-                .filter(i -> i.getNumber() == itemDto.getNumber())
+                .filter(i -> i.getNumber() == extendedItemDto.getNumber())
                 .findFirst()
                 .orElse(null);
 
         if (item == null) return null;
 
         if (checkWithLevel)
-            return itemDto.getNumber() + "#" + itemDto.getLevel();
+            return extendedItemDto.getNumber() + "#" + extendedItemDto.getLevel();
         else
-            return "" + itemDto.getNumber();
+            return "" + extendedItemDto.getNumber();
     }
 
     private String getSerialNumber(String itemCode) {
