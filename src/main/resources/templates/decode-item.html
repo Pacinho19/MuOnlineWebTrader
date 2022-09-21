@@ -65,11 +65,11 @@
             </div>
         </div>
 
-        <div th:if="${code!=null && itemDetails.itemType.name=='Unknown'}" style="text-align:center; margin-top:1%" class="alert alert-danger">
+        <div th:if="${code!=null && itemDetails!=null && itemDetails.itemType.name=='Unknown'}" style="text-align:center; margin-top:1%" class="alert alert-danger">
             <h3 class="error">Invalid item code!</h3>
         </div>
 
-        <div class="card card-sm" th:if="${itemDetails.itemType.name!='Unknown'}" style="text-align:center;margin-top:2%">
+        <div class="card card-sm" th:if="${itemDetails!=null && itemDetails.itemType.name!='Unknown'}" style="text-align:center;margin-top:2%">
             <div class="card-header">
                 <label th:text="${itemDetails.name + ' [' +  itemDetails.itemType.name + ']'}">ITEM DETAILS</label>
             </div>
