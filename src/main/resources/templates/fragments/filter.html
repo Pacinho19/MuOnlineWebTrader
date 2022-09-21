@@ -1,0 +1,14 @@
+<div th:fragment="filterFrag">
+
+    <ul class="pagination justify-content-center">
+        <select style=";height:40px;width:19%" id="searchType" name="searchType" onchange="filter()">
+            <option value="1">Name</option>
+            <option value="2">Category</option>
+            <option value="3">Section</option>
+            <option value="4">Index</option>
+        </select>
+
+        <input style="margin-left:1%;height:40px;width:79%" type="text" id="filterText" onkeyup="filter()" placeholder="Search ...">
+    </ul>
+
+</div>
