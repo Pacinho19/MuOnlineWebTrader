@@ -4,21 +4,36 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+import pl.pacinho.muonlinewebtrader.entity.Account;
 import pl.pacinho.muonlinewebtrader.entity.Item;
 import pl.pacinho.muonlinewebtrader.model.enums.ItemType;
+import pl.pacinho.muonlinewebtrader.service.AccountService;
 import pl.pacinho.muonlinewebtrader.service.ItemService;
 import pl.pacinho.muonlinewebtrader.utils.FileUtils;
 
 import java.io.File;
 
 @RequiredArgsConstructor
-//@Component
+@Component
 public class StartApp {
 
     private final ItemService itemService;
-
-//    @EventListener(ApplicationReadyEvent.class)
+    private final AccountService accountService;
+    @EventListener(ApplicationReadyEvent.class)
     public void appReady() {
+        initItems();
+        initUsers();
+    }
+
+    private void initUsers() {
+        if(accountService.getCount()>0) return;
+        accountService.save(new Account("Testowy", "test"));
+
+    }
+
+    private void initItems() {
+        if (itemService.getCount() > 0) return;
+
         FileUtils.readTxt(new File("items.csv"))
                 .stream()
                 .skip(1)

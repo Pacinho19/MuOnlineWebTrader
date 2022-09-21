@@ -21,4 +21,8 @@ public class ItemService {
     public List<Item> findAll() {
         return itemRepository.findAll();
     }
+
+    public long getCount() {
+        return itemRepository.count();
+    }
 }
