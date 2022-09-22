@@ -1,7 +1,6 @@
 package pl.pacinho.muonlinewebtrader.model.dto.mapper;
 
 import pl.pacinho.muonlinewebtrader.entity.Item;
-import pl.pacinho.muonlinewebtrader.model.dto.ExtendedItemDto;
 import pl.pacinho.muonlinewebtrader.model.dto.SimpleItemDto;
 
 import java.util.List;

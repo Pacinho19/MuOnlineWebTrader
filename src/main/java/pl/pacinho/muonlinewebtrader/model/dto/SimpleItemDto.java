@@ -8,6 +8,7 @@ import pl.pacinho.muonlinewebtrader.model.enums.ItemType;
 import pl.pacinho.muonlinewebtrader.model.enums.options.ExcOption;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @SuperBuilder(toBuilder = true)
@@ -20,13 +21,6 @@ public class SimpleItemDto {
     private String name;
     @Setter
     private ItemType itemType;
-    @Setter
-    private List<ExcOption> excOptions;
-
-    private int level;
-    private boolean luck;
-    private boolean skill;
-    private boolean exc;
 
     public int getNumber() {
         return (this.getSection() * 512) + this.getId();

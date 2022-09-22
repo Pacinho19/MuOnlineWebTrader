@@ -3,6 +3,7 @@ package pl.pacinho.muonlinewebtrader.tools;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import pl.pacinho.muonlinewebtrader.model.dto.ExtendedItemDto;
+import pl.pacinho.muonlinewebtrader.model.dto.SimpleItemDto;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MuOnline Game Warehouse</title>
+</head>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+<style>
+         body {
+            background:#333;
+        }
+        .card-wrap {
+          flex: 0 0 33.333%;
+          display: flex;
+          padding: 10px; /* gutter width */
+        }
+        .card {
+          box-shadow: 0 0 4px rgba(0,0,0,0.4);
+          flex: 0 0 100%;
+        }
+
+
+
+
+
+
+</style>
+<body>
+<div th:replace="fragments/topnav :: navbar"/>
+
+<div class="row" style="margin-top:1%;">
+    <div class="col-md-1"></div>
+    <div class="col-md-10" style="text-align:center">
+        <div style="display:flex;flex-flow: row wrap;margin-top:1%;">
+            <div class="card-wrap" th:each="item, rowStat : ${items}">
+                <div class="card"
+                     style=";margin-top:1%;margin-left:1%">
+
+                    <div class="card-header" style="text-align:center;">
+                        <a th:if="${item.luck || item.skill || item.exc}" id="icon1" data-toggle="collapse"
+                           th:href="'#collapse' + ${rowStat.index}"
+                           style="color:black;display:inline-block;text-align:center;">
+                            <h3 style="display: inline-block">
+                                <i class="bi bi-info-circle" data-toggle="tooltip" data-html="true"
+                                   th:title="${item.name}"></i>
+                            </h3>
+                            <h3 style="display: inline-block"
+                                data-toggle="tooltip" data-html="true" th:title="${item.name}"
+                                class="card-title"
+                                th:text="${(item.exc ? 'Excellent ' : '') + item.name + (item.level>0 ? ' +' + item.level : '')}">
+                                Name</h3>
+                        </a>
+
+                        <h3 th:if="${!item.luck && !item.skill && !item.exc}" style="display: inline-block"
+                            data-toggle="tooltip" data-html="true" th:title="${item.name}"
+                            class="card-title"
+                            th:text="${(item.exc ? 'Excellent ' : '') + item.name + (item.level>0 ? ' +' + item.level : '')}">
+                            Name</h3>
+                    </div>
+                    <div th:id="'collapse' + ${rowStat.index}" class="panel-collapse collapse">
+                        <div class="card-body">
+                            <table id="myTable2" style="margin-top:1%;" class="table">
+                                <tbody>
+                                <tr class="table" th:if="${item.luck}">
+                                    <td><strong th:text="Luck (success rate of Jewel of Soul +25%)"/></td>
+                                </tr>
+                                <tr class="table" th:if="${item.luck}">
+                                    <td><strong th:text="Luck (critical damage rate +5%)"/></td>
+                                </tr>
+                                <tr class="table" th:if="${item.exc}" th:each="option : ${item.excOptions}">
+                                    <td><label th:text="${option.name}"/></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary">Transfer to Web Warehouse</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+</body>
+</html>
