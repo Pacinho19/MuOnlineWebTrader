@@ -74,6 +74,9 @@
                         <div class="card-body">
                             <table id="myTable2" style="margin-top:1%;" class="table">
                                 <tbody>
+                                <tr th:if="${item.icon!=null}">
+                                    <img class="rounded" th:src="@{${'data:image/jpeg;base64,'+ item.icon}}"/>
+                                </tr>
                                 <tr class="table" th:if="${item.luck}">
                                     <td><strong th:text="Luck (success rate of Jewel of Soul +25%)"/></td>
                                 </tr>

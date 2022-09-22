@@ -6,6 +6,7 @@ import pl.pacinho.muonlinewebtrader.model.dto.ExtendedItemDto;
 import pl.pacinho.muonlinewebtrader.model.enums.ItemType;
 import pl.pacinho.muonlinewebtrader.model.enums.options.ExcOption;
 import pl.pacinho.muonlinewebtrader.service.ItemService;
+import pl.pacinho.muonlinewebtrader.utils.ImageUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -71,6 +72,7 @@ public class ItemDecoder {
 
         extendedItemDto.setName(itemDict.getName());
         extendedItemDto.setItemType(itemDict.getCategory());
+        extendedItemDto.setIcon(ImageUtils.encodeFileToBase64Binary(itemDict.getIconPath()));
         if (extendedItemDto.isExc()) extendedItemDto.setExcOptions(getExcOptions(itemCode, extendedItemDto));
         return extendedItemDto;
     }

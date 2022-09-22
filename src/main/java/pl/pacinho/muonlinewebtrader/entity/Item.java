@@ -2,6 +2,7 @@ package pl.pacinho.muonlinewebtrader.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import pl.pacinho.muonlinewebtrader.model.enums.ItemType;
 
@@ -22,6 +23,9 @@ public class Item {
     @Enumerated(EnumType.STRING)
     private ItemType category;
     private String name;
+
+    @Setter
+    private String iconPath;
 
     public Item(int idx, int section, int level, ItemType category, String name) {
         this.idx = idx;
