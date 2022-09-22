@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import pl.pacinho.muonlinewebtrader.frontend.config.UIConfig;
-import pl.pacinho.muonlinewebtrader.model.dto.ExtendedItemDto;
 import pl.pacinho.muonlinewebtrader.model.dto.SimpleItemDto;
 import pl.pacinho.muonlinewebtrader.model.dto.mapper.ItemDtoMapper;
 import pl.pacinho.muonlinewebtrader.service.ItemService;
@@ -31,7 +30,7 @@ public class ItemController {
 
     @PostMapping(UIConfig.DECODE_ITEM_URL)
     public ModelAndView decodeItem(@RequestParam("code") String code) {
-        return new ModelAndView("decode-item", Map.of("itemDetails", itemDecoder.decode(code), "code", code));
+        return new ModelAndView("decode-item", Map.of("itemDetails", itemDecoder.decode(code, -1), "code", code));
     }
 
     @GetMapping(UIConfig.ITEM_LIST_URL)

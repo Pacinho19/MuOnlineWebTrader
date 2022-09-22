@@ -24,6 +24,6 @@ public class ItemDecoderController {
 
     @GetMapping("/item/{itemCode}/decode")
     public ExtendedItemDto decode(@PathVariable("itemCode") String itemCode) {
-        return itemDecoder.decode(itemCode);
+        return itemDecoder.decode(itemCode, -1);
     }
 }

@@ -33,4 +33,9 @@ public class AccountService implements org.springframework.security.core.userdet
         account.setPassword(cryptoConfig.encoder().encode(account.getPassword()));
         return accountRepository.save(account);
     }
+
+    public Account findByLogin(String name) {
+        return accountRepository.findByName(name)
+                .get();
+    }
 }

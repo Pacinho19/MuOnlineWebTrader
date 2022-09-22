@@ -32,7 +32,7 @@ public class ItemDecoder {
     }
 
 
-    public ExtendedItemDto decode(String itemCode) {
+    public ExtendedItemDto decode(String itemCode, int position) {
         try {
             if (itemCode.replaceAll("F", "").isEmpty()) return null;
 
@@ -42,6 +42,8 @@ public class ItemDecoder {
                     .level(getLevel(itemCode))
                     .exc(checkExc(itemCode))
                     .serialNumber(getSerialNumber(itemCode))
+                    .code(itemCode)
+                    .position(position)
                     .build();
 
             return createItem(extendedItemDto, itemCode, true);

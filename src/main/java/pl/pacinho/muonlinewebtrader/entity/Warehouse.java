@@ -1,7 +1,7 @@
 package pl.pacinho.muonlinewebtrader.entity;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -15,6 +15,7 @@ public class Warehouse {
     @GeneratedValue(generator = "wareIdGen")
     private Long id;
 
+    @Setter
     @Column(length = 8_000)
     private String content;
 

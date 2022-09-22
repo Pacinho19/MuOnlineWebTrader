@@ -2,12 +2,12 @@ package pl.pacinho.muonlinewebtrader.tools;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import pl.pacinho.muonlinewebtrader.entity.WebWarehouse;
 import pl.pacinho.muonlinewebtrader.model.dto.ExtendedItemDto;
-import pl.pacinho.muonlinewebtrader.model.dto.SimpleItemDto;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.IntStream;
 
 @RequiredArgsConstructor
 @Component
@@ -15,11 +15,23 @@ public class WarehouseDecoder {
     private final ItemDecoder itemDecoder;
     private static final int CHUNK_SIZE = 32;
 
-    public List<ExtendedItemDto> decode(String wareContent){
+    public List<ExtendedItemDto> decode(String wareContent) {
         if (wareContent.startsWith("0x")) wareContent = wareContent.substring(2);
 
-        return Arrays.stream(wareContent.split("(?<=\\G.{" + CHUNK_SIZE + "})"))
-                .map(itemDecoder::decode)
+        final String wareContentF = wareContent;
+        String[] content = wareContentF.split("(?<=\\G.{" + CHUNK_SIZE + "})");
+        return IntStream.range(0, content.length)
+                .boxed()
+                .map(i -> itemDecoder.decode(content[i], i * CHUNK_SIZE))
+                .filter(Objects::nonNull)
+                .toList();
+
+    }
+
+    public List<ExtendedItemDto> decodeWebItems(List<WebWarehouse> warehouseByAccountName) {
+        return warehouseByAccountName
+                .stream()
+                .map(ww -> itemDecoder.decode(ww.getItem(), -1))
                 .filter(Objects::nonNull)
                 .toList();
     }
