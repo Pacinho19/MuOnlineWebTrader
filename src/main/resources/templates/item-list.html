@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MuOnline WebTrader Home Page</title>
+    <title>MuOnline Item List</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -23,7 +23,10 @@
          body {
             background:#333;
         }
-
+         img{
+            height:100px;
+            width:100px;
+        }
     </style>
 </head>
 <body>
@@ -40,6 +43,7 @@
             <thead>
             <tr class= "table-secondary">
                 <th>No.</th>
+                <th>Icon</th>
                 <th>Name</th>
                 <th>Category</th>
                 <th>Section</th>
@@ -49,6 +53,7 @@
             <tbody>
             <tr class= "table-secondary" th:each="item, iterStat : ${items}">
                 <td><span th:text="${iterStat.count}"></span></td>
+                <td><img class="rounded" th:src="@{${'data:image/jpeg;base64,'+ item.icon}}"/></td>
                 <td><span th:text="${item.name}"></span></td>
                 <td><span th:text="${item.itemType.name}"></span></td>
                 <td><span th:text="${item.section}"></span></td>

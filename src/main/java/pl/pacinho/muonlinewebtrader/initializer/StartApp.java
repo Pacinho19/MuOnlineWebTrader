@@ -36,7 +36,6 @@ public class StartApp {
     private void initUsers() {
         if(accountService.getCount()>0) return;
         accountService.save(new Account("Testowy", "test"));
-
     }
 
     private void initItems() {
