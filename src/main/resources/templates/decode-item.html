@@ -22,11 +22,20 @@
             background:#333;
         }
 
+        img{
+            height:150px;
+            width:150px;
+        }
+        .card-wrap {
+          flex: 0 0 33.333%;
+          display: flex;
+          padding: 10px; /* gutter width */
+        }
 
-
-
-
-
+        .card {
+          box-shadow: 0 0 4px rgba(0,0,0,0.4);
+          flex: 0 0 100%;
+        }
     </style>
 </head>
 <body>
@@ -69,33 +78,37 @@
             <h3 class="error">Invalid item code!</h3>
         </div>
 
-        <div class="card card-sm" th:if="${itemDetails!=null && itemDetails.itemType.name!='Unknown'}" style="text-align:center;margin-top:2%">
-            <div class="card-header">
-                <label th:text="${itemDetails.name + ' [' +  itemDetails.itemType.name + ']'}">ITEM DETAILS</label>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div style="margin-left:1%" class="custom-control custom-checkbox mb-6">
-                        <input id="exc" type="checkbox" class="radio custom-control-input"
-                               disabled
-                               th:checked="${itemDetails.exc}"/>
-                        <label class="custom-control-label" for="exc">Exc</label>
-                    </div>
-                    <div style="margin-left:1%" class="custom-control custom-checkbox mb-6">
-                        <input id="skill" type="checkbox" class="radio custom-control-input"
-                               disabled
-                               th:checked="${itemDetails.skill}"/>
-                        <label class="custom-control-label" for="skill">Skill</label>
-                    </div>
-                    <div style="margin-left:1%" class="custom-control custom-checkbox mb-6">
-                        <input id="luck" type="checkbox" class="radio custom-control-input"
-                               disabled
-                               th:checked="${itemDetails.luck}"/>
-                        <label class="custom-control-label" for="luck">Luck</label>
-                    </div>
+        <div  th:if="${itemDetails!=null && itemDetails.itemType.name!='Unknown'}" class="card-wrap" >
+            <div class="card"
+                 style=";margin-top:1%;margin-left:1%">
+                <div class="card-header" style="text-align:center;">
+                    <h3 class="card-title" th:text="${itemDetails.name}">Name</h3>
+                </div>
+                <div class="card-body">
+                    <table id="myTable2" style="margin-top:1%;" class="table">
+                        <tbody>
+                        <tr th:if="${itemDetails.icon!=null}">
+                            <img class="rounded" th:src="@{${'data:image/jpeg;base64,'+ itemDetails.icon}}"/>
+                        </tr>
+                        <tr class="table"  style="margin-top:1%;">
+                            <td><strong>Category</strong></td>
+                            <td><span th:text="${itemDetails.itemType.name}">text</span></td>
+                        </tr>
+                        <tr class="table">
+                            <td><strong>Section</strong></td>
+                            <td><span th:text="${itemDetails.section}">text</span></td>
+                        </tr>
+                        <tr class="table">
+                            <td><strong>Index</strong></td>
+                            <td><span th:text="${itemDetails.id}">text</span></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
+
+        
     </div>
     <div class="col-sm-3"></div>
 </div>
