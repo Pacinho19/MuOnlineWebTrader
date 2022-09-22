@@ -17,7 +17,7 @@ public class ItemIconsService {
 
     public void setIcons() {
         List<File> files = FileUtils.readDirectory(FileUtils.IMG_LOCATION);
-        if(files==null) return;
+        if (files == null) return;
 
         Map<Object, List<File>> icons = files
                 .stream()
@@ -25,10 +25,12 @@ public class ItemIconsService {
 
         itemService.findAll()
                 .forEach(i -> {
+                    if (i.getIconPath() != null) return;
                     List<File> file = icons.get(i.getName());
-                    if (file == null) return;
-
-                    i.setIconPath(file.get(0).getPath());
+                    if (file == null)
+                        i.setIconPath(icons.get("null").get(0).getPath());
+                    else
+                        i.setIconPath(file.get(0).getPath());
                     itemService.save(i);
                 });
 

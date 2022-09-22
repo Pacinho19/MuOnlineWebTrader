@@ -6,12 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.pacinho.muonlinewebtrader.entity.Item;
 import pl.pacinho.muonlinewebtrader.frontend.config.UIConfig;
 import pl.pacinho.muonlinewebtrader.model.dto.mapper.ItemDtoMapper;
 import pl.pacinho.muonlinewebtrader.service.ItemService;
-
-import java.util.List;
 
 @Controller
 @RequestMapping

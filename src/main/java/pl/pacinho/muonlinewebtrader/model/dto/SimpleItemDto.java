@@ -21,7 +21,8 @@ public class SimpleItemDto {
     private String name;
     @Setter
     private ItemType itemType;
-
+    @Setter
+    private String icon;
     public int getNumber() {
         return (this.getSection() * 512) + this.getId();
     }

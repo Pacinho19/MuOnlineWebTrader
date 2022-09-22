@@ -19,8 +19,6 @@ public class ExtendedItemDto extends SimpleItemDto {
     private boolean skill;
     private boolean exc;
 
-    @Setter
-    private String icon;
 
     public String getFullName() {
         return

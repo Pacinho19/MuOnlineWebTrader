@@ -32,7 +32,10 @@
           box-shadow: 0 0 4px rgba(0,0,0,0.4);
           flex: 0 0 100%;
         }
-
+        img{
+            height:100px;
+            width:100px;
+        }
     </style>
 </head>
 <body>
@@ -61,7 +64,10 @@
                                     <div class="card-body">
                                         <table id="myTable" style="margin-top:1%;" class="table">
                                             <tbody>
-                                            <tr class="table">
+                                            <tr th:if="${item.icon!=null}">
+                                                <img class="rounded" th:src="@{${'data:image/jpeg;base64,'+ item.icon}}"/>
+                                            </tr>
+                                            <tr class="table" style="margin-top:1%;">
                                                 <td><strong>Category</strong></td>
                                                 <td><span th:text="${item.itemType.name}">text</span></td>
                                             </tr>
@@ -95,7 +101,10 @@
                     <div class="card-body">
                         <table id="myTable2" style="margin-top:1%;" class="table">
                             <tbody>
-                            <tr class="table">
+                            <tr th:if="${item.icon!=null}">
+                                <img class="rounded" th:src="@{${'data:image/jpeg;base64,'+ item.icon}}"/>
+                            </tr>
+                            <tr class="table"  style="margin-top:1%;">
                                 <td><strong>Category</strong></td>
                                 <td><span th:text="${item.itemType.name}">text</span></td>
                             </tr>

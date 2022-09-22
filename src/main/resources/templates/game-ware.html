@@ -31,12 +31,10 @@
           box-shadow: 0 0 4px rgba(0,0,0,0.4);
           flex: 0 0 100%;
         }
-
-
-
-
-
-
+        img{
+            height:100px;
+            width:100px;
+        }
 </style>
 <body>
 <div th:replace="fragments/topnav :: navbar"/>
@@ -50,7 +48,7 @@
                      style=";margin-top:1%;margin-left:1%">
 
                     <div class="card-header" style="text-align:center;">
-                        <a th:if="${item.luck || item.skill || item.exc}" id="icon1" data-toggle="collapse"
+                        <a th:if="${item.luck || item.skill || item.exc || item.icon!=null}" id="icon1" data-toggle="collapse"
                            th:href="'#collapse' + ${rowStat.index}"
                            style="color:black;display:inline-block;text-align:center;">
                             <h3 style="display: inline-block">
@@ -64,7 +62,7 @@
                                 Name</h3>
                         </a>
 
-                        <h3 th:if="${!item.luck && !item.skill && !item.exc}" style="display: inline-block"
+                        <h3 th:if="${!item.luck && !item.skill && !item.exc && item.icon==null}" style="display: inline-block"
                             data-toggle="tooltip" data-html="true" th:title="${item.name}"
                             class="card-title"
                             th:text="${(item.exc ? 'Excellent ' : '') + item.name + (item.level>0 ? ' +' + item.level : '')}">
