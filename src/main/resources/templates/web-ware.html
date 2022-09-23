@@ -35,6 +35,7 @@
             height:100px;
             width:100px;
         }
+
 </style>
 <body>
 <div th:replace="fragments/topnav :: navbar"/>
@@ -44,57 +45,66 @@
     <div class="col-lg-10" style="text-align:center">
         <h3 style="color:white;">Web Warehouse</h3>
 
+        <div th:if="${error!=null}"
+             style="text-align:center; margin-top:1%" class="alert alert-danger">
+            <h3 class="error" th:text="${error}">Error message</h3>
+        </div>
+
         <div style="display:flex;flex-flow: row wrap;margin-top:1%;">
 
             <div class="card-wrap" th:each="item, rowStat : ${items}">
                 <div class="card"
                      style=";margin-top:1%;margin-left:1%">
+                    <form th:method="post" th:action="@{/mu-online/web-trader/ware/web/transfer}">
+                        <input th:type="hidden" th:value="${item.code}" name="code" id="code">
+                        <div class="card-header" style="text-align:center;">
+                            <a th:if="${item.luck || item.skill || item.exc || item.icon!=null}" id="icon1"
+                               data-toggle="collapse"
+                               th:href="'#collapse' + ${rowStat.index}"
+                               style="color:black;display:inline-block;text-align:center;">
+                                <h3 style="display: inline-block">
+                                    <i class="bi bi-info-circle" data-toggle="tooltip" data-html="true"
+                                       th:title="${item.name}"></i>
+                                </h3>
+                                <h3 style="display: inline-block"
+                                    data-toggle="tooltip" data-html="true" th:title="${item.name}"
+                                    class="card-title"
+                                    th:text="${(item.exc ? 'Exc ' : '') + item.name + (item.level>0 ? '+' + item.level : '')}">
+                                    Name</h3>
+                            </a>
 
-                    <div class="card-header" style="text-align:center;">
-                        <a th:if="${item.luck || item.skill || item.exc || item.icon!=null}" id="icon1" data-toggle="collapse"
-                           th:href="'#collapse' + ${rowStat.index}"
-                           style="color:black;display:inline-block;text-align:center;">
-                            <h3 style="display: inline-block">
-                                <i class="bi bi-info-circle" data-toggle="tooltip" data-html="true"
-                                   th:title="${item.name}"></i>
-                            </h3>
-                            <h3 style="display: inline-block"
+                            <h3 th:if="${!item.luck && !item.skill && !item.exc && item.icon==null}"
+                                style="display: inline-block"
                                 data-toggle="tooltip" data-html="true" th:title="${item.name}"
                                 class="card-title"
                                 th:text="${(item.exc ? 'Exc ' : '') + item.name + (item.level>0 ? '+' + item.level : '')}">
                                 Name</h3>
-                        </a>
-
-                        <h3 th:if="${!item.luck && !item.skill && !item.exc && item.icon==null}" style="display: inline-block"
-                            data-toggle="tooltip" data-html="true" th:title="${item.name}"
-                            class="card-title"
-                            th:text="${(item.exc ? 'Exc ' : '') + item.name + (item.level>0 ? '+' + item.level : '')}">
-                            Name</h3>
-                    </div>
-                    <div th:id="'collapse' + ${rowStat.index}" class="panel-collapse collapse">
-                        <div class="card-body">
-                            <table id="myTable2" style="margin-top:1%;" class="table">
-                                <tbody>
-                                <tr th:if="${item.icon!=null}">
-                                    <img class="rounded" th:src="@{${'data:image/jpeg;base64,'+ item.icon}}"/>
-                                </tr>
-                                <tr class="table" th:if="${item.luck}">
-                                    <td><strong th:text="Luck (success rate of Jewel of Soul +25%)"/></td>
-                                </tr>
-                                <tr class="table" th:if="${item.luck}">
-                                    <td><strong th:text="Luck (critical damage rate +5%)"/></td>
-                                </tr>
-                                <tr class="table" th:if="${item.exc}" th:each="option : ${item.excOptions}">
-                                    <td><label th:text="${option.name}"/></td>
-                                </tr>
-                                </tbody>
-                            </table>
                         </div>
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn btn-primary">Transfer to Game Warehouse</button>
-                        <button class="btn btn-warning">Put for Sale</button>
-                    </div>
+                        <div th:id="'collapse' + ${rowStat.index}" class="panel-collapse collapse">
+                            <div class="card-body">
+                                <table id="myTable2" style="margin-top:1%;" class="table">
+                                    <tbody>
+                                    <tr th:if="${item.icon!=null}">
+                                        <img class="rounded" th:src="@{${'data:image/jpeg;base64,'+ item.icon}}"/>
+                                    </tr>
+                                    <tr class="table" th:if="${item.luck}">
+                                        <td><strong th:text="Luck (success rate of Jewel of Soul +25%)"/></td>
+                                    </tr>
+                                    <tr class="table" th:if="${item.luck}">
+                                        <td><strong th:text="Luck (critical damage rate +5%)"/></td>
+                                    </tr>
+                                    <tr class="table" th:if="${item.exc}" th:each="option : ${item.excOptions}">
+                                        <td><label th:text="${option.name}"/></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Transfer to Game Warehouse</button>
+                            <button type="submit" th:formaction="@{/mu-online/web-trader/item/put-for-sale}" class="btn btn-warning">Put for Sale</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

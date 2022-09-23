@@ -1,9 +1,6 @@
 package pl.pacinho.muonlinewebtrader.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -25,4 +22,10 @@ public class WebWarehouse {
     @OneToOne
     @JoinColumn(name = "ACC_ID")
     private Account account;
+
+    @Setter
+    @Column(columnDefinition = "smallint")
+    private int active;
+
+
 }

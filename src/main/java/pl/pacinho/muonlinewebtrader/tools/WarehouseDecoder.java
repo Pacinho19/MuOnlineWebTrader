@@ -13,16 +13,15 @@ import java.util.stream.IntStream;
 @Component
 public class WarehouseDecoder {
     private final ItemDecoder itemDecoder;
-    private static final int CHUNK_SIZE = 32;
 
     public List<ExtendedItemDto> decode(String wareContent) {
         if (wareContent.startsWith("0x")) wareContent = wareContent.substring(2);
 
         final String wareContentF = wareContent;
-        String[] content = wareContentF.split("(?<=\\G.{" + CHUNK_SIZE + "})");
+        String[] content = wareContentF.split("(?<=\\G.{" + CodeUtils.ITEM_CHUNK_SIZE + "})");
         return IntStream.range(0, content.length)
                 .boxed()
-                .map(i -> itemDecoder.decode(content[i], i * CHUNK_SIZE))
+                .map(i -> itemDecoder.decode(content[i], i * CodeUtils.ITEM_CHUNK_SIZE))
                 .filter(Objects::nonNull)
                 .toList();
 

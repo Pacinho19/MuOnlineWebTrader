@@ -75,6 +75,8 @@ public class ItemDecoder {
         extendedItemDto.setName(itemDict.getName());
         extendedItemDto.setItemType(itemDict.getCategory());
         extendedItemDto.setIcon(ImageUtils.encodeFileToBase64Binary(itemDict.getIconPath()));
+        extendedItemDto.setWidth(itemDict.getWidth());
+        extendedItemDto.setHeight(itemDict.getHeight());
         if (extendedItemDto.isExc()) extendedItemDto.setExcOptions(getExcOptions(itemCode, extendedItemDto));
         return extendedItemDto;
     }

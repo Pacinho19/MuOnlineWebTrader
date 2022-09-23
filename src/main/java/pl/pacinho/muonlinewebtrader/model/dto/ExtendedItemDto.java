@@ -20,15 +20,19 @@ public class ExtendedItemDto extends SimpleItemDto {
     private boolean exc;
     private String code;
     private int position;
+    @Setter
+    private int width;
+    @Setter
+    private int height;
 
     public String getFullName() {
         return
                 (exc ? "Exc " : "")
-                        + this.getName()
-                        + (level > 0 ? "+" + level : "")
-                        + (luck ? "+Luck " : "")
-                        + (skill ? "+Skill " : "")
-                        + (excOptions != null && !excOptions.isEmpty()
+                + this.getName()
+                + (level > 0 ? "+" + level : "")
+                + (luck ? "+Luck " : "")
+                + (skill ? "+Skill " : "")
+                + (excOptions != null && !excOptions.isEmpty()
                         ? excOptions.stream().map(ExcOption::getName).collect(Collectors.joining(" +", " +", ""))
                         : "");
     }

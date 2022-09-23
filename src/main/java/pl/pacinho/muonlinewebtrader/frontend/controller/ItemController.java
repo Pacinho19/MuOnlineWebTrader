@@ -1,6 +1,7 @@
 package pl.pacinho.muonlinewebtrader.frontend.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +39,11 @@ public class ItemController {
         List<SimpleItemDto> items = ItemDtoMapper.parseList(itemService.findAll());
         model.addAttribute("items", items);
         return "item-list";
+    }
+
+    @PostMapping(UIConfig.PUT_FOR_SALE_ITEM_URL)
+    public String putForSale(Model model, @RequestParam("code") String code, Authentication authentication) {
+        return "redirect:"+UIConfig.SHOP_URL;
     }
 
 
