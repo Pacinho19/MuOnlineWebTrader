@@ -12,4 +12,5 @@ public class UIConfig {
     public static final String WEB_WAREHOUSE_URL = WAREHOUSE_URL + "/web";
     public static final String TRANSFER_TO_GAME_WAREHOUSE_URL = WAREHOUSE_URL + "/web/transfer";
     public static final String SHOP_URL = HOME_URL + "/shop";
+    public static final String GAME_WAREHOUSE_EXTENDED_URL = WAREHOUSE_URL + "/extended";
 }

@@ -1,6 +1,7 @@
 package pl.pacinho.muonlinewebtrader.frontend.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.ListUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import pl.pacinho.muonlinewebtrader.frontend.config.UIConfig;
 import pl.pacinho.muonlinewebtrader.service.AccountService;
 import pl.pacinho.muonlinewebtrader.service.WarehouseService;
 import pl.pacinho.muonlinewebtrader.service.WebWarehouseService;
+import pl.pacinho.muonlinewebtrader.tools.CodeUtils;
 import pl.pacinho.muonlinewebtrader.tools.WarehouseDecoder;
 import pl.pacinho.muonlinewebtrader.tools.WarehouseTools;
 
@@ -34,6 +36,17 @@ public class WarehouseController {
         return "game-ware";
     }
 
+    @GetMapping(UIConfig.GAME_WAREHOUSE_EXTENDED_URL)
+    public String gameWarehouseExtended(Model model, Authentication authentication) {
+        model.addAttribute(
+                "items",
+                ListUtils.partition(
+                        warehouseDecoder.decodeExtended(warehouseService.getWarehouseByAccountName(authentication.getName()).getContent())
+                        , CodeUtils.WAREHOUSE_ROW_SIZE));
+        return "game-ware-extended";
+    }
+
+
     @GetMapping(UIConfig.WEB_WAREHOUSE_URL)
     public String webWarehouse(Model model, Authentication authentication) {
         model.addAttribute(
@@ -43,9 +56,9 @@ public class WarehouseController {
     }
 
     @PostMapping(UIConfig.TRANSFER_TO_WEB_WAREHOUSE_URL)
-    public String transferToWebWarehouse(Model model,@RequestParam("code") String code, Authentication authentication ) {
+    public String transferToWebWarehouse(Model model, @RequestParam("code") String code, Authentication authentication) {
         try {
-        warehouseTools.transferToWeb(authentication.getName(), code);
+            warehouseTools.transferToWeb(authentication.getName(), code);
         } catch (Exception ex) {
             model.addAttribute("error", ex.getMessage());
             return gameWarehouse(model, authentication);
@@ -54,7 +67,7 @@ public class WarehouseController {
     }
 
     @PostMapping(UIConfig.TRANSFER_TO_GAME_WAREHOUSE_URL)
-    public String transferToGameWarehouse(Model model, @RequestParam("code") String code, Authentication authentication ) {
+    public String transferToGameWarehouse(Model model, @RequestParam("code") String code, Authentication authentication) {
         try {
             warehouseTools.transferToGame(authentication.getName(), code);
         } catch (Exception ex) {
