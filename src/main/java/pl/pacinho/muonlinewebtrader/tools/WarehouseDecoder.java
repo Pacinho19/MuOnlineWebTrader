@@ -5,6 +5,7 @@ import org.apache.commons.collections4.ListUtils;
 import org.springframework.stereotype.Component;
 import pl.pacinho.muonlinewebtrader.entity.WebWarehouse;
 import pl.pacinho.muonlinewebtrader.model.dto.ExtendedItemDto;
+import pl.pacinho.muonlinewebtrader.model.dto.FreeWareCellDto;
 import pl.pacinho.muonlinewebtrader.model.dto.ItemWareCellDto;
 import pl.pacinho.muonlinewebtrader.model.dto.WareCellDto;
 import pl.pacinho.muonlinewebtrader.model.enums.CellType;
@@ -83,7 +84,7 @@ public class WarehouseDecoder {
                     ExtendedItemDto itemDto = itemDecoder.decode(cells.get(cell),
                             cellNumber * CodeUtils.ITEM_CHUNK_SIZE);
 
-                    if (itemDto == null) return WareCellDto.createFreeCell(rowNumber, cell, cellNumber);
+                    if (itemDto == null) return FreeWareCellDto.createFreeCell(rowNumber, cell, cellNumber);
                     return ItemWareCellDto.createItemCell(rowNumber, cell, cellNumber, itemDto);
                 })
                 .toList();
