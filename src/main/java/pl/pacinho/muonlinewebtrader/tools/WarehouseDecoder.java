@@ -57,7 +57,7 @@ public class WarehouseDecoder {
 
         blockingItemCells(cellMap);
 
-        printToConsole(cellMap.values());
+//        printToConsole(cellMap.values());
 
         return cellMap.values()
                 .stream()
