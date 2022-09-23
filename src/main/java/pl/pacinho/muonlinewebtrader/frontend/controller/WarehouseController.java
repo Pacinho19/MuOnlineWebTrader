@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import pl.pacinho.muonlinewebtrader.entity.Warehouse;
 import pl.pacinho.muonlinewebtrader.frontend.config.UIConfig;
-import pl.pacinho.muonlinewebtrader.repository.WarehouseRepository;
 import pl.pacinho.muonlinewebtrader.service.AccountService;
 import pl.pacinho.muonlinewebtrader.service.WarehouseService;
 import pl.pacinho.muonlinewebtrader.service.WebWarehouseService;
@@ -27,7 +25,6 @@ public class WarehouseController {
     private final WebWarehouseService webWarehouseService;
     private final WarehouseDecoder warehouseDecoder;
     private final WarehouseTools warehouseTools;
-    private final AccountService accountService;
 
     @GetMapping(UIConfig.WAREHOUSE_URL)
     public String gameWarehouse(Model model, Authentication authentication) {
@@ -45,31 +42,26 @@ public class WarehouseController {
         return "web-ware";
     }
 
-    @Transactional
     @PostMapping(UIConfig.TRANSFER_TO_WEB_WAREHOUSE_URL)
-    public String transferToWebWarehouse(@RequestParam("code") String code, Authentication authentication) {
-        warehouseService.removeItem(code, authentication.getName());
-        webWarehouseService.addItem(accountService.findByLogin(authentication.getName()), code);
+    public String transferToWebWarehouse(Model model,@RequestParam("code") String code, Authentication authentication ) {
+        try {
+        warehouseTools.transferToWeb(authentication.getName(), code);
+        } catch (Exception ex) {
+            model.addAttribute("error", ex.getMessage());
+            return gameWarehouse(model, authentication);
+        }
         return "redirect:" + UIConfig.WEB_WAREHOUSE_URL;
     }
 
-    @Transactional
     @PostMapping(UIConfig.TRANSFER_TO_GAME_WAREHOUSE_URL)
-    public ModelAndView transferToGameWarehouse(@RequestParam("code") String code, Authentication authentication, ModelAndView modelAndView) {
-        if (!warehouseTools.checkSpaceForPutItem(code)) {
-            modelAndView.setViewName("web-ware");
-            modelAndView.addObject("error", "Not enough space in game warehouse for transfer selected item!");
-            return modelAndView;
-        }
+    public String transferToGameWarehouse(Model model, @RequestParam("code") String code, Authentication authentication ) {
         try {
-            webWarehouseService.removeItem(authentication.getName(), code);
-            warehouseService.addItem(authentication.getName(), code);
+            warehouseTools.transferToGame(authentication.getName(), code);
         } catch (Exception ex) {
-            modelAndView.setViewName("web-ware");
-            modelAndView.addObject("error", ex.getMessage());
-            return modelAndView;
+            model.addAttribute("error", ex.getMessage());
+            return webWarehouse(model, authentication);
         }
-        return new ModelAndView("redirect:" + UIConfig.WAREHOUSE_URL);
+        return "redirect:" + UIConfig.WAREHOUSE_URL;
     }
 
 }

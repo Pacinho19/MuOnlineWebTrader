@@ -12,7 +12,6 @@ import pl.pacinho.muonlinewebtrader.tools.WarehouseTools;
 public class WarehouseService {
 
     private final WarehouseRepository warehouseRepository;
-    private final WarehouseTools warehouseTools;
 
     public Warehouse getWarehouseByAccountName(String accountName) {
         return warehouseRepository.findByAccountName(accountName);
@@ -32,7 +31,7 @@ public class WarehouseService {
         if (!ware.getContent().contains(CodeUtils.EMPTY_CODE))
             throw new IllegalStateException("No free space in game warehouse!");
 
-        ware.setContent(warehouseTools.addItem(ware.getContent(), code));
+        ware.setContent(CodeUtils.addItemToWare(ware.getContent(), code));
         warehouseRepository.save(ware);
     }
 }

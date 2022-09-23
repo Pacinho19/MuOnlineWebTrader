@@ -1,8 +1,13 @@
 package pl.pacinho.muonlinewebtrader.tools;
 
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
+import pl.pacinho.muonlinewebtrader.service.WarehouseService;
+import pl.pacinho.muonlinewebtrader.service.WebWarehouseService;
 
+import javax.resource.spi.IllegalStateException;
+import javax.transaction.Transactional;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -11,25 +16,27 @@ import java.util.stream.IntStream;
 @Component
 public class WarehouseTools {
 
+    private final WarehouseService warehouseService;
+    private final WebWarehouseService webWarehouseService;
+
     public boolean checkSpaceForPutItem(String code) {
         return true;
     }
 
-    public String addItem(String wareContent, String code) {
-        if (wareContent.startsWith("0x")) wareContent = wareContent.substring(2);
-
-        String[] content = wareContent.split("(?<=\\G.{" + CodeUtils.ITEM_CHUNK_SIZE + "})");
-        AtomicBoolean replaceFinish = new AtomicBoolean(false);
-        return "0x" +
-               IntStream.range(0, content.length)
-                       .boxed()
-                       .map(i -> {
-                           if (!replaceFinish.get() && content[i].equals(CodeUtils.EMPTY_CODE)) {
-                               replaceFinish.set(true);
-                               return code;
-                           }
-                           return content[i];
-                       })
-                       .collect(Collectors.joining());
+    @SneakyThrows
+    @Transactional
+    public void transferToGame(String accountName, String code) {
+        if (!checkSpaceForPutItem(code)) {
+            throw new IllegalStateException("Not enough space in game warehouse for transfer selected item!");
+        }
+        webWarehouseService.removeItem(accountName, code);
+        warehouseService.addItem(accountName, code);
     }
+
+    @Transactional
+    public void transferToWeb(String accountName, String code) {
+        warehouseService.removeItem(code, accountName);
+        webWarehouseService.addItem(accountName, code);
+    }
+
 }

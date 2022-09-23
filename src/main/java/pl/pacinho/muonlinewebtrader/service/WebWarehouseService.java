@@ -16,12 +16,14 @@ import java.util.Optional;
 public class WebWarehouseService {
 
     private final WebWarehouseRepository webWarehouseRepository;
+    private final AccountService accountService;
 
     public List<WebWarehouse> getWarehouseByAccountName(String accountName) {
         return webWarehouseRepository.findByAccountNameAndActive(accountName, 1);
     }
 
-    public void addItem(Account account, String itemCode) {
+    public void addItem(String accountName, String itemCode) {
+        Account account = accountService.findByLogin(accountName);
         webWarehouseRepository.save(
                 WebWarehouse.builder()
                         .item(itemCode)
@@ -33,7 +35,7 @@ public class WebWarehouseService {
     @SneakyThrows
     public void removeItem(String name, String code) {
         Optional<WebWarehouse> webWareOpt = webWarehouseRepository.findByAccountNameAndItemAndActive(name, code, 1);
-        if(webWareOpt.isEmpty())
+        if (webWareOpt.isEmpty())
             throw new IllegalStateException("Selected item not found in Web Warehouse!");
 
         WebWarehouse webWare = webWareOpt.get();
