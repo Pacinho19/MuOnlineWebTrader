@@ -22,6 +22,7 @@ public class WarehouseDecoder {
 
     public List<ExtendedItemDto> decode(String wareContent) {
         if (wareContent.startsWith("0x")) wareContent = wareContent.substring(2);
+        if (wareContent.length() > CodeUtils.WAREHOUSE_CELLS_COUNT) wareContent = wareContent.substring(0, CodeUtils.ITEM_CHUNK_SIZE * CodeUtils.WAREHOUSE_CELLS_COUNT);
 
         final String wareContentF = wareContent;
         String[] content = wareContentF.split("(?<=\\G.{" + CodeUtils.ITEM_CHUNK_SIZE + "})");
@@ -69,10 +70,11 @@ public class WarehouseDecoder {
                 .filter(i -> i.getType() == CellType.ITEM)
                 .forEach(c -> {
                     ItemWareCellDto item = (ItemWareCellDto) c;
-                    item.getCellsIdx()
-                            .forEach(ci -> {
-                                if (ci != item.getNumber()) cellMap.get(ci).setType(CellType.BLOCKED);
-                            });
+                    if (item.getCellsIdx() != null)
+                        item.getCellsIdx()
+                                .forEach(ci -> {
+                                    if (ci != item.getNumber()) cellMap.get(ci).setType(CellType.BLOCKED);
+                                });
                 });
     }
 

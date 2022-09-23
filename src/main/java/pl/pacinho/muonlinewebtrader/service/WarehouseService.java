@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import pl.pacinho.muonlinewebtrader.entity.Warehouse;
 import pl.pacinho.muonlinewebtrader.repository.WarehouseRepository;
 import pl.pacinho.muonlinewebtrader.tools.CodeUtils;
-import pl.pacinho.muonlinewebtrader.tools.WarehouseTools;
 
 @RequiredArgsConstructor
 @Service
@@ -26,12 +25,12 @@ public class WarehouseService {
         warehouseRepository.save(ware);
     }
 
-    public void addItem(String name, String code) {
+    public void addItem(String name, String code, int startPosition) {
         Warehouse ware = warehouseRepository.findByAccountName(name);
         if (!ware.getContent().contains(CodeUtils.EMPTY_CODE))
             throw new IllegalStateException("No free space in game warehouse!");
 
-        ware.setContent(CodeUtils.addItemToWare(ware.getContent(), code));
+        ware.setContent(CodeUtils.addItemToWare(ware.getContent(), code, startPosition));
         warehouseRepository.save(ware);
     }
 }

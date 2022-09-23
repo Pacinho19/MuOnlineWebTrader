@@ -30,22 +30,17 @@ public class WarehouseController {
 
     @GetMapping(UIConfig.WAREHOUSE_URL)
     public String gameWarehouse(Model model, Authentication authentication) {
+        String warehouseContent = warehouseService.getWarehouseByAccountName(authentication.getName()).getContent();
         model.addAttribute(
                 "items",
-                warehouseDecoder.decode(warehouseService.getWarehouseByAccountName(authentication.getName()).getContent()));
+                warehouseDecoder.decode(warehouseContent));
+        model.addAttribute(
+                "warehouse",
+                ListUtils.partition(
+                        warehouseDecoder.decodeExtended(warehouseContent)
+                        , CodeUtils.WAREHOUSE_ROW_SIZE));
         return "game-ware";
     }
-
-    @GetMapping(UIConfig.GAME_WAREHOUSE_EXTENDED_URL)
-    public String gameWarehouseExtended(Model model, Authentication authentication) {
-        model.addAttribute(
-                "items",
-                ListUtils.partition(
-                        warehouseDecoder.decodeExtended(warehouseService.getWarehouseByAccountName(authentication.getName()).getContent())
-                        , CodeUtils.WAREHOUSE_ROW_SIZE));
-        return "game-ware-extended";
-    }
-
 
     @GetMapping(UIConfig.WEB_WAREHOUSE_URL)
     public String webWarehouse(Model model, Authentication authentication) {
