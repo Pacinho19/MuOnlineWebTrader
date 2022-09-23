@@ -19,14 +19,14 @@ public class ItemIconsService {
         List<File> files = FileUtils.readDirectory(FileUtils.IMG_LOCATION);
         if (files == null) return;
 
-        Map<Object, List<File>> icons = files
+        Map<String, List<File>> icons = files
                 .stream()
-                .collect(Collectors.groupingBy(file -> file.getName().split("\\.")[0].trim()));
+                .collect(Collectors.groupingBy(file -> file.getName().split("\\.")[0].trim().toLowerCase()));
 
         itemService.findAll()
                 .forEach(i -> {
                     if (i.getIconPath() != null) return;
-                    List<File> file = icons.get(i.getName());
+                    List<File> file = icons.get(i.getName().toLowerCase());
                     if (file == null)
                         i.setIconPath(icons.get("null").get(0).getPath());
                     else

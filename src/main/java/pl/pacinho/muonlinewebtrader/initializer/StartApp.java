@@ -22,6 +22,7 @@ public class StartApp {
     private final ItemService itemService;
     private final AccountService accountService;
     private final ItemIconsService itemIconsService;
+
     @EventListener(ApplicationReadyEvent.class)
     public void appReady() {
         initItems();
@@ -34,23 +35,30 @@ public class StartApp {
     }
 
     private void initUsers() {
-        if(accountService.getCount()>0) return;
+        if (accountService.getCount() > 0) return;
         accountService.save(new Account("Testowy", "test"));
     }
 
     private void initItems() {
         if (itemService.getCount() > 0) return;
 
-        FileUtils.readTxt(new File("items.csv"))
+        FileUtils.readTxt(new File("Items2.csv"))
                 .stream()
                 .skip(1)
                 .map(s -> s.split(";"))
                 .map(arr -> new Item(
                         Integer.parseInt(arr[1]),
                         Integer.parseInt(arr[0]),
-                        Integer.parseInt(arr[2]),
-                        ItemType.getItemType(arr[4]),
-                        arr[5]
+                        Integer.parseInt(arr[3]),
+                        Integer.parseInt(arr[4]),
+                        arr[2],
+                        Integer.parseInt(arr[5]),
+                        Integer.parseInt(arr[6]),
+                        Integer.parseInt(arr[7]),
+                        Integer.parseInt(arr[8]),
+                        Integer.parseInt(arr[9]),
+                        Integer.parseInt(arr[10]),
+                        Integer.parseInt(arr[11])
                 ))
                 .forEach(itemService::save);
     }
