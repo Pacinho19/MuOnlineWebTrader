@@ -12,7 +12,7 @@ public class CodeUtils {
 
     public static final int ITEM_CHUNK_SIZE = 32;
     public static final Integer WAREHOUSE_ROW_SIZE = 8;
-    public static final Integer WAREHOUSE_CELLS_COUNT = 128;
+    public static final Integer WAREHOUSE_CELLS_COUNT = 120;
     public static final String EMPTY_CODE = "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF";
 
     public static String baseConvert(final String inputValue, final int fromBase, final int toBase) {

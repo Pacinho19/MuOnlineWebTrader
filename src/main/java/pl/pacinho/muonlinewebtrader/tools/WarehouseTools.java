@@ -59,9 +59,8 @@ public class WarehouseTools {
                 });
     }
 
-    @SneakyThrows
     @Transactional
-    public void transferToGame(String accountName, String code) {
+    public void transferToGame(String accountName, String code) throws IllegalStateException {
         int startPosition = checkSpaceForPutItem(itemDecoder.decode(code, -1), warehouseService.getWarehouseByAccountName(accountName));
         if (startPosition == -1) {
             throw new IllegalStateException("Not enough space in game warehouse for transfer selected item!");
