@@ -44,6 +44,7 @@ public class WarehouseDecoder {
 
     public List<WareCellDto> decodeExtended(String wareContent) {
         if (wareContent.startsWith("0x")) wareContent = wareContent.substring(2);
+        if (wareContent.length() > CodeUtils.WAREHOUSE_CELLS_COUNT) wareContent = wareContent.substring(0, CodeUtils.ITEM_CHUNK_SIZE * CodeUtils.WAREHOUSE_CELLS_COUNT);
 
         final String wareContentF = wareContent;
         String[] content = wareContentF.split("(?<=\\G.{" + CodeUtils.ITEM_CHUNK_SIZE + "})");

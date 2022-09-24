@@ -25,7 +25,7 @@ public enum ItemType {
     WING_AND_ORB(12, "Wing/Orb", ExcOptionsGroup.WINGS_2ND),
     MISC(13, "MISC", ExcOptionsGroup.SETS_SHIELDS_RINGS),
     MISC_2(14, "MISC", ExcOptionsGroup.SETS_SHIELDS_RINGS),
-    DW_SM_MG_SCROLL(15, "DW/SM/MG Scroll", null),
+    DW_SM_MG_SCROLL(15, "DW/SM/MG Scroll", ExcOptionsGroup.WEAPONS),
     UNKNOWN(-1, "Unknown", null);
 
     private int sectionNumber;

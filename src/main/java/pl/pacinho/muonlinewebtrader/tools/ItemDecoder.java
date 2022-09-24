@@ -10,6 +10,7 @@ import pl.pacinho.muonlinewebtrader.utils.ImageUtils;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -63,6 +64,7 @@ public class ItemDecoder {
                 .boxed()
                 .filter(i -> excFinal.charAt(i + 2) == '1')
                 .map(i -> ExcOptionParser.parse(i, extendedItemDto))
+                .filter(Objects::nonNull)
                 .toList();
     }
 
