@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import pl.pacinho.muonlinewebtrader.model.dto.ExtendedItemDto;
 import pl.pacinho.muonlinewebtrader.model.dto.WareCellDto;
-import pl.pacinho.muonlinewebtrader.model.dto.WarehouseDto;
+import pl.pacinho.muonlinewebtrader.model.dto.WarehouseRequestDto;
 import pl.pacinho.muonlinewebtrader.tools.ItemDecoder;
 import pl.pacinho.muonlinewebtrader.tools.WarehouseDecoder;
 
@@ -19,12 +19,12 @@ public class ItemDecoderController {
     private final ItemDecoder itemDecoder;
 
     @PostMapping("/warehouse/decode")
-    public List<ExtendedItemDto> decode(@RequestBody WarehouseDto warehouse) {
+    public List<ExtendedItemDto> decode(@RequestBody WarehouseRequestDto warehouse) {
         return warehouseDecoder.decode(warehouse.getContent());
     }
 
     @PostMapping("/warehouse/decode/extended")
-    public List<WareCellDto> decodeExtended(@RequestBody WarehouseDto warehouse) {
+    public List<WareCellDto> decodeExtended(@RequestBody WarehouseRequestDto warehouse) {
         return warehouseDecoder.decodeExtended(warehouse.getContent());
     }
 

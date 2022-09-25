@@ -10,15 +10,17 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class WebWarehouse {
-
+public class WebWarehouseItem {
     @Id
-    @GenericGenerator(name = "webWareIdGen", strategy = "increment")
-    @GeneratedValue(generator = "webWareIdGen")
+    @GenericGenerator(name = "webWareItemIdGen", strategy = "increment")
+    @GeneratedValue(generator = "webWareItemIdGen")
     private Long id;
 
+    private String item;
+
     @Setter
-    private Long zen;
+    @Column(columnDefinition = "smallint")
+    private int active;
 
     @OneToOne
     @JoinColumn(name = "ACC_ID")

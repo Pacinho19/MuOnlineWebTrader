@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface WebWarehouseRepository extends JpaRepository<WebWarehouse, Long> {
-    WebWarehouse findByAccountName(String accountName);
+public interface WebWarehouseItemRepository extends JpaRepository<WebWarehouseItem, Long> {
+    List<WebWarehouseItem> findByAccountNameAndActive(String accountName, int active);
+
+    Optional<WebWarehouseItem> findByAccountNameAndItemAndActive(String name, String code, int active);
 }

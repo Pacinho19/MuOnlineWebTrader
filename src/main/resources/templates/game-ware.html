@@ -42,6 +42,9 @@
             height:35px;
         }
 
+
+
+
 </style>
 <body>
 <div th:replace="fragments/topnav :: navbar"/>
@@ -53,59 +56,98 @@
         <div class="row">
             <div class="col-lg-8" style="text-align:center">
                 <h3 style="color:white;">Items</h3>
-                <div style="display:flex;flex-flow: row wrap;">
-                    <div class="card-wrap" th:each="item, rowStat : ${items}">
-                        <div class="card"style="margin-left:1%">
-                            <form th:method="post" th:action="@{/mu-online/web-trader/ware/transfer}">
-                                <input th:type="hidden" th:value="${item.code}" name="code" id="code">
-                                <div class="card-header" style="text-align:center;">
-                                    <a th:if="${item.luck || item.skill || item.exc || item.icon!=null}" id="icon1"
-                                       data-toggle="collapse"
-                                       th:href="'#collapse' + ${rowStat.index}"
-                                       style="color:black;display:inline-block;text-align:center;">
-                                        <h3 style="display: inline-block">
-                                            <i class="bi bi-info-circle" data-toggle="tooltip" data-html="true"
-                                               th:title="${item.name}"></i>
-                                        </h3>
-                                        <h3 style="display: inline-block"
+                <div class="card">
+                    <div class="card-header" style="text-align:center;">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">ZEN $</span>
+                            </div>
+                            <input readonly th:value="${ware.zen}" type="number" class="form-control" aria-label="Zen">
+                            <div class="input-group-append">
+                                <a data-toggle="collapse" class="input-group-text bi bi-arrow-down-up"
+                                   th:href="'#collapseZen'">
+                                </a>
+                            </div>
+                        </div>
+
+                        <div style="margin-top:1%;" th:id="'collapseZen'" class="panel-collapse collapse">
+                            <form th:method="post" th:action="@{/mu-online/web-trader/ware/zen-transfer}">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">ZEN $</span>
+                                    </div>
+
+                                    <input id="zen" name="zen" min="0" th:max="${ware.zen}" type="number"
+                                           class="form-control"
+                                           aria-label="Zen">
+                                    <div class="input-group-append">
+                                        <button style="margin-left:1%" type="submit"
+                                                class="input-group-text  btn btn-primary">Transfer to
+                                            Web Warehouse
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
+                    <div style="display:flex;flex-flow: row wrap;">
+                        <div class="card-wrap" th:each="item, rowStat : ${ware.items}">
+                            <div class="card" style="margin-left:1%">
+                                <form th:method="post" th:action="@{/mu-online/web-trader/ware/transfer}">
+                                    <input th:type="hidden" th:value="${item.code}" name="code" id="code">
+                                    <div class="card-header" style="text-align:center;">
+                                        <a th:if="${item.luck || item.skill || item.exc || item.icon!=null}" id="icon1"
+                                           data-toggle="collapse"
+                                           th:href="'#collapse' + ${rowStat.index}"
+                                           style="color:black;display:inline-block;text-align:center;">
+                                            <h3 style="display: inline-block">
+                                                <i class="bi bi-info-circle" data-toggle="tooltip" data-html="true"
+                                                   th:title="${item.name}"></i>
+                                            </h3>
+                                            <h3 style="display: inline-block"
+                                                data-toggle="tooltip" data-html="true" th:title="${item.name}"
+                                                class="card-title"
+                                                th:text="${(item.exc ? 'Exc ' : '') + item.name + (item.level>0 ? '+' + item.level : '')}">
+                                                Name</h3>
+                                        </a>
+
+                                        <h3 th:if="${!item.luck && !item.skill && !item.exc && item.icon==null}"
+                                            style="display: inline-block"
                                             data-toggle="tooltip" data-html="true" th:title="${item.name}"
                                             class="card-title"
                                             th:text="${(item.exc ? 'Exc ' : '') + item.name + (item.level>0 ? '+' + item.level : '')}">
                                             Name</h3>
-                                    </a>
-
-                                    <h3 th:if="${!item.luck && !item.skill && !item.exc && item.icon==null}"
-                                        style="display: inline-block"
-                                        data-toggle="tooltip" data-html="true" th:title="${item.name}"
-                                        class="card-title"
-                                        th:text="${(item.exc ? 'Exc ' : '') + item.name + (item.level>0 ? '+' + item.level : '')}">
-                                        Name</h3>
-                                </div>
-                                <div th:id="'collapse' + ${rowStat.index}" class="panel-collapse collapse">
-                                    <div class="card-body">
-                                        <table id="myTable2" style="margin-top:1%;" class="table">
-                                            <tbody>
-                                            <tr th:if="${item.icon!=null}">
-                                                <img class="rounded"
-                                                     th:src="@{${'data:image/jpeg;base64,'+ item.icon}}"/>
-                                            </tr>
-                                            <tr class="table" th:if="${item.luck}">
-                                                <td><strong th:text="Luck (success rate of Jewel of Soul +25%)"/></td>
-                                            </tr>
-                                            <tr class="table" th:if="${item.luck}">
-                                                <td><strong th:text="Luck (critical damage rate +5%)"/></td>
-                                            </tr>
-                                            <tr class="table" th:if="${item.exc}" th:each="option : ${item.excOptions}">
-                                                <td><label th:text="${option.name}"/></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
                                     </div>
-                                </div>
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Transfer to Web Warehouse</button>
-                                </div>
-                            </form>
+                                    <div th:id="'collapse' + ${rowStat.index}" class="panel-collapse collapse">
+                                        <div class="card-body">
+                                            <table id="myTable2" style="margin-top:1%;" class="table">
+                                                <tbody>
+                                                <tr th:if="${item.icon!=null}">
+                                                    <img class="rounded"
+                                                         th:src="@{${'data:image/jpeg;base64,'+ item.icon}}"/>
+                                                </tr>
+                                                <tr class="table" th:if="${item.luck}">
+                                                    <td><strong th:text="Luck (success rate of Jewel of Soul +25%)"/>
+                                                    </td>
+                                                </tr>
+                                                <tr class="table" th:if="${item.luck}">
+                                                    <td><strong th:text="Luck (critical damage rate +5%)"/></td>
+                                                </tr>
+                                                <tr class="table" th:if="${item.exc}"
+                                                    th:each="option : ${item.excOptions}">
+                                                    <td><label th:text="${option.name}"/></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Transfer to Web Warehouse</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -117,8 +159,8 @@
                         <th:block th:each="cellItem : ${rowItems}">
                             <td class="itemcell" th:if="${cellItem.type.name=='FREE'}">
                                 <img width="100%" height="100%"
-                                        style="display:block;width:100%;height:100%"
-                                        th:src="@{${'data:image/jpeg;base64,'+ cellItem.icon}}"/>
+                                     style="display:block;width:100%;height:100%"
+                                     th:src="@{${'data:image/jpeg;base64,'+ cellItem.icon}}"/>
                             </td>
                             <td class="itemcell"
                                 th:style="'background-image:url(' + @{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'"

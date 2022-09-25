@@ -33,4 +33,19 @@ public class WarehouseService {
         ware.setContent(CodeUtils.addItemToWare(ware.getContent(), code, startPosition));
         warehouseRepository.save(ware);
     }
+
+    public Long findZenByAccountName(String name) {
+        return warehouseRepository.findByAccountName(name)
+                .getZen();
+    }
+
+    public void subtractZenValue(Long zen, String name) {
+        addZenValue(-zen, name);
+    }
+
+    public void addZenValue(Long zen, String name) {
+        Warehouse ware = getWarehouseByAccountName(name);
+        ware.setZen(ware.getZen() + zen);
+        warehouseRepository.save(ware);
+    }
 }

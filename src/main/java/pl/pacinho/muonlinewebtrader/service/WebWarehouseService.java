@@ -1,45 +1,38 @@
 package pl.pacinho.muonlinewebtrader.service;
 
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
-import pl.pacinho.muonlinewebtrader.entity.Account;
 import pl.pacinho.muonlinewebtrader.entity.WebWarehouse;
 import pl.pacinho.muonlinewebtrader.repository.WebWarehouseRepository;
-
-import javax.resource.spi.IllegalStateException;
-import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class WebWarehouseService {
-
     private final WebWarehouseRepository webWarehouseRepository;
     private final AccountService accountService;
 
-    public List<WebWarehouse> getWarehouseByAccountName(String accountName) {
-        return webWarehouseRepository.findByAccountNameAndActive(accountName, 1);
+    public WebWarehouse getWarehouseByAccountName(String accountName) {
+        return webWarehouseRepository.findByAccountName(accountName);
     }
 
-    public void addItem(String accountName, String itemCode) {
-        Account account = accountService.findByLogin(accountName);
-        webWarehouseRepository.save(
-                WebWarehouse.builder()
-                        .item(itemCode)
-                        .account(account)
-                        .active(1)
-                        .build());
+    public void addZen(String accountName, Long zen) {
+        WebWarehouse ware = getWarehouseByAccountName(accountName);
+        if (ware == null)
+            ware = WebWarehouse.builder()
+                    .zen(0L)
+                    .account(accountService.findByLogin(accountName))
+                    .build();
+
+        ware.setZen(ware.getZen() + zen);
+        webWarehouseRepository.save(ware);
     }
 
-    @SneakyThrows
-    public void removeItem(String name, String code) {
-        Optional<WebWarehouse> webWareOpt = webWarehouseRepository.findByAccountNameAndItemAndActive(name, code, 1);
-        if (webWareOpt.isEmpty())
-            throw new IllegalStateException("Selected item not found in Web Warehouse!");
+    public Long findZenByAccountName(String name) {
+        return webWarehouseRepository.findByAccountName(name)
+                .getZen();
+    }
 
-        WebWarehouse webWare = webWareOpt.get();
-        webWare.setActive(0);
-        webWarehouseRepository.save(webWare);
+    public void subtractZen(String name, Long zen) {
+        addZen(name, -zen);
     }
 }

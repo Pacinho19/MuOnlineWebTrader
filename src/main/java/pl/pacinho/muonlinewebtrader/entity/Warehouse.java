@@ -22,4 +22,7 @@ public class Warehouse {
     @OneToOne
     @JoinColumn(name = "ACC_ID")
     private Account account;
+
+    @Setter
+    private Long zen;
 }

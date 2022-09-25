@@ -1,30 +1,28 @@
 package pl.pacinho.muonlinewebtrader.tools;
 
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 import pl.pacinho.muonlinewebtrader.entity.Warehouse;
 import pl.pacinho.muonlinewebtrader.model.dto.ExtendedItemDto;
 import pl.pacinho.muonlinewebtrader.model.dto.WareCellDto;
 import pl.pacinho.muonlinewebtrader.model.enums.CellType;
 import pl.pacinho.muonlinewebtrader.service.WarehouseService;
+import pl.pacinho.muonlinewebtrader.service.WebWarehouseItemService;
 import pl.pacinho.muonlinewebtrader.service.WebWarehouseService;
 
 import javax.resource.spi.IllegalStateException;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @RequiredArgsConstructor
 @Component
 public class WarehouseTools {
 
     private final WarehouseService warehouseService;
+    private final WebWarehouseItemService webWarehouseItemService;
     private final WebWarehouseService webWarehouseService;
     private final WarehouseDecoder warehouseDecoder;
     private final ItemDecoder itemDecoder;
@@ -65,14 +63,32 @@ public class WarehouseTools {
         if (startPosition == -1) {
             throw new IllegalStateException("Not enough space in game warehouse for transfer selected item!");
         }
-        webWarehouseService.removeItem(accountName, code);
+        webWarehouseItemService.removeItem(accountName, code);
         warehouseService.addItem(accountName, code, startPosition);
     }
 
     @Transactional
     public void transferToWeb(String accountName, String code) {
         warehouseService.removeItem(code, accountName);
-        webWarehouseService.addItem(accountName, code);
+        webWarehouseItemService.addItem(accountName, code);
     }
 
+    @Transactional
+    public void transferZenToWebWarehouse(String name, Long zen) throws IllegalStateException {
+        Long zenWare = warehouseService.findZenByAccountName(name);
+        if (zen > zenWare)
+            throw new IllegalStateException("Not enough zen in warehouse! Your value in warehouse " + zenWare);
+
+        warehouseService.subtractZenValue(zen, name);
+        webWarehouseService.addZen(name, zen);
+    }
+
+    public void transferZenToGameWarehouse(String name, Long zen) throws IllegalStateException {
+        Long zenWare = webWarehouseService.findZenByAccountName(name);
+        if (zen > zenWare)
+            throw new IllegalStateException("Not enough zen in web warehouse! Your value in web warehouse " + zenWare);
+
+        warehouseService.addZenValue(zen, name);
+        webWarehouseService.subtractZen(name, zen);
+    }
 }

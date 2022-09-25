@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.ListUtils;
 import org.springframework.stereotype.Component;
 import pl.pacinho.muonlinewebtrader.entity.WebWarehouse;
+import pl.pacinho.muonlinewebtrader.entity.WebWarehouseItem;
 import pl.pacinho.muonlinewebtrader.model.dto.ExtendedItemDto;
 import pl.pacinho.muonlinewebtrader.model.dto.FreeWareCellDto;
 import pl.pacinho.muonlinewebtrader.model.dto.ItemWareCellDto;
@@ -34,7 +35,7 @@ public class WarehouseDecoder {
 
     }
 
-    public List<ExtendedItemDto> decodeWebItems(List<WebWarehouse> warehouseByAccountName) {
+    public List<ExtendedItemDto> decodeWebItems(List<WebWarehouseItem> warehouseByAccountName) {
         return warehouseByAccountName
                 .stream()
                 .map(ww -> itemDecoder.decode(ww.getItem(), -1))
