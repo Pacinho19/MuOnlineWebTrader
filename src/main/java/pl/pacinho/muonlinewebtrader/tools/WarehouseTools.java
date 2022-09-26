@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 @Component
 public class WarehouseTools {
 
+    private final Long GAME_WAREHOUSE_ZEN_LIMIT = 2_000_000_000L;
     private final WarehouseService warehouseService;
     private final WebWarehouseItemService webWarehouseItemService;
     private final WebWarehouseService webWarehouseService;
@@ -87,6 +88,10 @@ public class WarehouseTools {
         Long zenWare = webWarehouseService.findZenByAccountName(name);
         if (zen > zenWare)
             throw new IllegalStateException("Not enough zen in web warehouse! Your value in web warehouse " + zenWare);
+
+        Long zenGameWare = warehouseService.findZenByAccountName(name);
+        if (zenGameWare + zen > GAME_WAREHOUSE_ZEN_LIMIT)
+            throw new IllegalStateException("Amount zen is to big! Limit in game warehouse is " + GAME_WAREHOUSE_ZEN_LIMIT);
 
         warehouseService.addZenValue(zen, name);
         webWarehouseService.subtractZen(name, zen);

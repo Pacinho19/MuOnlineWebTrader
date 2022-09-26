@@ -38,12 +38,12 @@
         }
 
         .itemcell{
-            width:35px;
-            height:35px;
+            width:40px;
+            height:40px;
+            cursor:pointer;
         }
 
-
-
+        .highlight { border: 1px solid coral; }
 
 </style>
 <body>
@@ -100,7 +100,7 @@
                                     <div class="card-header" style="text-align:center;">
                                         <a th:if="${item.luck || item.skill || item.exc || item.icon!=null}" id="icon1"
                                            data-toggle="collapse"
-                                           th:href="'#collapse' + ${rowStat.index}"
+                                           th:href="'#collapse' + ${item.serialNumber}"
                                            style="color:black;display:inline-block;text-align:center;">
                                             <h3 style="display: inline-block">
                                                 <i class="bi bi-info-circle" data-toggle="tooltip" data-html="true"
@@ -120,7 +120,7 @@
                                             th:text="${(item.exc ? 'Exc ' : '') + item.name + (item.level>0 ? '+' + item.level : '')}">
                                             Name</h3>
                                     </div>
-                                    <div th:id="'collapse' + ${rowStat.index}" class="panel-collapse collapse">
+                                    <div th:id="'collapse' + ${item.serialNumber}" class="panel-collapse collapse">
                                         <div class="card-body">
                                             <table id="myTable2" style="margin-top:1%;" class="table">
                                                 <tbody>
@@ -162,13 +162,22 @@
                                      style="display:block;width:100%;height:100%"
                                      th:src="@{${'data:image/jpeg;base64,'+ cellItem.icon}}"/>
                             </td>
-                            <td class="itemcell"
-                                th:style="'background-image:url(' + @{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'"
-                                th:if="${cellItem.type.name=='ITEM'}" th:colspan="${cellItem.extendedItemDto.width}"
-                                th:rowspan="${cellItem.extendedItemDto.height}">
+                            <td th:if="${cellItem.type.name=='ITEM'}"
+                                th:colspan="${cellItem.extendedItemDto.width}"
+                                th:rowspan="${cellItem.extendedItemDto.height}"
+                                class="itemcell">
+                                <a th:href="'#collapse' + ${cellItem.extendedItemDto.serialNumber}" style="width:100%;height:100%"
+                                   data-toggle="collapse">
+                                    <div
+                                            th:style="'width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'"
+
+                                    ></div>
+                                </a>
                                 <!--                        <img width="100%" height="100%"-->
                                 <!--                             th:src="@{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}}"/>-->
                             </td>
+
+
                         </th:block>
                     </tr>
                 </table>
@@ -178,5 +187,11 @@
     <div class="col-lg-1"></div>
 </div>
 
+<script>
+    $('.itemcell').hover(function() {
+    $('.itemcell').removeClass('highlight');
+    $(this).addClass('highlight');
+});
+</script>
 </body>
 </html>
