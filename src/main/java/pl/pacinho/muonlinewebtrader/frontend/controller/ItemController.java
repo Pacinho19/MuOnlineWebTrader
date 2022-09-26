@@ -64,7 +64,7 @@ public class ItemController {
             model.addAttribute("error", ex.getMessage());
             return putForSalePage(model, priceDto, code);
         }
-        return "redirect:/" + UIConfig.ITEM_FOR_SALE + code;
+        return "redirect:" + UIConfig.ITEM_FOR_SALE + code;
     }
 
     @GetMapping(UIConfig.ITEM_FOR_SALE + "{code}")

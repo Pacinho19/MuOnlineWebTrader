@@ -71,6 +71,7 @@
 
                         <form th:object="${priceDto}" th:method="post"
                               th:action="@{/mu-online/web-trader/item/put-for-sale}">
+                            <input type="hidden" name="code" th:value="${item.code}">
                             <div class="row">
                                 <div class="col-md-4 input-group mb-3">
                                     <div class="input-group-prepend">
