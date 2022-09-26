@@ -28,6 +28,8 @@
         }
 
 
+
+
     </style>
 </head>
 <body>
@@ -56,7 +58,8 @@
                             <div class="col-md-6">
                                 <h4 style="text-align:right" th:text="'Seller : ' + ${itemShop.sellerAccount}">Seller
                                     Account</h4>
-                                <h4 style="text-align:right" th:text="${#temporals.format(itemShop.addDate,'dd-MM-yyyy HH:mm:ss')}">Add Date</h4>
+                                <h4 style="text-align:right"
+                                    th:text="${#temporals.format(itemShop.addDate,'dd-MM-yyyy HH:mm:ss')}">Add Date</h4>
                             </div>
 
                         </div>
@@ -86,14 +89,16 @@
                                 <form th:method="post" th:action="@{/mu-online/web-trader/item/buy}">
                                     <input type="hidden" name="code" th:value="${itemShop.itemDto.code}">
                                     <div class="card">
-                                        <div class="card-body input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <label class="input-group-text">ZEN $</label>
+                                        <div class="card-body input">
+                                                <label style="width:100%;text-align:center;">ZEN
+                                                    $</label>
+                                            <div class="input-group-append">
+                                                <input id="zen" th:value="${itemShop.priceDto.priceZen}" name="zen"
+                                                       readonly
+                                                       type="number"
+                                                       class="form-control"
+                                                       aria-label="Zen">
                                             </div>
-                                            <input id="zen" th:value="${itemShop.priceDto.priceZen}" name="zen" readonly
-                                                   type="number"
-                                                   class="form-control"
-                                                   aria-label="Zen">
                                             <input type="hidden" name="paymentMethod" value="ZEN">
                                         </div>
                                         <div class="card-footer">
@@ -110,16 +115,18 @@
                                 <form th:method="post" th:action="@{/mu-online/web-trader/item/buy}">
                                     <input type="hidden" name="code" th:value="${itemShop.itemDto.code}">
                                     <div class="card">
-                                        <div class="card-body input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <label class="input-group-text">Jewel of Bless</label>
+                                        <div class="card-body input-group">
+                                                <label style="width:100%;text-align:center;">Jewel
+                                                    of Bless</label>
+                                            <div class="input-group-append">
+                                                <input id="bless" th:value="${itemShop.priceDto.priceBless}"
+                                                       name="bless"
+                                                       readonly
+                                                       type="number"
+                                                       class="form-control"
+                                                       aria-label="Jewel of Bless">
+                                                <input type="hidden" name="paymentMethod" value="BLESS">
                                             </div>
-                                            <input id="bless" th:value="${itemShop.priceDto.priceBless}" name="bless"
-                                                   readonly
-                                                   type="number"
-                                                   class="form-control"
-                                                   aria-label="Jewel of Bless">
-                                            <input type="hidden" name="paymentMethod" value="BLESS">
                                         </div>
                                         <div class="card-footer">
                                             <button style="margin-left:1%;width:100%;margin-right:1%"
@@ -135,16 +142,17 @@
                                 <form th:method="post" th:action="@{/mu-online/web-trader/item/buy}">
                                     <input type="hidden" name="code" th:value="${itemShop.itemDto.code}">
                                     <div class="card">
-                                        <div class="card-body input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <label class="input-group-text">Jewel of Soul</label>
+                                        <div class="card-body input-group">
+                                                <label style="width:100%;text-align:center;" >Jewel
+                                                    of Soul</label>
+                                            <div class="input-group-append">
+                                                <input id="soul" th:value="${itemShop.priceDto.priceSoul}" name="soul"
+                                                       readonly
+                                                       type="number"
+                                                       class="form-control"
+                                                       aria-label="Jewel of Soul">
+                                                <input type="hidden" name="paymentMethod" value="SOUL">
                                             </div>
-                                            <input id="soul" th:value="${itemShop.priceDto.priceSoul}" name="soul"
-                                                   readonly
-                                                   type="number"
-                                                   class="form-control"
-                                                   aria-label="Jewel of Soul">
-                                            <input type="hidden" name="paymentMethod" value="SOUL">
                                         </div>
                                         <div class="card-footer">
                                             <button style="margin-left:1%;width:100%;margin-right:1%"
