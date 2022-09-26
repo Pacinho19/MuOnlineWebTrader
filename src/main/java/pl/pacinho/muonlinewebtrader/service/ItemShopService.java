@@ -1,6 +1,7 @@
 package pl.pacinho.muonlinewebtrader.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import pl.pacinho.muonlinewebtrader.entity.Account;
 import pl.pacinho.muonlinewebtrader.entity.ItemShop;
@@ -8,7 +9,6 @@ import pl.pacinho.muonlinewebtrader.model.dto.ItemShopDto;
 import pl.pacinho.muonlinewebtrader.model.dto.PriceDto;
 import pl.pacinho.muonlinewebtrader.model.dto.mapper.ItemShopDtoMapper;
 import pl.pacinho.muonlinewebtrader.repository.ItemShopRepository;
-import pl.pacinho.muonlinewebtrader.tools.ItemDecoder;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -60,6 +60,13 @@ public class ItemShopService {
 
     public List<ItemShopDto> findActiveOffers() {
         return itemShopRepository.findAllByActive(1)
+                .stream()
+                .map(itemShopDtoMapper::parse)
+                .toList();
+    }
+
+    public List<ItemShopDto> findLastAdded(int count) {
+        return itemShopRepository.findAllByActiveOrderByAddDateDesc(1, PageRequest.of(0, count))
                 .stream()
                 .map(itemShopDtoMapper::parse)
                 .toList();

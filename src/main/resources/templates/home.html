@@ -36,6 +36,7 @@
             height:100px;
             width:100px;
         }
+
     </style>
 </head>
 <body>
@@ -65,7 +66,8 @@
                                         <table id="myTable" style="margin-top:1%;" class="table">
                                             <tbody>
                                             <tr th:if="${item.icon!=null}">
-                                                <img class="rounded" th:src="@{${'data:image/jpeg;base64,'+ item.icon}}"/>
+                                                <img class="rounded"
+                                                     th:src="@{${'data:image/jpeg;base64,'+ item.icon}}"/>
                                             </tr>
                                             <tr class="table" style="margin-top:1%;">
                                                 <td><strong>Category</strong></td>
@@ -92,38 +94,79 @@
 
         <h3 style="color:white;margin-top:3%">Latest added items</h3>
         <div style="display:flex;flex-flow: row wrap;margin-top:1%;">
-            <div class="card-wrap" th:each="item, rowStat : ${itemsRecentlyAdded}">
-                <div class="card"
-                     style=";margin-top:1%;margin-left:1%">
+            <div class="card-wrap" th:each="itemShop, rowStat : ${itemsRecentlyAdded}">
+                <div class="card" style=";margin-top:1%;margin-left:1%">
                     <div class="card-header" style="text-align:center;">
-                        <h3 class="card-title" th:text="${item.name}">Name</h3>
+                        <h3 class="card-title"
+                            th:text="${(itemShop.itemDto.exc ? 'Excellent ' : '') + itemShop.itemDto.name + (itemShop.itemDto.level>0 ? '+' + itemShop.itemDto.level : '')}">
+                            Name</h3>
+                        <img class="rounded" th:src="@{${'data:image/jpeg;base64,'+ itemShop.itemDto.icon}}"/>
                     </div>
                     <div class="card-body">
-                        <table id="myTable2" style="margin-top:1%;" class="table">
-                            <tbody>
-                            <tr th:if="${item.icon!=null}">
-                                <img class="rounded" th:src="@{${'data:image/jpeg;base64,'+ item.icon}}"/>
-                            </tr>
-                            <tr class="table"  style="margin-top:1%;">
-                                <td><strong>Category</strong></td>
-                                <td><span th:text="${item.itemType.name}">text</span></td>
-                            </tr>
-                            <tr class="table">
-                                <td><strong>Section</strong></td>
-                                <td><span th:text="${item.section}">text</span></td>
-                            </tr>
-                            <tr class="table">
-                                <td><strong>Index</strong></td>
-                                <td><span th:text="${item.id}">text</span></td>
+                        <table th:if="${itemShop.itemDto.exc}" style="margin-top:1%;" class="table">
+                            <thead>
+                            <h2>Options</h2>
+                            </thead>
+                            <tbody style="text-align:center;">
+                            <tr style="text-align:center" class="table"
+                                th:each="option : ${itemShop.itemDto.excOptions}">
+                                <td style="text-align:center"><label th:text="${option.name}"/></td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
+                    <div class="card-footer">
+                        <h3>Price options</h3>
+                        <div class="row">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text">ZEN $</label>
+                                </div>
+                                <input id="zen" th:value="${itemShop.priceDto.priceZen}" name="zen" readonly
+                                       type="number"
+                                       class="form-control"
+                                       aria-label="Zen">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text">Jewel of Bless</label>
+                                </div>
+                                <input id="bless" th:value="${itemShop.priceDto.priceBless}" name="bless"
+                                       readonly
+                                       type="number"
+                                       class="form-control"
+                                       aria-label="Jewel of Bless">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text">Jewel of Soul</label>
+                                </div>
+                                <input id="soul" th:value="${itemShop.priceDto.priceSoul}" name="soul"
+                                       readonly
+                                       type="number"
+                                       class="form-control"
+                                       aria-label="Jewel of Soul">
+                            </div>
+                        </div>
+                        <form th:method="get"
+                              th:action="@{'/mu-online/web-trader/shop/item/' + ${itemShop.itemDto.code}}">
+                            <div class="row">
+                                <button style="width:100%;" type="submit" class="btn btn-warning col-12">Buy</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
+
+</div>
+
+</div>
 </div>
 <div class="col-md-1"></div>
 </div>
