@@ -87,7 +87,7 @@ public class ItemController {
     @PostMapping(UIConfig.BUY_ITEM_URL)
     public String buyItem(Model model, Authentication authentication, String code, PaymentMethod paymentMethod) {
         try {
-            //TODO
+            itemShopTools.buy(authentication.getName(), code, paymentMethod);
         } catch (Exception ex) {
             model.addAttribute("error", ex.getMessage());
             return itemForSale(model, code);

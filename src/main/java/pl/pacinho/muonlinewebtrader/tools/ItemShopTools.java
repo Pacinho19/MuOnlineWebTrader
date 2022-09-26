@@ -1,19 +1,15 @@
 package pl.pacinho.muonlinewebtrader.tools;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-import pl.pacinho.muonlinewebtrader.entity.Account;
 import pl.pacinho.muonlinewebtrader.entity.ItemShop;
-import pl.pacinho.muonlinewebtrader.entity.WebWarehouseItem;
 import pl.pacinho.muonlinewebtrader.exceptions.ItemNotFoundException;
 import pl.pacinho.muonlinewebtrader.model.dto.ItemShopDto;
 import pl.pacinho.muonlinewebtrader.model.dto.PriceDto;
 import pl.pacinho.muonlinewebtrader.model.dto.mapper.ItemShopDtoMapper;
-import pl.pacinho.muonlinewebtrader.service.AccountService;
+import pl.pacinho.muonlinewebtrader.model.enums.PaymentMethod;
 import pl.pacinho.muonlinewebtrader.service.ItemShopService;
 import pl.pacinho.muonlinewebtrader.service.WebWarehouseItemService;
-import pl.pacinho.muonlinewebtrader.service.WebWarehouseService;
 
 import javax.resource.spi.IllegalStateException;
 import javax.transaction.Transactional;
@@ -47,15 +43,41 @@ public class ItemShopTools {
     }
 
     public ItemShopDto getByCode(String code) {
-        Optional<ItemShop> itemOpt = itemShopService.findByCodeAndActive(code, 1);
-        if (itemOpt.isEmpty())
-            throw new ItemNotFoundException("Not found offers for selected item in shop!");
-
-        ItemShop itemShop = itemOpt.get();
+        ItemShop itemShop = getItemOffer(code);
         return itemShopDtoMapper.parse(itemShop);
     }
 
     public void incrementItemViewCount(String code) {
         itemShopService.incrementItemViewCount(code);
+    }
+
+    public void buy(String name, String code, PaymentMethod paymentMethod) throws IllegalStateException {
+        ItemShop itemOffer = getItemOffer(code);
+        long price = getPriceByPaymentMethod(itemOffer, paymentMethod);
+        if (price == 0L)
+            throw new IllegalStateException("Cannot buy this item by " + paymentMethod.name());
+    }
+
+    private long getPriceByPaymentMethod(ItemShop itemOffer, PaymentMethod paymentMethod) {
+        switch (paymentMethod) {
+            case ZEN -> {
+                return itemOffer.getZenPrice();
+            }
+            case BLESS -> {
+                return itemOffer.getBlessPrice();
+            }
+            case SOUL -> {
+                return itemOffer.getSoulPrice();
+            }
+        }
+        return 0L;
+    }
+
+    private ItemShop getItemOffer(String code) {
+        Optional<ItemShop> itemOpt = itemShopService.findByCodeAndActive(code, 1);
+        if (itemOpt.isEmpty())
+            throw new ItemNotFoundException("Not found offers for selected item in shop!");
+
+        return itemOpt.get();
     }
 }
