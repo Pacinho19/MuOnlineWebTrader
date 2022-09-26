@@ -26,6 +26,8 @@
             height:150px;
             width:150px;
         }
+
+
     </style>
 </head>
 <body>
@@ -47,6 +49,17 @@
                 <div class="card"
                      style=";margin-top:1%;margin-left:1%">
                     <div class="card-header" style="text-align:center;">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 style="text-align:left" th:text="'Views : ' + ${itemShop.views}">Views</h4>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 style="text-align:right" th:text="'Seller : ' + ${itemShop.sellerAccount}">Seller
+                                    Account</h4>
+                                <h4 style="text-align:right" th:text="${#temporals.format(itemShop.addDate,'dd-MM-yyyy HH:mm:ss')}">Add Date</h4>
+                            </div>
+
+                        </div>
                         <h3 class="card-title"
                             th:text="${(itemShop.itemDto.exc ? 'Excellent ' : '') + itemShop.itemDto.name + (itemShop.itemDto.level>0 ? '+' + itemShop.itemDto.level : '')}">
                             Name</h3>
@@ -68,6 +81,8 @@
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-md-4">
+
+
                                 <form th:method="post" th:action="@{/mu-online/web-trader/item/buy}">
                                     <input type="hidden" name="code" th:value="${itemShop.itemDto.code}">
                                     <div class="card">
