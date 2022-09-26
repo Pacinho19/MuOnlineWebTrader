@@ -1,0 +1,82 @@
+<div th:fragment="homeItemFrag(prefix)">
+
+    <div class="card">
+        <div class="card-header" style="text-align:center;">
+            <h4 class="card-title"
+                th:text="${(itemShop.itemDto.exc ? 'Excellent ' : '') + itemShop.itemDto.name + (itemShop.itemDto.level>0 ? '+' + itemShop.itemDto.level : '')}">
+                Name</h4>
+            <img class="rounded"
+                 th:src="@{${'data:image/jpeg;base64,'+ itemShop.itemDto.icon}}"/>
+        </div>
+<!--        <div class="card-body">-->
+<!--            <div class="card" th:if="${itemShop.itemDto.exc}">-->
+<!--                <div class="card-header">-->
+<!--                    <a>Options</a>-->
+<!--                    <div style="text-align:center;">-->
+
+<!--                        <table style="margin-top:1%;" class="table">-->
+<!--                            <tbody>-->
+<!--                            <tr style="text-align:center" class="table"-->
+<!--                                th:each="option : ${itemShop.itemDto.excOptions}">-->
+<!--                                <td style="text-align:center"><label-->
+<!--                                        th:text="${option.name}"/></td>-->
+<!--                            </tr>-->
+<!--                            </tbody>-->
+<!--                        </table>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="card" style="margin-top:2%;">-->
+<!--                <div class="card-body">-->
+<!--                    <a>Price options</a>-->
+
+<!--                    <div style="text-align:center;">-->
+<!--                        <div class="input-group mb-3">-->
+<!--                            <div class="input-group-prepend">-->
+<!--                                <span class="input-group-text">ZEN $</span>-->
+<!--                            </div>-->
+<!--                            <input id="zen" th:value="${itemShop.priceDto.priceZen}"-->
+<!--                                   name="zen"-->
+<!--                                   readonly-->
+<!--                                   type="number"-->
+<!--                                   class="form-control"-->
+<!--                                   aria-label="Zen">-->
+<!--                        </div>-->
+<!--                        <div class="input-group mb-3">-->
+<!--                            <div class="input-group-prepend">-->
+<!--                                <span class="input-group-text">Jewel of Bless</span>-->
+<!--                            </div>-->
+<!--                            <input id="bless" th:value="${itemShop.priceDto.priceBless}"-->
+<!--                                   name="bless"-->
+<!--                                   readonly-->
+<!--                                   class="form-control"-->
+<!--                                   type="number"-->
+<!--                                   aria-label="Jewel of Bless">-->
+<!--                        </div>-->
+<!--                        <div class="input-group mb-3">-->
+<!--                            <div class="input-group-prepend">-->
+<!--                                <span class="input-group-text">Jewel of Soul</span>-->
+<!--                            </div>-->
+<!--                            <input id="soul" th:value="${itemShop.priceDto.priceSoul}"-->
+<!--                                   name="soul"-->
+<!--                                   readonly-->
+<!--                                   type="number"-->
+<!--                                   class="form-control"-->
+<!--                                   aria-label="Jewel of Soul">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="card-footer">
+            <form th:method="get"
+                  th:action="@{'/mu-online/web-trader/shop/item/' + ${itemShop.itemDto.code}}">
+                <div class="row">
+                    <button style="width:100%;" type="submit"
+                            class="btn btn-info col-12">Details
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

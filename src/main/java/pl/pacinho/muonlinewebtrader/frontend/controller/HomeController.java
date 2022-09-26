@@ -26,7 +26,7 @@ public class HomeController {
 
     @GetMapping(UIConfig.HOME_URL)
     public String home(Model model) {
-        model.addAttribute("items", ListUtils.partition(ItemDtoMapper.parseList(itemService.findRandomItems(12)), 3));
+        model.addAttribute("items", ListUtils.partition( itemShopService.findMostViewedItems(12), 3));
         model.addAttribute("itemsRecentlyAdded", itemShopService.findLastAdded(6));
         return "home";
     }

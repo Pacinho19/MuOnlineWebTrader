@@ -71,4 +71,11 @@ public class ItemShopService {
                 .map(itemShopDtoMapper::parse)
                 .toList();
     }
+
+    public List<ItemShopDto> findMostViewedItems(int count) {
+        return itemShopRepository.findAllByActiveOrderByViewsDesc(1, PageRequest.of(0, count))
+                .stream()
+                .map(itemShopDtoMapper::parse)
+                .toList();
+    }
 }

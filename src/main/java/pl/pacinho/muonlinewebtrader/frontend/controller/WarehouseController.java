@@ -75,18 +75,18 @@ public class WarehouseController {
     }
 
     @PostMapping(UIConfig.TRANSFER_ZEN_TO_WEB_WAREHOUSE_URL)
-    public String transferZenToWebWarehouse(Model model, @RequestParam("zen") Long zen, Authentication authentication) {
+    public String transferZenToWebWarehouse(Model model, @RequestParam(value = "zen", required = false) Long zen, Authentication authentication) {
         try {
             warehouseTools.transferZenToWebWarehouse(authentication.getName(), zen);
         } catch (Exception ex) {
             model.addAttribute("error", ex.getMessage());
-            return webWarehouse(model, authentication);
+            return gameWarehouse(model, authentication);
         }
         return "redirect:" + UIConfig.WEB_WAREHOUSE_URL;
     }
 
     @PostMapping(UIConfig.TRANSFER_ZEN_TO_GAME_WAREHOUSE_URL)
-    public String transferZenToGameWarehouse(Model model, @RequestParam("zen") Long zen, Authentication authentication) {
+    public String transferZenToGameWarehouse(Model model, @RequestParam(value = "zen", required = false) Long zen, Authentication authentication) {
         try {
             warehouseTools.transferZenToGameWarehouse(authentication.getName(), zen);
         } catch (Exception ex) {

@@ -76,6 +76,9 @@ public class WarehouseTools {
 
     @Transactional
     public void transferZenToWebWarehouse(String name, Long zen) throws IllegalStateException {
+        if(zen==null)
+            throw new IllegalStateException("Amount of zen cannot be empty! " );
+
         Long zenWare = warehouseService.findZenByAccountName(name);
         if (zen > zenWare)
             throw new IllegalStateException("Not enough zen in warehouse! Your value in warehouse " + zenWare);
@@ -85,6 +88,9 @@ public class WarehouseTools {
     }
 
     public void transferZenToGameWarehouse(String name, Long zen) throws IllegalStateException {
+        if(zen==null)
+            throw new IllegalStateException("Amount of zen cannot be empty! " );
+
         Long zenWare = webWarehouseService.findZenByAccountName(name);
         if (zen > zenWare)
             throw new IllegalStateException("Not enough zen in web warehouse! Your value in web warehouse " + zenWare);
