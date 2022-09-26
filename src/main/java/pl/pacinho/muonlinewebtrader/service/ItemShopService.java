@@ -4,10 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.pacinho.muonlinewebtrader.entity.Account;
 import pl.pacinho.muonlinewebtrader.entity.ItemShop;
+import pl.pacinho.muonlinewebtrader.model.dto.ItemShopDto;
 import pl.pacinho.muonlinewebtrader.model.dto.PriceDto;
+import pl.pacinho.muonlinewebtrader.model.dto.mapper.ItemShopDtoMapper;
 import pl.pacinho.muonlinewebtrader.repository.ItemShopRepository;
+import pl.pacinho.muonlinewebtrader.tools.ItemDecoder;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -17,8 +21,9 @@ public class ItemShopService {
 
     private final ItemShopRepository itemShopRepository;
     private final AccountService accountService;
-
     private final ReentrantLock lock = new ReentrantLock();
+    private final ItemShopDtoMapper itemShopDtoMapper;
+
 
     public void addItem(String code, PriceDto priceDto, String accountName) {
         Account acc = accountService.findByLogin(accountName);
@@ -42,6 +47,7 @@ public class ItemShopService {
             if (itemOpt.isEmpty()) return;
             ItemShop itemShop = itemOpt.get();
             itemShop.setViews(itemShop.getViews() + 1);
+            itemShopRepository.save(itemShop);
         } catch (Exception ignored) {
         } finally {
             lock.unlock();
@@ -50,5 +56,12 @@ public class ItemShopService {
 
     public Optional<ItemShop> findByCodeAndActive(String code, int active) {
         return itemShopRepository.findByItemAndActive(code, active);
+    }
+
+    public List<ItemShopDto> findActiveOffers() {
+        return itemShopRepository.findAllByActive(1)
+                .stream()
+                .map(itemShopDtoMapper::parse)
+                .toList();
     }
 }

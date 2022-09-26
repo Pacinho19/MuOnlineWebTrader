@@ -9,6 +9,7 @@ import pl.pacinho.muonlinewebtrader.entity.WebWarehouseItem;
 import pl.pacinho.muonlinewebtrader.exceptions.ItemNotFoundException;
 import pl.pacinho.muonlinewebtrader.model.dto.ItemShopDto;
 import pl.pacinho.muonlinewebtrader.model.dto.PriceDto;
+import pl.pacinho.muonlinewebtrader.model.dto.mapper.ItemShopDtoMapper;
 import pl.pacinho.muonlinewebtrader.service.AccountService;
 import pl.pacinho.muonlinewebtrader.service.ItemShopService;
 import pl.pacinho.muonlinewebtrader.service.WebWarehouseItemService;
@@ -24,7 +25,7 @@ public class ItemShopTools {
 
     private final WebWarehouseItemService webWarehouseItemService;
     private final ItemShopService itemShopService;
-    private final ItemDecoder itemDecoder;
+    private final ItemShopDtoMapper itemShopDtoMapper;
 
     @Transactional
     public void putForSale(String code, PriceDto priceDto, String accountName) throws IllegalStateException {
@@ -45,18 +46,16 @@ public class ItemShopTools {
             throw new IllegalStateException("Minimum one price type mus be set!");
     }
 
-    public ItemShopDto getByCode(String code) throws IllegalStateException {
+    public ItemShopDto getByCode(String code) {
         Optional<ItemShop> itemOpt = itemShopService.findByCodeAndActive(code, 1);
         if (itemOpt.isEmpty())
             throw new ItemNotFoundException("Not found offers for selected item in shop!");
 
         ItemShop itemShop = itemOpt.get();
-        return new ItemShopDto(
-                itemDecoder.decode(itemShop.getItem(), -1)
-                , new PriceDto(itemShop.getZenPrice(), itemShop.getBlessPrice(), itemShop.getSoulPrice())
-                , itemShop.getSellerAccount().getName()
-                , itemShop.getViews()
-                , itemShop.getAddDate()
-        );
+        return itemShopDtoMapper.parse(itemShop);
+    }
+
+    public void incrementItemViewCount(String code) {
+        itemShopService.incrementItemViewCount(code);
     }
 }

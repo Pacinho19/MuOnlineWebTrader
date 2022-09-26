@@ -70,11 +70,12 @@ public class ItemController {
     @GetMapping(UIConfig.ITEM_FOR_SALE + "{code}")
     public String itemForSale(Model model, @PathVariable("code") String code) {
         try {
-            Object  obj = model.getAttribute("skipSearch");
-            if (obj==null || !((boolean) obj))
+            Object obj = model.getAttribute("skipSearch");
+            if (obj == null || !((boolean) obj))
                 model.addAttribute("itemShop", itemShopTools.getByCode(code));
 
             model.addAttribute("skipSearch", false);
+            if (model.getAttribute("itemShop") != null) itemShopTools.incrementItemViewCount(code);
         } catch (Exception ex) {
             model.addAttribute("error", ex.getMessage());
             model.addAttribute("skipSearch", true);

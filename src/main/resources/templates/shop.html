@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>MuOnline Item List</title>
 
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -27,6 +28,9 @@
             height:100px;
             width:100px;
         }
+         td, tr{
+            text-align:center
+        }
     </style>
 </head>
 <body>
@@ -34,35 +38,50 @@
 
 
 <div class="row" style="margin-top:1%;">
-    <div class="col-sm-3"></div>
-    <div class="col-md-6">
+    <div class="col-sm-2"></div>
+    <div class="col-md-8">
 
         <div th:replace="fragments/filter :: filterFrag"></div>
 
         <table id="myTable" style="margin-top:1%;" th:if="${items!=null}" class="table">
             <thead>
-            <tr class= "table-secondary">
+            <tr class="table-secondary">
                 <th>No.</th>
                 <th>Icon</th>
                 <th>Name</th>
-                <th>Category</th>
-                <th>Section</th>
-                <th>Index</th>
+                <th>Zen</th>
+                <th>Jewel of Bless</th>
+                <th>Jewel of Soul</th>
+                <th>Seller</th>
+                <th>Views</th>
+                <th>Adding date</th>
+                <th>Item Page</th>
             </tr>
             </thead>
             <tbody>
-            <tr class= "table-secondary" th:each="item, iterStat : ${items}">
-                <td><span th:text="${iterStat.count}"></span></td>
-                <td><img class="rounded" th:src="@{${'data:image/jpeg;base64,'+ item.icon}}"/></td>
-                <td><span th:text="${item.name}"></span></td>
-                <td><span th:text="${item.itemType.name}"></span></td>
-                <td><span th:text="${item.section}"></span></td>
-                <td><span th:text="${item.id}"></span></td>
+            <tr class="table-secondary" th:each="item, iterStat : ${items}">
+                <form th:method="get"
+                      th:action="@{'/mu-online/web-trader/shop/item/' + ${item.itemDto.code}}">
+                    <td><span th:text="${iterStat.count}"></span></td>
+                    <td><img class="rounded" th:src="@{${'data:image/jpeg;base64,'+ item.itemDto.icon}}"/></td>
+                    <td><span th:text="${item.itemDto.name}"></span></td>
+                    <td><span th:text="${item.priceDto.priceZen}"></span></td>
+                    <td><span th:text="${item.priceDto.priceBless}"></span></td>
+                    <td><span th:text="${item.priceDto.priceSoul}"></span></td>
+                    <td><span th:text="${item.sellerAccount}"></span></td>
+                    <td><span th:text="${item.views}"></span></td>
+                    <td><span th:text="${#temporals.format(item.addDate,'dd-MM-yyyy HH:mm:ss')}"></span></td>
+                    <td style="text-align:center;">
+                        <button type="submit" class="btn btn-primary">
+                            <i style="font-size:30px" class="bi bi-eye"></i>
+                        </button>
+                    </td>
+                </form>
             </tr>
             </tbody>
         </table>
     </div>
-    <div class="col-sm-3"></div>
+    <div class="col-sm-2"></div>
 </div>
 </body>
 </html>
