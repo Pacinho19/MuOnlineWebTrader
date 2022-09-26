@@ -28,7 +28,7 @@ public class ItemDecoder {
         this.itemsMap = items
                 .stream()
                 .collect(Collectors.toMap(i ->
-                                "" + i.getNumber() + (i.getLevel() > 0 ? ("#" + i.getLevel()) : "")
+                                "" + i.getNumber()
                         , Function.identity()));
     }
 
@@ -47,7 +47,7 @@ public class ItemDecoder {
                     .position(position)
                     .build();
 
-            return createItem(extendedItemDto, itemCode, true);
+            return createItem(extendedItemDto, itemCode);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -68,11 +68,10 @@ public class ItemDecoder {
                 .toList();
     }
 
-    private ExtendedItemDto createItem(ExtendedItemDto extendedItemDto, String itemCode, boolean checkWithLevel) {
-        String key = generateKey(extendedItemDto, checkWithLevel);
+    private ExtendedItemDto createItem(ExtendedItemDto extendedItemDto, String itemCode) {
+        String key = generateKey(extendedItemDto);
         Item itemDict = itemsMap.get(key);
-        if (itemDict == null && !checkWithLevel) return unknownItem(extendedItemDto);
-        else if (itemDict == null && checkWithLevel) return createItem(extendedItemDto, itemCode, false);
+        if (itemDict == null) return unknownItem(extendedItemDto);
 
         extendedItemDto.setName(itemDict.getName());
         extendedItemDto.setItemType(itemDict.getCategory());
@@ -89,7 +88,7 @@ public class ItemDecoder {
         return extendedItemDto;
     }
 
-    private String generateKey(ExtendedItemDto extendedItemDto, boolean checkWithLevel) {
+    private String generateKey(ExtendedItemDto extendedItemDto) {
         Item item = items.stream()
                 .filter(i -> i.getNumber() == extendedItemDto.getNumber())
                 .findFirst()
@@ -97,10 +96,7 @@ public class ItemDecoder {
 
         if (item == null) return null;
 
-        if (checkWithLevel)
-            return extendedItemDto.getNumber() + "#" + extendedItemDto.getLevel();
-        else
-            return "" + extendedItemDto.getNumber();
+        return "" + extendedItemDto.getNumber();
     }
 
     private String getSerialNumber(String itemCode) {

@@ -22,7 +22,7 @@ public class WebWarehouseItem {
     @Column(columnDefinition = "smallint")
     private int active;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "ACC_ID")
     private Account account;
 

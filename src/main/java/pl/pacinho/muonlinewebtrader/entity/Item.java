@@ -18,7 +18,6 @@ public class Item {
     private Long id;
     private int idx;
     private int section;
-    private int level;
     private int width;
     private int height;
     private int number;

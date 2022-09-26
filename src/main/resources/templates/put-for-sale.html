@@ -53,28 +53,9 @@
                         <h3 class="card-title"
                             th:text="${(item.exc ? 'Excellent ' : '') + item.name + (item.level>0 ? '+' + item.level : '')}">
                             Name</h3>
+                        <img class="rounded" th:src="@{${'data:image/jpeg;base64,'+ item.icon}}"/>
                     </div>
                     <div class="card-body">
-                        <table id="myTable2" style="margin-top:1%;" class="table">
-                            <tbody style="text-align:center;">
-                            <tr th:if="${item.icon!=null}">
-                                <img class="rounded" th:src="@{${'data:image/jpeg;base64,'+ item.icon}}"/>
-                            </tr>
-                            <tr class="table" style="margin-top:1%;">
-                                <td><strong>Category</strong></td>
-                                <td><span th:text="${item.itemType.name}">text</span></td>
-                            </tr>
-                            <tr class="table">
-                                <td><strong>Section</strong></td>
-                                <td><span th:text="${item.section}">text</span></td>
-                            </tr>
-                            <tr class="table">
-                                <td><strong>Index</strong></td>
-                                <td><span th:text="${item.id}">text</span></td>
-                            </tr>
-
-                            </tbody>
-                        </table>
                         <table th:if="${item.exc}" style="margin-top:1%;" class="table">
                             <thead>
                             <h2>Options</h2>
@@ -85,6 +66,54 @@
                             </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="card-footer">
+
+                        <form th:object="${priceDto}" th:method="post"
+                              th:action="@{/mu-online/web-trader/item/put-for-sale}">
+                            <div class="row">
+                                <div class="col-md-4 input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text">ZEN $</label>
+                                    </div>
+                                    <input th:field="*{priceZen}" id="zen" th:value="${priceZen}" name="zen" min="0"
+                                           type="number"
+                                           class="form-control"
+                                           aria-label="Zen">
+                                </div>
+
+                                <div class="col-md-4 input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text">Jewel of Bless</label>
+                                    </div>
+                                    <input th:field="*{priceBless}" th:value="${priceBless}" id="bless" name="bless"
+                                           min="0" type="number"
+                                           class="form-control"
+                                           aria-label="Jewel of Bless">
+                                </div>
+
+                                <div class="col-md-4 input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text">Jewel of Soul</label>
+                                    </div>
+                                    <input th:field="*{priceSoul}" th:value="${priceSoul}" id="soul" name="soul" min="0"
+                                           type="number"
+                                           class="form-control"
+                                           aria-label="Jewel of Soul">
+                                </div>
+                            </div>
+
+                            <div class="input-group-append">
+                                <button style="margin-left:1%;width:100%;margin-right:1%"
+                                        type="submit"
+                                        class="btn btn-warning">Put For Sale
+                                </button>
+                            </div>
+                        </form>
+
+
+
+
                     </div>
                 </div>
             </div>
