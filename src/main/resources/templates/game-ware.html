@@ -166,8 +166,10 @@
                                 th:colspan="${cellItem.extendedItemDto.width}"
                                 th:rowspan="${cellItem.extendedItemDto.height}"
                                 class="itemcell">
-                                <a th:href="'#collapse' + ${cellItem.extendedItemDto.serialNumber}" style="width:100%;height:100%"
-                                   data-toggle="collapse">
+                                <a data-toggle="collapse" th:id="'start_collapse' + ${cellItem.extendedItemDto.serialNumber}" style="display:none;" th:href="'#collapse' + ${cellItem.extendedItemDto.serialNumber}" ></a>
+
+                                <a th:id="'item_collapse' + ${cellItem.extendedItemDto.serialNumber}"
+                                   onclick="scrollToTarget(this);" style="width:100%;height:100%">
                                     <div
                                             th:style="'width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'"
 
@@ -192,6 +194,14 @@
     $('.itemcell').removeClass('highlight');
     $(this).addClass('highlight');
 });
+
+    function scrollToTarget(item){
+        const idTarget = item.getAttribute("id").replace('item_','');
+        const element2 = document.getElementById('start_' + idTarget);
+        element2.click();
+        const element = document.getElementById(idTarget);
+        element.scrollIntoView();
+    };
 </script>
 </body>
 </html>
