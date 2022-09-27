@@ -3,22 +3,27 @@ package pl.pacinho.muonlinewebtrader.tools;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import pl.pacinho.muonlinewebtrader.entity.Warehouse;
-import pl.pacinho.muonlinewebtrader.entity.WebWarehouseItem;
 import pl.pacinho.muonlinewebtrader.model.dto.ExtendedItemDto;
 import pl.pacinho.muonlinewebtrader.model.dto.PaymentItemsDto;
+import pl.pacinho.muonlinewebtrader.model.dto.TransferJewelsDto;
 import pl.pacinho.muonlinewebtrader.model.dto.WareCellDto;
 import pl.pacinho.muonlinewebtrader.model.enums.CellType;
 import pl.pacinho.muonlinewebtrader.model.enums.PaymentItem;
+import pl.pacinho.muonlinewebtrader.model.enums.PaymentMethod;
 import pl.pacinho.muonlinewebtrader.service.WarehouseService;
+import pl.pacinho.muonlinewebtrader.service.WebWalletService;
 import pl.pacinho.muonlinewebtrader.service.WebWarehouseItemService;
 import pl.pacinho.muonlinewebtrader.service.WebWarehouseService;
 
 import javax.resource.spi.IllegalStateException;
 import javax.transaction.Transactional;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @RequiredArgsConstructor
 @Component
@@ -28,6 +33,7 @@ public class WarehouseTools {
     private final WarehouseService warehouseService;
     private final WebWarehouseItemService webWarehouseItemService;
     private final WebWarehouseService webWarehouseService;
+    private final WebWalletService webWalletService;
     private final WarehouseDecoder warehouseDecoder;
     private final ItemDecoder itemDecoder;
 
@@ -107,11 +113,10 @@ public class WarehouseTools {
     }
 
     public PaymentItemsDto getPaymentsItem(String name) {
-        Map<PaymentItem, List<ExtendedItemDto>> paymentItems = webWarehouseItemService.getWarehouseItemsByAccountName(name)
-                .stream()
-                .map(wwe -> itemDecoder.decode(wwe.getItem(), -1))
-                .filter(i -> PaymentItem.checkNumber(i.getNumber()))
-                .collect(Collectors.groupingBy(i -> PaymentItem.fromNumber(i.getNumber())));
+        Map<PaymentItem, List<ExtendedItemDto>> paymentItems =
+                getPaymentsItemsFromWebWarehouse(name)
+                        .stream()
+                        .collect(Collectors.groupingBy(i -> PaymentItem.fromNumber(i.getNumber())));
 
         return PaymentItemsDto.builder()
                 .zenAmount(webWarehouseService.findZenByAccountName(name))
@@ -120,6 +125,14 @@ public class WarehouseTools {
                 .soulCount(paymentItemSum(paymentItems, PaymentItem.SOUL)
                         + paymentItemSum(paymentItems, PaymentItem.SOUL_BUNDLE))
                 .build();
+    }
+
+    private List<ExtendedItemDto> getPaymentsItemsFromWebWarehouse(String name) {
+        return webWarehouseItemService.getWarehouseItemsByAccountName(name)
+                .stream()
+                .map(wwe -> itemDecoder.decode(wwe.getItem(), -1))
+                .filter(i -> PaymentItem.checkNumber(i.getNumber()))
+                .toList();
     }
 
     private Long paymentItemSum(Map<PaymentItem, List<ExtendedItemDto>> paymentItems, PaymentItem paymentItem) {
@@ -131,8 +144,73 @@ public class WarehouseTools {
 
         return items
                 .stream()
-                .map(i -> (i.getLevel() * 10) + 10)
+                .map(i -> ItemUtils.getItemCountFromBundle(i.getLevel()))
                 .reduce(0, Integer::sum)
                 .longValue();
+    }
+
+    public void transferBlessToWallet(String name, Integer blessCount) throws IllegalStateException {
+        transferJewelToWallet(name, blessCount, PaymentMethod.BLESS);
+    }
+
+    public void transferSoulToWallet(String name, Integer soulCount) throws IllegalStateException {
+        transferJewelToWallet(name, soulCount, PaymentMethod.SOUL);
+    }
+
+    private void transferJewelToWallet(String name, Integer count, PaymentMethod paymentMethod) throws IllegalStateException {
+        if (count == null || count == 0)
+            throw new IllegalStateException("Item count must be positive number!");
+
+        PaymentItemsDto paymentsItem = getPaymentsItem(name);
+        if (paymentsItem.getCountByType(paymentMethod) < count)
+            throw new IllegalStateException("Not enough " + paymentMethod.getName() + " found in Web Warehouse !");
+
+        removeJewelFromWebWarehouse(name, count, paymentMethod.getPaymentItems());
+        webWalletService.addToWallet(name, count, paymentMethod);
+    }
+
+    private void removeJewelFromWebWarehouse(String name, Integer count, List<PaymentItem> paymentItemsTypes) {
+        List<ExtendedItemDto> items = getPaymentsItemsFromWebWarehouse(name)
+                .stream()
+                .filter(ei -> paymentItemsTypes.contains(PaymentItem.fromNumber(ei.getNumber())))
+                .sorted(Comparator.comparing(ExtendedItemDto::getNumber).reversed()
+                        .thenComparing(ExtendedItemDto::getLevel))
+                .toList();
+
+        TransferJewelsDto tj = new TransferJewelsDto();
+        AtomicInteger countI = new AtomicInteger(count);
+        items.forEach(ei -> {
+            if (countI.get() <= 0) return;
+
+            if (!PaymentItem.fromNumber(ei.getNumber()).isBundle()) {
+                tj.putItemToRemove(ei.getCode());
+                countI.decrementAndGet();
+                return;
+            } else {
+                tj.putItemToRemove(ei.getCode());
+                countI.set(countI.get() - ItemUtils.getItemCountFromBundle(ei.getLevel()));
+            }
+        });
+
+        IntStream.range(0, Math.abs(countI.get()))
+                .forEach(i -> tj.putItemToAdd(ItemUtils.getItemCode(PaymentItem.SOUL)));
+
+        tj.getItemsToRemove()
+                .forEach(code -> webWarehouseItemService.removeItem(name, code));
+
+        tj.getItemsToAdd()
+                .forEach(code -> webWarehouseItemService.addItem(name, code));
+    }
+
+    public void transferZenToWallet(String name, Integer count) throws IllegalStateException {
+        if (count == null || count == 0)
+            throw new IllegalStateException("Zen ammount must be positive number!");
+
+        Long webZen = webWarehouseService.findZenByAccountName(name);
+        if (webZen < count)
+            throw new IllegalStateException("Not enough zen found in Web Warehouse !");
+
+        webWarehouseService.subtractZen(name, Long.valueOf(count));
+        webWalletService.addToWallet(name, count, PaymentMethod.ZEN);
     }
 }

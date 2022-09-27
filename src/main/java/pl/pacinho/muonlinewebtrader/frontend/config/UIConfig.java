@@ -17,4 +17,7 @@ public class UIConfig {
     public static final String BUY_ITEM_URL = ITEM_URL + "/buy";
     public static final String ITEM_FOR_SALE = SHOP_URL + "/item/";
     public static final String ACCOUNT_URL = HOME_URL + "/account";
+    public static final String BLESS_TRANSFER = ACCOUNT_URL + "/bless-transfer";
+    public static final String SOUL_TRANSFER = ACCOUNT_URL + "/soul-transfer";
+    public static final String ZEN_TRANSFER = ACCOUNT_URL + "/zen-transfer";
 }

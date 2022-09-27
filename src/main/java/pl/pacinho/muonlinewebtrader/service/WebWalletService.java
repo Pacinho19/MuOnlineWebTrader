@@ -6,6 +6,7 @@ import pl.pacinho.muonlinewebtrader.entity.WebWallet;
 import pl.pacinho.muonlinewebtrader.model.dto.PaymentItemsDto;
 import pl.pacinho.muonlinewebtrader.model.dto.WebWalletDto;
 import pl.pacinho.muonlinewebtrader.model.dto.mapper.WebWalletDtoMapper;
+import pl.pacinho.muonlinewebtrader.model.enums.PaymentMethod;
 import pl.pacinho.muonlinewebtrader.repository.WebWalletRepository;
 
 import java.util.Optional;
@@ -27,4 +28,30 @@ public class WebWalletService {
     private WebWallet save(WebWallet webWallet) {
         return webWalletRepository.save(webWallet);
     }
+
+    private void addBless(String name, int blessCount) {
+        WebWallet webWallet = webWalletRepository.findByAccountName(name).get();
+        webWallet.setBlessCount(webWallet.getBlessCount() + blessCount);
+        save(webWallet);
+    }
+
+    private void addSoul(String name, Integer soulCount) {
+        WebWallet webWallet = webWalletRepository.findByAccountName(name).get();
+        webWallet.setSoulCount(webWallet.getSoulCount() + soulCount);
+        save(webWallet);
+    }
+    private void addZen(String name, Integer count) {
+        WebWallet webWallet = webWalletRepository.findByAccountName(name).get();
+        webWallet.setZenAmount(webWallet.getZenAmount() + count);
+        save(webWallet);
+    }
+
+    public void addToWallet(String name, Integer count, PaymentMethod paymentMethod) {
+        switch (paymentMethod) {
+            case ZEN -> addZen(name, count);
+            case BLESS -> addBless(name, count);
+            case SOUL -> addSoul(name, count);
+        }
+    }
+
 }

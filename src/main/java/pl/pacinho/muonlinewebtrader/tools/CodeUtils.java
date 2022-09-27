@@ -84,6 +84,6 @@ public class CodeUtils {
     private static boolean checkHeightBoundIsCorrect(int heightIdx) {
         if (heightIdx < WAREHOUSE_CELLS_COUNT) return true;
         return false;
-
     }
+
 }
