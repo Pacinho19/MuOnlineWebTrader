@@ -39,6 +39,7 @@
             width:100px;
         }
 
+
     </style>
 </head>
 <body>
@@ -60,8 +61,8 @@
                             <div class="carousel-item " th:classappend="${rowStat.index==0} ? active : none"
                                  th:each="itemsPart, rowStat : ${items}">
 
-                                <div style="display:flex;flex-flow: row wrap;margin-top:1%;text-align:center;">
-                                    <div style="text-align:center" class="card-wrap" th:each="itemShop : ${itemsPart}"
+                                <div class="row" style="margin-top:1%;text-align:center;">
+                                    <div style="text-align:center" class="col-md-4" th:each="itemShop : ${itemsPart}"
                                          th:attr="data-slide-to=${rowStat.index}">
 
                                         <div th:replace="fragments/home-item-frag :: homeItemFrag('mv')"></div>
@@ -76,8 +77,8 @@
         </div>
 
         <h3 style="color:white;margin-top:3%">Latest added items</h3>
-        <div style="display:flex;flex-flow:row wrap">
-            <div class="card-wrap" th:each="itemShop, rowStat : ${itemsRecentlyAdded}">
+        <div class="row" th:each="parts, rowStat : ${itemsRecentlyAdded}" style="margin-top:1%;text-align:center;">
+            <div class="col-md-4" th:each="itemShop, rowStat : ${parts}">
                 <div th:replace="fragments/home-item-frag :: homeItemFrag('la')"></div>
             </div>
         </div>
