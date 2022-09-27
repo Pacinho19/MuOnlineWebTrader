@@ -13,8 +13,14 @@ public class ItemUtils {
             case BLESS -> {
                 return "0D0000" + SerialCodeUtils.getSerialNumber() + "0000E000FFFFFFFFFF";
             }
+            case BLESS_BUNDLE -> {
+                return "1E0000" + SerialCodeUtils.getSerialNumber() + "0000C000FFFFFFFFFF";
+            }
             case SOUL -> {
                 return "0E0000" + SerialCodeUtils.getSerialNumber() + "0000E000FFFFFFFFFF";
+            }
+            case SOUL_BUNDLE -> {
+                return "1F0000" + SerialCodeUtils.getSerialNumber() + "0000C000FFFFFFFFFF";
             }
         }
         return CodeUtils.EMPTY_CODE;

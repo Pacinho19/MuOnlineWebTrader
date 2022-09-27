@@ -165,14 +165,14 @@ public class WarehouseTools {
         if (paymentsItem.getCountByType(paymentMethod) < count)
             throw new IllegalStateException("Not enough " + paymentMethod.getName() + " found in Web Warehouse !");
 
-        removeJewelFromWebWarehouse(name, count, paymentMethod.getPaymentItems());
+        removeJewelFromWebWarehouse(name, count, paymentMethod);
         webWalletService.addToWallet(name, count, paymentMethod);
     }
 
-    private void removeJewelFromWebWarehouse(String name, Integer count, List<PaymentItem> paymentItemsTypes) {
+    private void removeJewelFromWebWarehouse(String name, Integer count, PaymentMethod paymentMethod) {
         List<ExtendedItemDto> items = getPaymentsItemsFromWebWarehouse(name)
                 .stream()
-                .filter(ei -> paymentItemsTypes.contains(PaymentItem.fromNumber(ei.getNumber())))
+                .filter(ei -> paymentMethod.getPaymentItems().contains(PaymentItem.fromNumber(ei.getNumber())))
                 .sorted(Comparator.comparing(ExtendedItemDto::getNumber).reversed()
                         .thenComparing(ExtendedItemDto::getLevel))
                 .toList();
@@ -192,8 +192,19 @@ public class WarehouseTools {
             }
         });
 
-        IntStream.range(0, Math.abs(countI.get()))
-                .forEach(i -> tj.putItemToAdd(ItemUtils.getItemCode(PaymentItem.SOUL)));
+        int countToAdd = Math.abs(countI.get());
+        int singleItemCount = countToAdd % 10;
+        int bundleItemCount = countToAdd / 10;
+
+        IntStream.range(0, singleItemCount)
+                .forEach(i -> tj.putItemToAdd(ItemUtils.getItemCode(
+                        paymentMethod.getItem(false)
+                )));
+
+        IntStream.range(0, bundleItemCount)
+                .forEach(i -> tj.putItemToAdd(ItemUtils.getItemCode(
+                        paymentMethod.getItem(true)
+                )));
 
         tj.getItemsToRemove()
                 .forEach(code -> webWarehouseItemService.removeItem(name, code));

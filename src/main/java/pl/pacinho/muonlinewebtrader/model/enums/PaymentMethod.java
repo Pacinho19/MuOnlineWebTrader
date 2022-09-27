@@ -15,4 +15,12 @@ public enum PaymentMethod {
     private final List<PaymentItem> paymentItems;
     @Getter
     private final String name;
+
+    public PaymentItem getItem(boolean bundle) {
+        return getPaymentItems()
+                .stream()
+                .filter(i -> i.isBundle() == bundle)
+                .findFirst()
+                .get();
+    }
 }
