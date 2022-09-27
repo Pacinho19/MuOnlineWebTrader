@@ -15,6 +15,7 @@ import pl.pacinho.muonlinewebtrader.model.dto.SimpleItemDto;
 import pl.pacinho.muonlinewebtrader.model.dto.mapper.ItemDtoMapper;
 import pl.pacinho.muonlinewebtrader.model.enums.PaymentMethod;
 import pl.pacinho.muonlinewebtrader.service.ItemService;
+import pl.pacinho.muonlinewebtrader.service.WebWalletService;
 import pl.pacinho.muonlinewebtrader.tools.ItemDecoder;
 import pl.pacinho.muonlinewebtrader.tools.ItemShopTools;
 
@@ -31,28 +32,38 @@ public class ItemController {
     private final ItemDecoder itemDecoder;
     private final ItemService itemService;
     private final ItemShopTools itemShopTools;
+    private final WebWalletService webWalletService;
+
 
     @GetMapping(UIConfig.DECODE_ITEM_URL)
-    public String decodeItemPage() {
+    public String decodeItemPage(Model model, Authentication authentication) {
+        if (authentication != null)
+            model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
         return "decode-item";
     }
 
     @PostMapping(UIConfig.DECODE_ITEM_URL)
-    public ModelAndView decodeItem(@RequestParam("code") String code) {
-        return new ModelAndView("decode-item", Map.of("itemDetails", itemDecoder.decode(code, -1), "code", code));
+    public ModelAndView decodeItem(@RequestParam("code") String code, Authentication authentication) {
+        return new ModelAndView("decode-item",
+                Map.of("itemDetails", itemDecoder.decode(code, -1),
+                        "code", code
+                        , "webWallet", authentication == null ? "" : webWalletService.findByAccountName(authentication.getName())));
     }
 
     @GetMapping(UIConfig.ITEM_LIST_URL)
-    public String itemList(Model model) {
+    public String itemList(Model model, Authentication authentication) {
         List<SimpleItemDto> items = ItemDtoMapper.parseList(itemService.findAll());
         model.addAttribute("items", items);
+        if (authentication != null)
+            model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
         return "item-list";
     }
 
     @PostMapping(UIConfig.PUT_FOR_SALE_ITEM_PAGE_URL)
-    public String putForSalePage(Model model, PriceDto priceDto, @RequestParam("code") String code) {
+    public String putForSalePage(Model model, PriceDto priceDto, @RequestParam("code") String code, Authentication authentication) {
         model.addAttribute("item", itemDecoder.decode(code, -1));
         model.addAttribute("prizeDto", priceDto != null ? priceDto : new PriceDto());
+        model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
         return "put-for-sale";
     }
 
@@ -62,13 +73,13 @@ public class ItemController {
             itemShopTools.putForSale(code, priceDto, authentication.getName());
         } catch (Exception ex) {
             model.addAttribute("error", ex.getMessage());
-            return putForSalePage(model, priceDto, code);
+            return putForSalePage(model, priceDto, code, authentication);
         }
         return "redirect:" + UIConfig.ITEM_FOR_SALE + code;
     }
 
     @GetMapping(UIConfig.ITEM_FOR_SALE + "{code}")
-    public String itemForSale(Model model, @PathVariable("code") String code) {
+    public String itemForSale(Model model, @PathVariable("code") String code, Authentication authentication) {
         try {
             Object obj = model.getAttribute("skipSearch");
             if (obj == null || !((boolean) obj))
@@ -79,8 +90,9 @@ public class ItemController {
         } catch (Exception ex) {
             model.addAttribute("error", ex.getMessage());
             model.addAttribute("skipSearch", true);
-            return itemForSale(model, code);
+            return itemForSale(model, code, authentication);
         }
+        model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
         return "item-for-sale";
     }
 
@@ -90,7 +102,7 @@ public class ItemController {
             itemShopTools.buy(authentication.getName(), code, paymentMethod);
         } catch (Exception ex) {
             model.addAttribute("error", ex.getMessage());
-            return itemForSale(model, code);
+            return itemForSale(model, code, authentication);
         }
         return "redirect:" + UIConfig.WEB_WAREHOUSE_URL;
     }

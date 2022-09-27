@@ -16,4 +16,5 @@ public class UIConfig {
     public static final String PUT_FOR_SALE_ITEM_PAGE_URL = PUT_FOR_SALE_ITEM_URL + "-page";
     public static final String BUY_ITEM_URL = ITEM_URL + "/buy";
     public static final String ITEM_FOR_SALE = SHOP_URL + "/item/";
+    public static final String ACCOUNT_URL = HOME_URL + "/account";
 }

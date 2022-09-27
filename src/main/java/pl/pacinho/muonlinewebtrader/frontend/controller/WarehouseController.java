@@ -12,6 +12,7 @@ import pl.pacinho.muonlinewebtrader.entity.Warehouse;
 import pl.pacinho.muonlinewebtrader.frontend.config.UIConfig;
 import pl.pacinho.muonlinewebtrader.model.dto.WarehouseDto;
 import pl.pacinho.muonlinewebtrader.service.WarehouseService;
+import pl.pacinho.muonlinewebtrader.service.WebWalletService;
 import pl.pacinho.muonlinewebtrader.service.WebWarehouseItemService;
 import pl.pacinho.muonlinewebtrader.service.WebWarehouseService;
 import pl.pacinho.muonlinewebtrader.tools.CodeUtils;
@@ -27,6 +28,7 @@ public class WarehouseController {
     private final WebWarehouseService webWarehouseService;
     private final WarehouseDecoder warehouseDecoder;
     private final WarehouseTools warehouseTools;
+    private final WebWalletService webWalletService;
 
     @GetMapping(UIConfig.WAREHOUSE_URL)
     public String gameWarehouse(Model model, Authentication authentication) {
@@ -40,6 +42,7 @@ public class WarehouseController {
                 ListUtils.partition(
                         warehouseDecoder.decodeExtended(ware.getContent())
                         , CodeUtils.WAREHOUSE_ROW_SIZE));
+        model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
         return "game-ware";
     }
 
@@ -49,6 +52,7 @@ public class WarehouseController {
                 "items",
                 warehouseDecoder.decodeWebItems(webWarehouseItemService.getWarehouseItemsByAccountName(authentication.getName())));
         model.addAttribute("zen", webWarehouseService.getWarehouseByAccountName(authentication.getName()).getZen());
+        model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
         return "web-ware";
     }
 
@@ -95,7 +99,6 @@ public class WarehouseController {
         }
         return "redirect:" + UIConfig.WAREHOUSE_URL;
     }
-
 
 
 }

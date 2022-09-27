@@ -6,20 +6,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import pl.pacinho.muonlinewebtrader.frontend.config.UIConfig;
-import pl.pacinho.muonlinewebtrader.service.ItemShopService;
+import pl.pacinho.muonlinewebtrader.service.AccountService;
 import pl.pacinho.muonlinewebtrader.service.WebWalletService;
 
-@Controller
 @RequiredArgsConstructor
-public class ShopController {
+@Controller
+public class AccountController {
 
-    private final ItemShopService itemShopService;
+    private final AccountService accountService;
     private final WebWalletService webWalletService;
 
-    @GetMapping(UIConfig.SHOP_URL)
-    public String shopPage(Model model, Authentication authentication) {
-        model.addAttribute("items", itemShopService.findActiveOffers());
+    @GetMapping(UIConfig.ACCOUNT_URL)
+    public String accountPage(Model model, Authentication authentication) {
         model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
-        return "shop";
+        return "account";
     }
 }

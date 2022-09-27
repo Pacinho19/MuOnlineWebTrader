@@ -1,6 +1,7 @@
 package pl.pacinho.muonlinewebtrader.utils;
 
 import org.apache.tomcat.util.codec.binary.Base64;
+import pl.pacinho.muonlinewebtrader.model.enums.ItemIcon;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,7 +14,7 @@ public class ImageUtils {
         if (path == null || path.isEmpty()) return null;
         FileInputStream fileInputStreamReader = null;
         try {
-            File file = new File( path);
+            File file = new File(path);
             fileInputStreamReader = new FileInputStream(file);
             byte[] bytes = new byte[(int) file.length()];
             fileInputStreamReader.read(bytes);
@@ -29,6 +30,21 @@ public class ImageUtils {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static String getItemIcon(ItemIcon itemIcon) {
+        switch (itemIcon) {
+            case BLESS -> {
+                return encodeFileToBase64Binary(FileUtils.IMG_LOCATION + "/Jewel of Bless.jpg");
+            }
+            case SOUL -> {
+                return encodeFileToBase64Binary(FileUtils.IMG_LOCATION + "/Jewel of Soul.jpg");
+            }
+            case ZEN -> {
+                return encodeFileToBase64Binary(FileUtils.IMG_LOCATION + "/Zen.png");
+            }
+        }
+        return null;
     }
 
 }
