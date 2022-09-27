@@ -24,6 +24,7 @@ public class ItemShop {
     @JoinColumn(name = "SELLER_ACC_ID")
     private Account sellerAccount;
 
+    @Setter
     @ManyToOne
     @JoinColumn(name = "BUYER_ACC_ID")
     private Account buyerAccount;
@@ -37,5 +38,6 @@ public class ItemShop {
     private long blessPrice;
     private long soulPrice;
 
+    @Setter
     private int active;
 }

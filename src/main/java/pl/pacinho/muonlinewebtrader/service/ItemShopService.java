@@ -78,4 +78,10 @@ public class ItemShopService {
                 .map(itemShopDtoMapper::parse)
                 .toList();
     }
+
+    public void closeOffer(ItemShop itemOffer, Account buyer) {
+        itemOffer.setActive(0);
+        itemOffer.setBuyerAccount(buyer);
+        itemShopRepository.save(itemOffer);
+    }
 }

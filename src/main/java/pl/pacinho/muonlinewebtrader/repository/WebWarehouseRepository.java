@@ -10,5 +10,5 @@ import java.util.Optional;
 
 @Repository
 public interface WebWarehouseRepository extends JpaRepository<WebWarehouse, Long> {
-    WebWarehouse findByAccountName(String accountName);
+    Optional<WebWarehouse> findByAccountName(String accountName);
 }

@@ -6,6 +6,8 @@ import pl.pacinho.muonlinewebtrader.entity.WebWarehouse;
 import pl.pacinho.muonlinewebtrader.model.dto.PaymentItemsDto;
 import pl.pacinho.muonlinewebtrader.repository.WebWarehouseRepository;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class WebWarehouseService {
@@ -13,7 +15,17 @@ public class WebWarehouseService {
     private final AccountService accountService;
 
     public WebWarehouse getWarehouseByAccountName(String accountName) {
-        return webWarehouseRepository.findByAccountName(accountName);
+        Optional<WebWarehouse> webWareOpt = webWarehouseRepository.findByAccountName(accountName);
+        if (webWareOpt.isEmpty())
+            return save(WebWarehouse.builder()
+                    .zen(0L)
+                    .account(accountService.findByLogin(accountName))
+                    .build());
+        return webWareOpt.get();
+    }
+
+    private WebWarehouse save(WebWarehouse ware) {
+        return webWarehouseRepository.save(ware);
     }
 
     public void addZen(String accountName, Long zen) {
@@ -29,7 +41,7 @@ public class WebWarehouseService {
     }
 
     public Long findZenByAccountName(String name) {
-        return webWarehouseRepository.findByAccountName(name)
+        return getWarehouseByAccountName(name)
                 .getZen();
     }
 

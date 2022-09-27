@@ -24,6 +24,10 @@ public class WebWalletService {
             return WebWalletDtoMapper.parse(save(WebWallet.empty(accountService.findByLogin(name))));
         return WebWalletDtoMapper.parse(webWalletOpt.get());
     }
+    public WebWallet findEntityByAccountName(String name) {
+        return webWalletRepository.findByAccountName(name)
+                .get();
+    }
 
     private WebWallet save(WebWallet webWallet) {
         return webWalletRepository.save(webWallet);
