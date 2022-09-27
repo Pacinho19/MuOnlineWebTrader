@@ -1,21 +1,15 @@
 package pl.pacinho.muonlinewebtrader.model.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
-import pl.pacinho.muonlinewebtrader.model.enums.ItemIcon;
+import lombok.experimental.SuperBuilder;
+import pl.pacinho.muonlinewebtrader.model.enums.PaymentItem;
 import pl.pacinho.muonlinewebtrader.utils.ImageUtils;
 
 @Getter
-@AllArgsConstructor
-@Builder
-public class WebWalletDto {
+@SuperBuilder(toBuilder = true)
+public class WebWalletDto extends PaymentItemsDto{
 
-    private Long blessCount;
-    private Long soulCount;
-    private Long zenAmount;
-
-    private final String blessIcon = ImageUtils.getItemIcon(ItemIcon.BLESS);
-    private final String soulIcon = ImageUtils.getItemIcon(ItemIcon.SOUL);
-    private final String zenIcon = ImageUtils.getItemIcon(ItemIcon.ZEN);
+    private final String blessIcon = ImageUtils.getItemIcon(PaymentItem.BLESS);
+    private final String soulIcon = ImageUtils.getItemIcon(PaymentItem.SOUL);
+    private final String zenIcon = ImageUtils.getItemIcon(PaymentItem.ZEN);
 }

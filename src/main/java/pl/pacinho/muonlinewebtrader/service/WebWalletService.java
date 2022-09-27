@@ -3,6 +3,7 @@ package pl.pacinho.muonlinewebtrader.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.pacinho.muonlinewebtrader.entity.WebWallet;
+import pl.pacinho.muonlinewebtrader.model.dto.PaymentItemsDto;
 import pl.pacinho.muonlinewebtrader.model.dto.WebWalletDto;
 import pl.pacinho.muonlinewebtrader.model.dto.mapper.WebWalletDtoMapper;
 import pl.pacinho.muonlinewebtrader.repository.WebWalletRepository;

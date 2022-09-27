@@ -3,6 +3,7 @@ package pl.pacinho.muonlinewebtrader.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.pacinho.muonlinewebtrader.entity.WebWarehouse;
+import pl.pacinho.muonlinewebtrader.model.dto.PaymentItemsDto;
 import pl.pacinho.muonlinewebtrader.repository.WebWarehouseRepository;
 
 @RequiredArgsConstructor

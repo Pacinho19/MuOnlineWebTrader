@@ -3,9 +3,12 @@ package pl.pacinho.muonlinewebtrader.tools;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import pl.pacinho.muonlinewebtrader.entity.Warehouse;
+import pl.pacinho.muonlinewebtrader.entity.WebWarehouseItem;
 import pl.pacinho.muonlinewebtrader.model.dto.ExtendedItemDto;
+import pl.pacinho.muonlinewebtrader.model.dto.PaymentItemsDto;
 import pl.pacinho.muonlinewebtrader.model.dto.WareCellDto;
 import pl.pacinho.muonlinewebtrader.model.enums.CellType;
+import pl.pacinho.muonlinewebtrader.model.enums.PaymentItem;
 import pl.pacinho.muonlinewebtrader.service.WarehouseService;
 import pl.pacinho.muonlinewebtrader.service.WebWarehouseItemService;
 import pl.pacinho.muonlinewebtrader.service.WebWarehouseService;
@@ -76,8 +79,8 @@ public class WarehouseTools {
 
     @Transactional
     public void transferZenToWebWarehouse(String name, Long zen) throws IllegalStateException {
-        if(zen==null)
-            throw new IllegalStateException("Amount of zen cannot be empty! " );
+        if (zen == null)
+            throw new IllegalStateException("Amount of zen cannot be empty! ");
 
         Long zenWare = warehouseService.findZenByAccountName(name);
         if (zen > zenWare)
@@ -88,8 +91,8 @@ public class WarehouseTools {
     }
 
     public void transferZenToGameWarehouse(String name, Long zen) throws IllegalStateException {
-        if(zen==null)
-            throw new IllegalStateException("Amount of zen cannot be empty! " );
+        if (zen == null)
+            throw new IllegalStateException("Amount of zen cannot be empty! ");
 
         Long zenWare = webWarehouseService.findZenByAccountName(name);
         if (zen > zenWare)
@@ -101,5 +104,35 @@ public class WarehouseTools {
 
         warehouseService.addZenValue(zen, name);
         webWarehouseService.subtractZen(name, zen);
+    }
+
+    public PaymentItemsDto getPaymentsItem(String name) {
+        Map<PaymentItem, List<ExtendedItemDto>> paymentItems = webWarehouseItemService.getWarehouseItemsByAccountName(name)
+                .stream()
+                .map(wwe -> itemDecoder.decode(wwe.getItem(), -1))
+                .filter(i -> PaymentItem.checkNumber(i.getNumber()))
+                .collect(Collectors.groupingBy(i -> PaymentItem.fromNumber(i.getNumber())));
+
+        return PaymentItemsDto.builder()
+                .zenAmount(webWarehouseService.findZenByAccountName(name))
+                .blessCount(paymentItemSum(paymentItems, PaymentItem.BLESS)
+                        + paymentItemSum(paymentItems, PaymentItem.BLESS_BUNDLE))
+                .soulCount(paymentItemSum(paymentItems, PaymentItem.SOUL)
+                        + paymentItemSum(paymentItems, PaymentItem.SOUL_BUNDLE))
+                .build();
+    }
+
+    private Long paymentItemSum(Map<PaymentItem, List<ExtendedItemDto>> paymentItems, PaymentItem paymentItem) {
+        List<ExtendedItemDto> items = paymentItems.get(paymentItem);
+        if (items == null) return 0L;
+
+        if (!paymentItem.isBundle())
+            return items.stream().count();
+
+        return items
+                .stream()
+                .map(i -> (i.getLevel() * 10) + 10)
+                .reduce(0, Integer::sum)
+                .longValue();
     }
 }

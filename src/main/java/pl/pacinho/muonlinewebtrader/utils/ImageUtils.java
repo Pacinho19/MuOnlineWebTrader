@@ -1,7 +1,7 @@
 package pl.pacinho.muonlinewebtrader.utils;
 
 import org.apache.tomcat.util.codec.binary.Base64;
-import pl.pacinho.muonlinewebtrader.model.enums.ItemIcon;
+import pl.pacinho.muonlinewebtrader.model.enums.PaymentItem;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,8 +32,8 @@ public class ImageUtils {
         }
     }
 
-    public static String getItemIcon(ItemIcon itemIcon) {
-        switch (itemIcon) {
+    public static String getItemIcon(PaymentItem paymentItem) {
+        switch (paymentItem) {
             case BLESS -> {
                 return encodeFileToBase64Binary(FileUtils.IMG_LOCATION + "/Jewel of Bless.jpg");
             }
