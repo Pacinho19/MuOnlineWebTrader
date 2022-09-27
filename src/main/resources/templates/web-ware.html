@@ -37,6 +37,11 @@
         }
 
 
+
+
+
+
+
 </style>
 <body>
 <div th:replace="fragments/topnav :: navbar"/>
@@ -133,11 +138,20 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Transfer to Game Warehouse</button>
-                            <button type="submit" th:formaction="@{/mu-online/web-trader/item/put-for-sale-page}"
-                                    class="btn btn-warning">Put for Sale
-                            </button>
+                        <div class="card-footer" style="text-align:center;">
+                            <div class="row" style="text-align:center;">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary">Transfer to Game Warehouse</button>
+                                </div>
+                            </div>
+                            <div style="text-align:center; margin-top:1%" class="row">
+                                <div class="col-md-12">
+                                    <button type="submit"
+                                            th:formaction="@{/mu-online/web-trader/item/put-for-sale-page}"
+                                            class="btn btn-warning">Put for Sale
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
