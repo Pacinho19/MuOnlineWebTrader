@@ -17,6 +17,7 @@ import pl.pacinho.muonlinewebtrader.service.WebWarehouseItemService;
 import javax.resource.spi.IllegalStateException;
 import javax.transaction.Transactional;
 import java.util.Optional;
+import java.util.concurrent.locks.ReentrantLock;
 
 @Component
 @RequiredArgsConstructor
@@ -26,6 +27,7 @@ public class ItemShopTools {
     private final ItemShopService itemShopService;
     private final ItemShopDtoMapper itemShopDtoMapper;
     private final WebWalletService webWalletService;
+    private final ReentrantLock lock = new ReentrantLock();
 
     @Transactional
     public void putForSale(String code, PriceDto priceDto, String accountName) throws IllegalStateException {
@@ -57,26 +59,31 @@ public class ItemShopTools {
 
     @Transactional
     public void buy(String name, String code, PaymentMethod paymentMethod) throws IllegalStateException {
-        ItemShop itemOffer = getItemOffer(code);
-        Long price = getPriceByPaymentMethod(itemOffer, paymentMethod);
-        if (price == 0L)
-            throw new IllegalStateException("Cannot buy this item by " + paymentMethod.name());
+        try{
+            ItemShop itemOffer = getItemOffer(code);
+            Long price = getPriceByPaymentMethod(itemOffer, paymentMethod);
+            if (price == 0L)
+                throw new IllegalStateException("Cannot buy this item by " + paymentMethod.name());
 
-        if (itemOffer.getSellerAccount().getName().equals(name))
-            throw new IllegalStateException("This item is Yours!");
+            if (itemOffer.getSellerAccount().getName().equals(name))
+                throw new IllegalStateException("This item is Yours!");
 
-        WebWallet webWallet = webWalletService.findEntityByAccountName(name);
-        long walletValue = getWalletValue(webWallet, paymentMethod);
-        if (walletValue == -1)
-            throw new IllegalStateException("Invalid web wallet state!");
+            WebWallet webWallet = webWalletService.findEntityByAccountName(name);
+            long walletValue = getWalletValue(webWallet, paymentMethod);
+            if (walletValue == -1)
+                throw new IllegalStateException("Invalid web wallet state!");
 
-        if (walletValue < price)
-            throw new IllegalStateException("You don't have enough " + paymentMethod.getName());
+            if (walletValue < price)
+                throw new IllegalStateException("You don't have enough " + paymentMethod.getName());
 
-        webWalletService.addToWallet(name, (-1 * price.intValue()), paymentMethod);
-        webWalletService.addToWallet(itemOffer.getSellerAccount().getName(), price.intValue(), paymentMethod);
-        itemShopService.closeOffer(itemOffer, webWallet.getAccount());
-        webWarehouseItemService.addItem(name, itemOffer.getItem());
+            webWalletService.addToWallet(name, (-1 * price.intValue()), paymentMethod);
+            webWalletService.addToWallet(itemOffer.getSellerAccount().getName(), price.intValue(), paymentMethod);
+            itemShopService.closeOffer(itemOffer, webWallet.getAccount());
+            webWarehouseItemService.addItem(name, itemOffer.getItem());
+            lock.lock();
+        }finally{
+            lock.unlock();
+        }
     }
 
     private long getWalletValue(WebWallet webWallet, PaymentMethod paymentMethod) {
