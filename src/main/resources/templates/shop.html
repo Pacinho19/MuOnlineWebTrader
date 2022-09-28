@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>MuOnline Item List</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -34,6 +35,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
     </style>
 </head>
 <body>
@@ -43,6 +53,53 @@
 <div class="row" style="margin-top:1%;">
     <div class="col-sm-2"></div>
     <div class="col-md-8">
+
+        <div class="card" style="margin-top:1%;">
+            <div class="card-header">
+                <a th:href="'#collapseFilter'"
+                   style="text-align:center"
+                   data-toggle="collapse">Filters</a>
+                <div th:id="'collapseFilter'"
+                     class="panel-collapse collapse">
+                    <div class="card-body">
+                        <form th:method="post" th:action="@{'/mu-online/web-trader/shop}" th:object="${filter}">
+                            <div class="row">
+                                <h3>Class</h3>
+                                <div th:each="cf : ${filter.classFilter}"
+                                     style="margin-left:2%;border: 2px solid black; border-radius: 5px;">
+                                    <div class="row" style="text-align:center">
+                                        <div class="col-md-6" style="text-align:center">
+                                            <img style="max-width:30px;max-height:30px" class="rounded"
+                                                 th:src="@{${'data:image/jpeg;base64,'+ cf.characterClass.icon}}"/>
+                                        </div>
+                                        <div class="col-md-6" style="text-align:center">
+                                            <input style="text-align:left;height:100%"
+                                                   th:checked="${cf.selected}"
+                                                   type="checkbox"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:1%text-align:center">
+                                <h3>Category</h3>
+                                <div th:each="cf : ${filter.categoryFilter}" style="margin-top:1%;margin-left:2%;">
+                                    <div class="row"
+                                         style="text-align:center;margin-top:1%;margin-left:2%;border: 2px solid black; border-radius: 5px;">
+                                        <label style="text-align:center;display:inline-block" th:text="${cf.category.name}"></label>
+                                        <input style="display:inline-block;text-align:left;height:100%"
+                                               th:checked="${cf.selected}"
+                                               type="checkbox"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
 
         <table id="myTable" style="margin-top:1%;" th:if="${pageItems!=null}" class="table">
             <thead>
@@ -82,30 +139,30 @@
             </tbody>
         </table>
 
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center" th:if="${pageItems.paging.totalPages > 1}">
-                    <li class="page-item" th:classappend="${!pageItems.paging.isPrevEnabled()? 'disabled' : ''}">
-                        <a class="page-link"
-                           th:href="@{'/mu-online/web-trader/shop/?page=' + ${pageItems.paging.pageNumber - 1}}"
-                           tabindex="-1">Previous</a>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center" th:if="${pageItems.paging.totalPages > 1}">
+                <li class="page-item" th:classappend="${!pageItems.paging.isPrevEnabled()? 'disabled' : ''}">
+                    <a class="page-link"
+                       th:href="@{'/mu-online/web-trader/shop/?page=' + ${pageItems.paging.pageNumber - 1}}"
+                       tabindex="-1">Previous</a>
+                </li>
+                <th:block th:each="item : ${pageItems.paging.getItems()}">
+                    <li class="page-item"
+                        th:classappend="${item.index == pageItems.paging.pageNumber? 'active' : ''}"
+                        th:if="${item.pageItemType.name() == 'PAGE'}">
+                        <a class="page-link" th:href="@{'/mu-online/web-trader/shop/?page=' + ${item.index}}"
+                           th:text="${item.index}"></a>
                     </li>
-                    <th:block th:each="item : ${pageItems.paging.getItems()}">
-                        <li class="page-item"
-                            th:classappend="${item.index == pageItems.paging.pageNumber? 'active' : ''}"
-                            th:if="${item.pageItemType.name() == 'PAGE'}">
-                            <a class="page-link" th:href="@{'/mu-online/web-trader/shop/?page=' + ${item.index}}"
-                               th:text="${item.index}"></a>
-                        </li>
-                        <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
-                            <a class="page-link" href="#">...</a>
-                        </li>
-                    </th:block>
-                    <li class="page-item" th:classappend="${!pageItems.paging.isNextEnabled()? 'disabled' : ''}">
-                        <a class="page-link"
-                           th:href="@{'/mu-online/web-trader/shop/?page=' + ${pageItems.paging.pageNumber + 1}}">Next</a>
+                    <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
+                        <a class="page-link" href="#">...</a>
                     </li>
-                </ul>
-            </nav>
+                </th:block>
+                <li class="page-item" th:classappend="${!pageItems.paging.isNextEnabled()? 'disabled' : ''}">
+                    <a class="page-link"
+                       th:href="@{'/mu-online/web-trader/shop/?page=' + ${pageItems.paging.pageNumber + 1}}">Next</a>
+                </li>
+            </ul>
+        </nav>
     </div>
     <div class="col-sm-2"></div>
 </div>

@@ -1,12 +1,15 @@
 package pl.pacinho.muonlinewebtrader.utils;
 
 import org.apache.tomcat.util.codec.binary.Base64;
+import pl.pacinho.muonlinewebtrader.model.enums.CharacterClass;
 import pl.pacinho.muonlinewebtrader.model.enums.PaymentItem;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ImageUtils {
 
@@ -45,6 +48,10 @@ public class ImageUtils {
             }
         }
         return null;
+    }
+
+    public static String getCharacterClassImages(String name) {
+        return encodeFileToBase64Binary(FileUtils.IMG_LOCATION + "/" + name + ".png");
     }
 
 }

@@ -7,6 +7,7 @@ import pl.pacinho.muonlinewebtrader.entity.Account;
 import pl.pacinho.muonlinewebtrader.entity.ItemShop;
 import pl.pacinho.muonlinewebtrader.model.dto.ItemShopDto;
 import pl.pacinho.muonlinewebtrader.model.dto.PriceDto;
+import pl.pacinho.muonlinewebtrader.model.dto.filters.FilterDto;
 import pl.pacinho.muonlinewebtrader.model.dto.mapper.ItemShopDtoMapper;
 import pl.pacinho.muonlinewebtrader.repository.ItemShopRepository;
 import pl.pacinho.muonlinewebtrader.tools.pageable.Paging;
@@ -60,7 +61,7 @@ public class ItemShopService {
         return itemShopRepository.findByItemAndActive(code, active);
     }
 
-    public Paged<ItemShopDto> findActiveOffers(Optional<Integer> page, Optional<Integer> size) {
+    public Paged<ItemShopDto> findActiveOffers(Optional<Integer> page, Optional<Integer> size, FilterDto filterDto) {
         int pageNumber = page.orElse(1);
         int pageSize = size.orElse(5);
 
