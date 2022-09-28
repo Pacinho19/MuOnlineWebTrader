@@ -59,7 +59,8 @@ public class ItemShopTools {
 
     @Transactional
     public void buy(String name, String code, PaymentMethod paymentMethod) throws IllegalStateException {
-        try{
+        try {
+            lock.lock();
             ItemShop itemOffer = getItemOffer(code);
             Long price = getPriceByPaymentMethod(itemOffer, paymentMethod);
             if (price == 0L)
@@ -80,8 +81,9 @@ public class ItemShopTools {
             webWalletService.addToWallet(itemOffer.getSellerAccount().getName(), price.intValue(), paymentMethod);
             itemShopService.closeOffer(itemOffer, webWallet.getAccount());
             webWarehouseItemService.addItem(name, itemOffer.getItem());
-            lock.lock();
-        }finally{
+        } catch (Exception e) {
+            throw e;
+        } finally {
             lock.unlock();
         }
     }

@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <title>MuOnline Item List</title>
 
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -31,6 +29,11 @@
          td, tr{
             text-align:center
         }
+
+
+
+
+
     </style>
 </head>
 <body>
@@ -41,9 +44,7 @@
     <div class="col-sm-2"></div>
     <div class="col-md-8">
 
-        <div th:replace="fragments/filter :: filterFrag"></div>
-
-        <table id="myTable" style="margin-top:1%;" th:if="${items!=null}" class="table">
+        <table id="myTable" style="margin-top:1%;" th:if="${pageItems!=null}" class="table">
             <thead>
             <tr class="table-secondary">
                 <th>No.</th>
@@ -59,7 +60,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="table-secondary" th:each="item, iterStat : ${items}">
+            <tr class="table-secondary" th:each="item, iterStat : ${pageItems.page}">
                 <form th:method="get"
                       th:action="@{'/mu-online/web-trader/shop/item/' + ${item.itemDto.code}}">
                     <td><span th:text="${iterStat.count}"></span></td>
@@ -80,6 +81,31 @@
             </tr>
             </tbody>
         </table>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center" th:if="${pageItems.paging.totalPages > 1}">
+                    <li class="page-item" th:classappend="${!pageItems.paging.isPrevEnabled()? 'disabled' : ''}">
+                        <a class="page-link"
+                           th:href="@{'/mu-online/web-trader/shop/?page=' + ${pageItems.paging.pageNumber - 1}}"
+                           tabindex="-1">Previous</a>
+                    </li>
+                    <th:block th:each="item : ${pageItems.paging.getItems()}">
+                        <li class="page-item"
+                            th:classappend="${item.index == pageItems.paging.pageNumber? 'active' : ''}"
+                            th:if="${item.pageItemType.name() == 'PAGE'}">
+                            <a class="page-link" th:href="@{'/mu-online/web-trader/shop/?page=' + ${item.index}}"
+                               th:text="${item.index}"></a>
+                        </li>
+                        <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
+                            <a class="page-link" href="#">...</a>
+                        </li>
+                    </th:block>
+                    <li class="page-item" th:classappend="${!pageItems.paging.isNextEnabled()? 'disabled' : ''}">
+                        <a class="page-link"
+                           th:href="@{'/mu-online/web-trader/shop/?page=' + ${pageItems.paging.pageNumber + 1}}">Next</a>
+                    </li>
+                </ul>
+            </nav>
     </div>
     <div class="col-sm-2"></div>
 </div>

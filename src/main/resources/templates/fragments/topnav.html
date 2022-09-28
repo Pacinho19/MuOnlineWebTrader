@@ -14,14 +14,14 @@
             <li class="nav-item">
                 <a class="nav-link bi bi-download" href="/mu-online/web-trader/item/decode">Decode Item</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link bi bi-shop" href="/mu-online/web-trader/shop">Item Shop</a>
+            </li>
             <li class="nav-item" sec:authorize="isAuthenticated()">
                 <a class="nav-link bi bi-box" href="/mu-online/web-trader/ware">Game Warehouse</a>
             </li>
             <li class="nav-item" sec:authorize="isAuthenticated()">
                 <a class="nav-link bi bi-boxes" href="/mu-online/web-trader/ware/web">Web Warehouse</a>
-            </li>
-            <li class="nav-item" sec:authorize="isAuthenticated()">
-                <a class="nav-link bi bi-shop" href="/mu-online/web-trader/shop">Item Shop</a>
             </li>
         </ul>
         <div sec:authorize="isAuthenticated()">

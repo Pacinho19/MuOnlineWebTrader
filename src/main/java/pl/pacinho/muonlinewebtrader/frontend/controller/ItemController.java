@@ -92,7 +92,8 @@ public class ItemController {
             model.addAttribute("skipSearch", true);
             return itemForSale(model, code, authentication);
         }
-        model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
+        if (authentication != null)
+            model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
         return "item-for-sale";
     }
 

@@ -1,5 +1,6 @@
 package pl.pacinho.muonlinewebtrader.repository;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -14,7 +15,7 @@ public interface ItemShopRepository extends PagingAndSortingRepository<ItemShop,
 
     Optional<ItemShop> findByItemAndActive(String item, int active);
 
-    List<ItemShop> findAllByActive(int active);
+    Page<ItemShop> findAllByActive(int active, Pageable pageable);
 
     List<ItemShop> findAllByActiveOrderByAddDateDesc(int active, Pageable pageable);
 

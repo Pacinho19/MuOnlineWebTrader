@@ -1,7 +1,7 @@
 package pl.pacinho.muonlinewebtrader.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import pl.pacinho.muonlinewebtrader.entity.Account;
 import pl.pacinho.muonlinewebtrader.entity.ItemShop;
@@ -9,6 +9,8 @@ import pl.pacinho.muonlinewebtrader.model.dto.ItemShopDto;
 import pl.pacinho.muonlinewebtrader.model.dto.PriceDto;
 import pl.pacinho.muonlinewebtrader.model.dto.mapper.ItemShopDtoMapper;
 import pl.pacinho.muonlinewebtrader.repository.ItemShopRepository;
+import pl.pacinho.muonlinewebtrader.tools.pageable.Paging;
+import pl.pacinho.muonlinewebtrader.tools.pageable.model.Paged;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -58,11 +60,18 @@ public class ItemShopService {
         return itemShopRepository.findByItemAndActive(code, active);
     }
 
-    public List<ItemShopDto> findActiveOffers() {
-        return itemShopRepository.findAllByActive(1)
+    public Paged<ItemShopDto> findActiveOffers(Optional<Integer> page, Optional<Integer> size) {
+        int pageNumber = page.orElse(1);
+        int pageSize = size.orElse(5);
+
+        Pageable request = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Direction.DESC, "id"));
+        Page<ItemShop> pageItems = itemShopRepository.findAllByActive(1, request);
+        return new Paged<>(pageItems.getContent()
                 .stream()
                 .map(itemShopDtoMapper::parse)
-                .toList();
+                .toList()
+                , Paging.of(pageItems.getTotalPages(), pageNumber, pageSize));
+
     }
 
     public List<ItemShopDto> findLastAdded(int count) {
