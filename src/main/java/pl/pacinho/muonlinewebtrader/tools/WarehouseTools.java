@@ -3,10 +3,7 @@ package pl.pacinho.muonlinewebtrader.tools;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import pl.pacinho.muonlinewebtrader.entity.Warehouse;
-import pl.pacinho.muonlinewebtrader.model.dto.ExtendedItemDto;
-import pl.pacinho.muonlinewebtrader.model.dto.PaymentItemsDto;
-import pl.pacinho.muonlinewebtrader.model.dto.TransferJewelsDto;
-import pl.pacinho.muonlinewebtrader.model.dto.WareCellDto;
+import pl.pacinho.muonlinewebtrader.model.dto.*;
 import pl.pacinho.muonlinewebtrader.model.enums.CellType;
 import pl.pacinho.muonlinewebtrader.model.enums.PaymentItem;
 import pl.pacinho.muonlinewebtrader.model.enums.PaymentMethod;
@@ -120,7 +117,7 @@ public class WarehouseTools {
                         .collect(Collectors.groupingBy(i -> PaymentItem.fromNumber(i.getNumber())));
 
         return PaymentItemsDto.builder()
-                .zenAmount(webWarehouseService.findZenByAccountName(name))
+                .zenCount(webWarehouseService.findZenByAccountName(name))
                 .blessCount(paymentItemSum(paymentItems, PaymentItem.BLESS)
                         + paymentItemSum(paymentItems, PaymentItem.BLESS_BUNDLE))
                 .soulCount(paymentItemSum(paymentItems, PaymentItem.SOUL)
@@ -153,7 +150,7 @@ public class WarehouseTools {
     @Transactional
     public void transferZenToWallet(String name, Integer count) throws IllegalStateException {
         if (count == null || count == 0)
-            throw new IllegalStateException("Zen ammount must be positive number!");
+            throw new IllegalStateException("Zen count must be positive number!");
 
         Long webZen = webWarehouseService.findZenByAccountName(name);
         if (webZen < count)
@@ -217,19 +214,11 @@ public class WarehouseTools {
     }
 
     private void checkJewelsToPutBack(AtomicInteger countI, PaymentMethod paymentMethod, TransferJewelsDto tj) {
-        Map<Integer, Integer> bundleMap = new HashMap<>();
-        int countToAdd = Math.abs(countI.get());
-        int bundleLevel = 2;
-        while (bundleLevel >= 0) {
-            int bundleCount = countToAdd / ItemUtils.getItemCountFromBundle(bundleLevel);
-            if (bundleCount > 0) {
-                countToAdd -= bundleCount * ItemUtils.getItemCountFromBundle(bundleLevel);
-                bundleMap.put(bundleLevel, bundleCount);
-            }
-            bundleLevel--;
-        }
+        int jewelsCount = Math.abs(countI.get());
+        Map<Integer, Integer> bundleMap = bundleJewels(jewelsCount);
+        int singleJewelsCount = jewelsCount - ItemUtils.bundleItemCount(bundleMap);
 
-        IntStream.range(0, countToAdd)
+        IntStream.range(0, singleJewelsCount)
                 .forEach(i -> tj.putItemToAdd(ItemUtils.getItemCode(
                         paymentMethod.getItem(false), 0
                 )));
@@ -241,4 +230,83 @@ public class WarehouseTools {
                         ))));
     }
 
+    private Map<Integer, Integer> bundleJewels(int count) {
+        Map<Integer, Integer> bundleMap = new HashMap<>();
+        int bundleLevel = 2;
+        while (bundleLevel >= 0) {
+            int bundleCount = count / ItemUtils.getItemCountFromBundle(bundleLevel);
+            if (bundleCount > 0) {
+                count -= bundleCount * ItemUtils.getItemCountFromBundle(bundleLevel);
+                bundleMap.put(bundleLevel, bundleCount);
+            }
+            bundleLevel--;
+        }
+        return bundleMap;
+    }
+
+    @Transactional
+    public void disbursementBlessFromWallet(String name, Integer blessCount) throws IllegalStateException {
+        disbursementJewelsFromWallet(name, blessCount, PaymentMethod.BLESS);
+    }
+
+    @Transactional
+    public void disbursementSoulFromWallet(String name, Integer soulCount) throws IllegalStateException {
+        disbursementJewelsFromWallet(name, soulCount, PaymentMethod.SOUL);
+    }
+
+    @Transactional
+    public void disbursementZenFromWallet(String name, Integer zenCount) throws IllegalStateException {
+        if (zenCount == null || zenCount == 0)
+            throw new IllegalStateException("Zen count must be positive number!");
+
+        Long walletZen = webWalletService.findZenByAccountName(name);
+        if (walletZen < zenCount)
+            throw new IllegalStateException("Not enough zen found in Web Wallet !");
+
+        webWarehouseService.addZen(name, Long.valueOf(zenCount));
+        webWalletService.addToWallet(name, (-1 * zenCount), PaymentMethod.ZEN);
+    }
+
+    private void disbursementJewelsFromWallet(String name, Integer count, PaymentMethod paymentMethod) throws IllegalStateException {
+        if (count == null || count == 0)
+            throw new IllegalStateException("Item count must be positive number!");
+
+        long jewelsInWallet = getJewelsCountInWallet(name, paymentMethod);
+        if (jewelsInWallet < count)
+            throw new IllegalStateException("Not enough " + paymentMethod.getName() + " found in Web Wallet !");
+
+        webWalletService.addToWallet(name, (-1 * count), paymentMethod);
+        transferJewelsFromWebWallet(name, count, paymentMethod);
+    }
+
+    private void transferJewelsFromWebWallet(String name, Integer count, PaymentMethod paymentMethod) {
+        Map<Integer, Integer> bundleMap = bundleJewels(count);
+        int singleJewelsCount = count - ItemUtils.bundleItemCount(bundleMap);
+
+        IntStream.range(0, singleJewelsCount)
+                .forEach(i -> webWarehouseItemService.addItem(
+                        name,
+                        ItemUtils.getItemCode(paymentMethod.getItem(false), 0
+                        )));
+
+        bundleMap.forEach((level, bundleCount) ->
+                IntStream.range(0, bundleCount)
+                        .forEach(i -> webWarehouseItemService.addItem(
+                                name,
+                                ItemUtils.getItemCode(paymentMethod.getItem(true), level
+                                ))));
+    }
+
+    private long getJewelsCountInWallet(String name, PaymentMethod paymentMethod) {
+        WebWalletDto webWallet = webWalletService.findByAccountName(name);
+        switch (paymentMethod) {
+            case BLESS -> {
+                return webWallet.getBlessCount();
+            }
+            case SOUL -> {
+                return webWallet.getSoulCount();
+            }
+        }
+        return 0;
+    }
 }

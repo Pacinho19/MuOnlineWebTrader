@@ -8,6 +8,7 @@ import pl.pacinho.muonlinewebtrader.entity.WebWarehouseItem;
 import pl.pacinho.muonlinewebtrader.repository.WebWarehouseItemRepository;
 
 import javax.resource.spi.IllegalStateException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +20,10 @@ public class WebWarehouseItemService {
     private final AccountService accountService;
 
     public List<WebWarehouseItem> getWarehouseItemsByAccountName(String accountName) {
-        return webWarehouseItemRepository.findByAccountNameAndActive(accountName, 1);
+        return webWarehouseItemRepository.findByAccountNameAndActive(accountName, 1)
+                .stream()
+                .sorted(Comparator.comparing(WebWarehouseItem::getId))
+                .toList();
     }
 
     public void addItem(String accountName, String itemCode) {

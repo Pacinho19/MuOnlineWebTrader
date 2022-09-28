@@ -9,7 +9,7 @@ public class WebWalletDtoMapper {
         return WebWalletDto.builder()
                 .blessCount(webWallet.getBlessCount())
                 .soulCount(webWallet.getSoulCount())
-                .zenAmount(webWallet.getZenAmount())
+                .zenCount(webWallet.getZenAmount())
                 .build();
     }
 }

@@ -29,6 +29,9 @@
 
 
 
+
+
+
     </style>
 </head>
 <body>
@@ -65,19 +68,43 @@
                             <div class="card-footer">
                                 <div class="card">
                                     <div class="card-header" style="text-align:center;">
-                                        <i style="text-align:center">Web Ware</i>
-                                        <div class="input-group mb-3">
-                                            <input readonly th:value="${ware.blessCount}" type="number"
-                                                   class="form-control" aria-label="blessW">
-                                            <div class="input-group-append">
-                                                <a data-toggle="collapse" class="input-group-text bi bi-arrow-down-up"
-                                                   th:href="'#collapseWebBless'">
-                                                </a>
-                                            </div>
+                                        <a th:href="'#collapseBlessToGame'"
+                                           style="text-align:center"
+                                           data-toggle="collapse"
+                                        >Disbursement</a>
+                                        <div th:id="'collapseBlessToGame'"
+                                             class="panel-collapse collapse">
+                                            <form th:method="post"
+                                                  th:action="@{/mu-online/web-trader/account/bless-disbursement}">
+                                                <div class="input-group mb-3">
+                                                    <input style="text-align:center"
+                                                           id="webWalletBlessI"
+                                                           name="blessCount"
+                                                           min="0"
+                                                           th:max="${webWallet.blessCount}"
+                                                           type="number"
+                                                           class="form-control"
+                                                           aria-label="Jewel of Bless">
+                                                </div>
+                                                <button style="margin-left:1%;width:100%" type="submit"
+                                                        class="btn btn-primary">To Web Warehouse
+                                                </button>
+                                            </form>
                                         </div>
-
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" style="text-align:center;">
+                                        <a th:href="'#collapseWebBless'"
+                                           style="text-align:center"
+                                           data-toggle="collapse"
+                                        >Web Warehouse</a>
                                         <div th:id="'collapseWebBless'"
                                              class="panel-collapse collapse">
+                                            <div class="input-group mb-3">
+                                                <input readonly th:value="${ware.blessCount}" type="number"
+                                                       class="form-control" aria-label="blessW">
+                                            </div>
                                             <form th:method="post"
                                                   th:action="@{/mu-online/web-trader/account/bless-transfer}">
                                                 <i style="text-align:center">Deposit</i>
@@ -91,7 +118,7 @@
                                                            class="form-control"
                                                            aria-label="Jewel of Bless in Web">
                                                 </div>
-                                                <button style="margin-left:1%" type="submit"
+                                                <button style="margin-left:1%;width:100%" type="submit"
                                                         class="btn btn-primary">To Wallet
                                                 </button>
                                             </form>
@@ -114,42 +141,66 @@
                                        class="form-control"
                                        aria-label="Jewel of Soul">
                             </div>
-                        <div class="card-footer">
-                            <div class="card">
-                                <div class="card-header" style="text-align:center;">
-                                    <i style="text-align:center">Web Ware</i>
-                                    <div class="input-group mb-3">
-                                        <input readonly th:value="${ware.soulCount}" type="number"
-                                               class="form-control" aria-label="soulW">
-                                        <div class="input-group-append">
-                                            <a data-toggle="collapse" class="input-group-text bi bi-arrow-down-up"
-                                               th:href="'#collapseWebSoul'">
-                                            </a>
+                            <div class="card-footer">
+                                <div class="card">
+                                    <div class="card-header" style="text-align:center;">
+                                        <a th:href="'#collapseSoulToGame'"
+                                           style="text-align:center"
+                                           data-toggle="collapse"
+                                        >Disbursement</a>
+                                        <div th:id="'collapseSoulToGame'"
+                                             class="panel-collapse collapse">
+                                            <form th:method="post"
+                                                  th:action="@{/mu-online/web-trader/account/soul-disbursement}">
+                                                <div class="input-group mb-3">
+                                                    <input style="text-align:center"
+                                                           id="webWalletSoulI"
+                                                           name="soulCount"
+                                                           min="0"
+                                                           th:max="${webWallet.soulCount}"
+                                                           type="number"
+                                                           class="form-control"
+                                                           aria-label="Jewel of Soul">
+                                                </div>
+                                                <button style="margin-left:1%;width:100%" type="submit"
+                                                        class="btn btn-primary">To Web Warehouse
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
-
-                                    <div th:id="'collapseWebSoul'"
-                                         class="panel-collapse collapse">
-                                        <form th:method="post"
-                                              th:action="@{/mu-online/web-trader/account/soul-transfer}">
-                                            <i style="text-align:center">Deposit</i>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" style="text-align:center;">
+                                        <a th:href="'#collapseWebSoul'"
+                                           style="text-align:center"
+                                           data-toggle="collapse"
+                                        >Web Warehouse</a>
+                                        <div th:id="'collapseWebSoul'"
+                                             class="panel-collapse collapse">
                                             <div class="input-group mb-3">
-                                                <input style="text-align:center"
-                                                       id="webSoulI"
-                                                       name="soulCount"
-                                                       min="0"
-                                                       th:max="${ware.soulCount}"
-                                                       type="number"
-                                                       class="form-control"
-                                                       aria-label="Jewel of Soul in Web">
+                                                <input readonly th:value="${ware.soulCount}" type="number"
+                                                       class="form-control" aria-label="soulW">
                                             </div>
-                                            <button style="margin-left:1%" type="submit"
-                                                    class="btn btn-primary">To Wallet
-                                            </button>
-                                        </form>
+                                            <form th:method="post"
+                                                  th:action="@{/mu-online/web-trader/account/soul-transfer}">
+                                                <i style="text-align:center">Deposit</i>
+                                                <div class="input-group mb-3">
+                                                    <input style="text-align:center"
+                                                           id="webSoulI"
+                                                           name="soulCount"
+                                                           min="0"
+                                                           th:max="${ware.soulCount}"
+                                                           type="number"
+                                                           class="form-control"
+                                                           aria-label="Jewel of Soul in Web">
+                                                </div>
+                                                <button style="margin-left:1%;width:100%" type="submit"
+                                                        class="btn btn-primary">To Wallet
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             </div>
                         </div>
                     </div>
@@ -160,7 +211,7 @@
                                      th:src="@{${'data:image/jpeg;base64,'+ webWallet.zenIcon}}"/>
                             </div>
                             <div class="input-group-append">
-                                <input id="zen" th:value="${webWallet.zenAmount}" name="zen"
+                                <input id="zen" th:value="${webWallet.zenCount}" name="zen"
                                        readonly
                                        type="number"
                                        class="form-control"
@@ -169,19 +220,43 @@
                             <div class="card-footer">
                                 <div class="card">
                                     <div class="card-header" style="text-align:center;">
-                                        <i style="text-align:center">Web Ware</i>
-                                        <div class="input-group mb-3">
-                                            <input readonly th:value="${ware.zenAmount}" type="number"
-                                                   class="form-control" aria-label="zenW">
-                                            <div class="input-group-append">
-                                                <a data-toggle="collapse" class="input-group-text bi bi-arrow-down-up"
-                                                   th:href="'#collapseWebZen'">
-                                                </a>
-                                            </div>
+                                        <a th:href="'#collapseZenToGame'"
+                                           style="text-align:center"
+                                           data-toggle="collapse"
+                                        >Disbursement</a>
+                                        <div th:id="'collapseZenToGame'"
+                                             class="panel-collapse collapse">
+                                            <form th:method="post"
+                                                  th:action="@{/mu-online/web-trader/account/zen-disbursement}">
+                                                <div class="input-group mb-3">
+                                                    <input style="text-align:center"
+                                                           id="webWalletZenI"
+                                                           name="zenCount"
+                                                           min="0"
+                                                           th:max="${webWallet.zenCount}"
+                                                           type="number"
+                                                           class="form-control"
+                                                           aria-label="Jewel of Zen">
+                                                </div>
+                                                <button style="margin-left:1%;width:100%" type="submit"
+                                                        class="btn btn-primary">To Web Warehouse
+                                                </button>
+                                            </form>
                                         </div>
-
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" style="text-align:center;">
+                                        <a th:href="'#collapseWebZen'"
+                                           style="text-align:center"
+                                           data-toggle="collapse"
+                                        >Web Warehouse</a>
                                         <div th:id="'collapseWebZen'"
                                              class="panel-collapse collapse">
+                                            <div class="input-group mb-3">
+                                                <input readonly th:value="${ware.zenCount}" type="number"
+                                                       class="form-control" aria-label="zenW">
+                                            </div>
                                             <form th:method="post"
                                                   th:action="@{/mu-online/web-trader/account/zen-transfer}">
                                                 <i style="text-align:center">Deposit</i>
@@ -190,12 +265,12 @@
                                                            id="webZenI"
                                                            name="zenCount"
                                                            min="0"
-                                                           th:max="${ware.zenAmount}"
+                                                           th:max="${ware.zenCount}"
                                                            type="number"
                                                            class="form-control"
-                                                           aria-label="Zen in Web Ware">
+                                                           aria-label="Jewel of Zen in Web">
                                                 </div>
-                                                <button style="margin-left:1%" type="submit"
+                                                <button style="margin-left:1%;width:100%" type="submit"
                                                         class="btn btn-primary">To Wallet
                                                 </button>
                                             </form>

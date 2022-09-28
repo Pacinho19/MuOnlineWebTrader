@@ -9,12 +9,12 @@ import pl.pacinho.muonlinewebtrader.model.enums.PaymentMethod;
 public class PaymentItemsDto {
     private Long blessCount;
     private Long soulCount;
-    private Long zenAmount;
+    private Long zenCount;
 
     public Long getCountByType(PaymentMethod paymentMethod) {
         switch (paymentMethod) {
             case ZEN -> {
-                return zenAmount;
+                return zenCount;
             }
             case BLESS -> {
                 return blessCount;

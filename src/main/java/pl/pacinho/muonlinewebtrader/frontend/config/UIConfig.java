@@ -20,4 +20,8 @@ public class UIConfig {
     public static final String BLESS_TRANSFER = ACCOUNT_URL + "/bless-transfer";
     public static final String SOUL_TRANSFER = ACCOUNT_URL + "/soul-transfer";
     public static final String ZEN_TRANSFER = ACCOUNT_URL + "/zen-transfer";
+    public static final String BLESS_DISBURSEMENT = ACCOUNT_URL + "/bless-disbursement";
+    public static final String SOUL_DISBURSEMENT = ACCOUNT_URL + "/soul-disbursement";
+    public static final String ZEN_DISBURSEMENT = ACCOUNT_URL + "/zen-disbursement";
+            ;
 }

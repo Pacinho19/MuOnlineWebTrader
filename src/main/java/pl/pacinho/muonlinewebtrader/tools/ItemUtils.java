@@ -2,6 +2,9 @@ package pl.pacinho.muonlinewebtrader.tools;
 
 import pl.pacinho.muonlinewebtrader.model.enums.PaymentItem;
 
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class ItemUtils {
 
     public static int getItemCountFromBundle(int level) {
@@ -44,6 +47,14 @@ public class ItemUtils {
             }
         }
         return CodeUtils.EMPTY_CODE;
+    }
+
+    public static int bundleItemCount(Map<Integer, Integer> bundleMap) {
+        AtomicInteger sum = new AtomicInteger(0);
+        bundleMap.forEach((level, count) -> {
+            sum.addAndGet(count * ItemUtils.getItemCountFromBundle(level));
+        });
+        return sum.get();
     }
 
 }

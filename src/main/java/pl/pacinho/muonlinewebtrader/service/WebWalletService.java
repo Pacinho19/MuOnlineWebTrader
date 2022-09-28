@@ -24,6 +24,7 @@ public class WebWalletService {
             return WebWalletDtoMapper.parse(save(WebWallet.empty(accountService.findByLogin(name))));
         return WebWalletDtoMapper.parse(webWalletOpt.get());
     }
+
     public WebWallet findEntityByAccountName(String name) {
         return webWalletRepository.findByAccountName(name)
                 .get();
@@ -44,6 +45,7 @@ public class WebWalletService {
         webWallet.setSoulCount(webWallet.getSoulCount() + soulCount);
         save(webWallet);
     }
+
     private void addZen(String name, Integer count) {
         WebWallet webWallet = webWalletRepository.findByAccountName(name).get();
         webWallet.setZenAmount(webWallet.getZenAmount() + count);
@@ -58,4 +60,8 @@ public class WebWalletService {
         }
     }
 
+    public Long findZenByAccountName(String name) {
+        return findByAccountName(name)
+                .getZenCount();
+    }
 }
