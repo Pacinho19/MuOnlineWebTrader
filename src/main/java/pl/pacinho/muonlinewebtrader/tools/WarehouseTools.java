@@ -18,6 +18,7 @@ import pl.pacinho.muonlinewebtrader.service.WebWarehouseService;
 import javax.resource.spi.IllegalStateException;
 import javax.transaction.Transactional;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -149,10 +150,25 @@ public class WarehouseTools {
                 .longValue();
     }
 
+    @Transactional
+    public void transferZenToWallet(String name, Integer count) throws IllegalStateException {
+        if (count == null || count == 0)
+            throw new IllegalStateException("Zen ammount must be positive number!");
+
+        Long webZen = webWarehouseService.findZenByAccountName(name);
+        if (webZen < count)
+            throw new IllegalStateException("Not enough zen found in Web Warehouse !");
+
+        webWarehouseService.subtractZen(name, Long.valueOf(count));
+        webWalletService.addToWallet(name, count, PaymentMethod.ZEN);
+    }
+
+    @Transactional
     public void transferBlessToWallet(String name, Integer blessCount) throws IllegalStateException {
         transferJewelToWallet(name, blessCount, PaymentMethod.BLESS);
     }
 
+    @Transactional
     public void transferSoulToWallet(String name, Integer soulCount) throws IllegalStateException {
         transferJewelToWallet(name, soulCount, PaymentMethod.SOUL);
     }
@@ -192,36 +208,37 @@ public class WarehouseTools {
             }
         });
 
-        int countToAdd = Math.abs(countI.get());
-        int singleItemCount = countToAdd % 10;
-        int bundleItemCount = countToAdd / 10;
-
-        IntStream.range(0, singleItemCount)
-                .forEach(i -> tj.putItemToAdd(ItemUtils.getItemCode(
-                        paymentMethod.getItem(false)
-                )));
-
-        IntStream.range(0, bundleItemCount)
-                .forEach(i -> tj.putItemToAdd(ItemUtils.getItemCode(
-                        paymentMethod.getItem(true)
-                )));
-
         tj.getItemsToRemove()
                 .forEach(code -> webWarehouseItemService.removeItem(name, code));
 
+        checkJewelsToPutBack(countI, paymentMethod, tj);
         tj.getItemsToAdd()
                 .forEach(code -> webWarehouseItemService.addItem(name, code));
     }
 
-    public void transferZenToWallet(String name, Integer count) throws IllegalStateException {
-        if (count == null || count == 0)
-            throw new IllegalStateException("Zen ammount must be positive number!");
+    private void checkJewelsToPutBack(AtomicInteger countI, PaymentMethod paymentMethod, TransferJewelsDto tj) {
+        Map<Integer, Integer> bundleMap = new HashMap<>();
+        int countToAdd = Math.abs(countI.get());
+        int bundleLevel = 2;
+        while (bundleLevel >= 0) {
+            int bundleCount = countToAdd / ItemUtils.getItemCountFromBundle(bundleLevel);
+            if (bundleCount > 0) {
+                countToAdd -= bundleCount * ItemUtils.getItemCountFromBundle(bundleLevel);
+                bundleMap.put(bundleLevel, bundleCount);
+            }
+            bundleLevel--;
+        }
 
-        Long webZen = webWarehouseService.findZenByAccountName(name);
-        if (webZen < count)
-            throw new IllegalStateException("Not enough zen found in Web Warehouse !");
+        IntStream.range(0, countToAdd)
+                .forEach(i -> tj.putItemToAdd(ItemUtils.getItemCode(
+                        paymentMethod.getItem(false), 0
+                )));
 
-        webWarehouseService.subtractZen(name, Long.valueOf(count));
-        webWalletService.addToWallet(name, count, PaymentMethod.ZEN);
+        bundleMap.forEach((level, count) ->
+                IntStream.range(0, count)
+                        .forEach(i -> tj.putItemToAdd(ItemUtils.getItemCode(
+                                paymentMethod.getItem(true), level
+                        ))));
     }
+
 }

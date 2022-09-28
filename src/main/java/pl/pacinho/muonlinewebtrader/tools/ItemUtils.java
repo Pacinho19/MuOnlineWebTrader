@@ -8,19 +8,39 @@ public class ItemUtils {
         return (level * 10) + 10;
     }
 
-    public static String getItemCode(PaymentItem paymentItem) {
+    public static String getItemCode(PaymentItem paymentItem, int level) {
         switch (paymentItem) {
             case BLESS -> {
                 return "0D0000" + SerialCodeUtils.getSerialNumber() + "0000E000FFFFFFFFFF";
             }
             case BLESS_BUNDLE -> {
-                return "1E0000" + SerialCodeUtils.getSerialNumber() + "0000C000FFFFFFFFFF";
+                switch (level) {
+                    case 1 -> {
+                        return "1E0800" + SerialCodeUtils.getSerialNumber() + "0000C000FFFFFFFFFF";
+                    }
+                    case 2 -> {
+                        return "1E1000" + SerialCodeUtils.getSerialNumber() + "0000C000FFFFFFFFFF";
+                    }
+                    default -> {
+                        return "1E0000" + SerialCodeUtils.getSerialNumber() + "0000C000FFFFFFFFFF";
+                    }
+                }
             }
             case SOUL -> {
                 return "0E0000" + SerialCodeUtils.getSerialNumber() + "0000E000FFFFFFFFFF";
             }
             case SOUL_BUNDLE -> {
-                return "1F0000" + SerialCodeUtils.getSerialNumber() + "0000C000FFFFFFFFFF";
+                switch (level) {
+                    case 1 -> {
+                        return "1F0800" + SerialCodeUtils.getSerialNumber() + "0000C000FFFFFFFFFF";
+                    }
+                    case 2 -> {
+                        return "1F1000" + SerialCodeUtils.getSerialNumber() + "0000C000FFFFFFFFFF";
+                    }
+                    default -> {
+                        return "1F0000" + SerialCodeUtils.getSerialNumber() + "0000C000FFFFFFFFFF";
+                    }
+                }
             }
         }
         return CodeUtils.EMPTY_CODE;
