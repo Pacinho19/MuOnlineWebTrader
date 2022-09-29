@@ -20,6 +20,7 @@ public class FilterDto {
     private List<CategoryFilter> categoryFilter;
     private int pageSize;
     private List<Integer> pageSizeOptions;
+    private SortDto sort;
 
     public FilterDto() {
         this.classFilter = Stream.of(CharacterClass.values())
@@ -32,5 +33,6 @@ public class FilterDto {
         this.priceFilter = new PriceFilterDto();
         this.pageSize = 5;
         pageSizeOptions = List.of(5, 10, 15, 20, 25);
+        this.sort = new SortDto();
     }
 }

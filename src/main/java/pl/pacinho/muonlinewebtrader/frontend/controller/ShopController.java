@@ -27,10 +27,17 @@ public class ShopController {
     public String shopPage(Model model,
                            Authentication authentication,
                            @RequestParam("page") Optional<Integer> page,
+                           @RequestParam(value = "filters", required = false, defaultValue = "false") boolean filters,
                            HttpSession session) {
 
-        FilterDto filterDto = (FilterDto) session.getAttribute("filter");
-        if (filterDto == null) filterDto = new FilterDto();
+        FilterDto filterDto;
+        if (!filters)
+            filterDto = new FilterDto();
+        else {
+            filterDto = (FilterDto) session.getAttribute("filter");
+            if (filterDto == null)
+                filterDto = new FilterDto();
+        }
 
         model.addAttribute("filter", filterDto);
         model.addAttribute("pageItems", itemShopService.findActiveOffers(page, filterDto));
@@ -43,7 +50,7 @@ public class ShopController {
     public String shopPage(@ModelAttribute FilterDto filterDto,
                            HttpSession session) {
         session.setAttribute("filter", filterDto);
-        return "redirect:" + UIConfig.SHOP_URL;
+        return "redirect:" + UIConfig.SHOP_URL + "?filters=true";
     }
 
     @GetMapping(UIConfig.SHOP_CLEAR_FILTERS)

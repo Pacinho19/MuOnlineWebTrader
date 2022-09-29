@@ -12,6 +12,7 @@ import pl.pacinho.muonlinewebtrader.model.dto.filters.FilterDto;
 import pl.pacinho.muonlinewebtrader.model.dto.mapper.ItemShopDtoMapper;
 import pl.pacinho.muonlinewebtrader.repository.ItemShopRepository;
 import pl.pacinho.muonlinewebtrader.tools.filters.FilterUtils;
+import pl.pacinho.muonlinewebtrader.tools.filters.ComparatorUtils;
 import pl.pacinho.muonlinewebtrader.tools.pageable.Paging;
 import pl.pacinho.muonlinewebtrader.tools.pageable.model.Paged;
 
@@ -73,6 +74,7 @@ public class ItemShopService {
         List<ItemShopDto> items = itemShopRepository.findAllByActiveOrderByIdDesc(1)
                 .stream()
                 .map(itemShopDtoMapper::parse)
+                .sorted(ComparatorUtils.itemShopDtoComparator(filterDto.getSort()))
                 .toList();
         List<ItemShopDto> filteredItems = FilterUtils.filterItems(filterDto, items);
         List<List<ItemShopDto>> listPages = ListUtils.partition(filteredItems, pageSize);

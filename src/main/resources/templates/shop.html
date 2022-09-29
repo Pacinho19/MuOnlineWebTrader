@@ -45,6 +45,7 @@
 
 
 
+
     </style>
 </head>
 <body>
@@ -134,6 +135,26 @@
                                     </option>
                                 </select>
                             </div>
+                            <div class="row"
+                                 style="margin-top:2%;text-align:center; display: flex; flex-direction: row;">
+                                <h4 style="margin-top:1%">Sort</h4>
+                                <select style="display: block;margin-left:2%" id="dropDownList3"
+                                        th:field="*{sort.type}">
+                                    <option th:each="sortType : ${filter.sort.sortTypes}"
+                                            th:value="${sortType}"
+                                            th:text="${sortType}"
+                                    >
+                                    </option>
+                                </select>
+                                <select style="display: block;margin-left:2%" id="dropDownList4"
+                                        th:field="*{sort.method}">
+                                    <option th:each="sortMethod : ${filter.sort.sortMethods}"
+                                            th:value="${sortMethod}"
+                                            th:text="${sortMethod}"
+                                    >
+                                    </option>
+                                </select>
+                            </div>
                             <button style="margin-top:1%;width:100%" type="submit" class="btn btn-primary">Filter
                             </button>
                         </form>
@@ -154,6 +175,7 @@
                 <th>No.</th>
                 <th>Icon</th>
                 <th>Name</th>
+                <th>Category</th>
                 <th>Zen</th>
                 <th>Jewel of Bless</th>
                 <th>Jewel of Soul</th>
@@ -170,6 +192,7 @@
                     <td><span th:text="${iterStat.count}"></span></td>
                     <td><img class="rounded" th:src="@{${'data:image/jpeg;base64,'+ item.itemDto.icon}}"/></td>
                     <td><span th:text="${item.itemDto.name}"></span></td>
+                    <td><span th:text="${item.itemDto.itemType}"></span></td>
                     <td><span th:text="${item.priceDto.priceZen}"></span></td>
                     <td><span th:text="${item.priceDto.priceBless}"></span></td>
                     <td><span th:text="${item.priceDto.priceSoul}"></span></td>
@@ -190,14 +213,15 @@
             <ul class="pagination justify-content-center" th:if="${pageItems.paging.totalPages > 1}">
                 <li class="page-item" th:classappend="${!pageItems.paging.isPrevEnabled()? 'disabled' : ''}">
                     <a class="page-link"
-                       th:href="@{'/mu-online/web-trader/shop/?page=' + ${pageItems.paging.pageNumber - 1}}"
+                       th:href="@{'/mu-online/web-trader/shop/?page=' + ${pageItems.paging.pageNumber - 1} + '&filters=true'}"
                        tabindex="-1">Previous</a>
                 </li>
                 <th:block th:each="item : ${pageItems.paging.getItems()}">
                     <li class="page-item"
                         th:classappend="${item.index == pageItems.paging.pageNumber? 'active' : ''}"
                         th:if="${item.pageItemType.name() == 'PAGE'}">
-                        <a class="page-link" th:href="@{'/mu-online/web-trader/shop/?page=' + ${item.index}}"
+                        <a class="page-link"
+                           th:href="@{'/mu-online/web-trader/shop/?page=' + ${item.index} + '&filters=true' }"
                            th:text="${item.index}"></a>
                     </li>
                     <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
@@ -206,7 +230,7 @@
                 </th:block>
                 <li class="page-item" th:classappend="${!pageItems.paging.isNextEnabled()? 'disabled' : ''}">
                     <a class="page-link"
-                       th:href="@{'/mu-online/web-trader/shop/?page=' + ${pageItems.paging.pageNumber + 1}}">Next</a>
+                       th:href="@{'/mu-online/web-trader/shop/?page=' + ${pageItems.paging.pageNumber + 1} + '&filters=true'}">Next</a>
                 </li>
             </ul>
         </nav>
