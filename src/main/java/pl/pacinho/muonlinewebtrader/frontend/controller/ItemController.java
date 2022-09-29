@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import pl.pacinho.muonlinewebtrader.frontend.config.UIConfig;
+import pl.pacinho.muonlinewebtrader.model.dto.ItemShopDto;
 import pl.pacinho.muonlinewebtrader.model.dto.PriceDto;
 import pl.pacinho.muonlinewebtrader.model.dto.SimpleItemDto;
 import pl.pacinho.muonlinewebtrader.model.dto.mapper.ItemDtoMapper;
@@ -89,8 +90,12 @@ public class ItemController {
     public String itemForSale(Model model, @PathVariable("code") String code, Authentication authentication) {
         try {
             Object obj = model.getAttribute("skipSearch");
-            if (obj == null || !((boolean) obj))
-                model.addAttribute("itemShop", itemShopTools.getByCode(code));
+            if (obj == null || !((boolean) obj)) {
+                ItemShopDto byCode = itemShopTools.getByCode(code);
+                model.addAttribute("itemShop", byCode);
+                if (byCode != null && authentication != null)
+                    model.addAttribute("canCancel", authentication.getName().equals(byCode.sellerAccount()));
+            }
 
             model.addAttribute("skipSearch", false);
             if (model.getAttribute("itemShop") != null) itemShopTools.incrementItemViewCount(code);
@@ -115,6 +120,17 @@ public class ItemController {
             return itemForSale(model, code, authentication);
         }
         return "redirect:" + UIConfig.WEB_WAREHOUSE_URL;
+    }
+
+    @PostMapping(UIConfig.CANCEL_ITEM_OFFER)
+    public String buyItem(Model model, Authentication authentication, @PathVariable("code") String code) {
+        try {
+            itemShopTools.cancel(authentication.getName(), code);
+        } catch (Exception ex) {
+            model.addAttribute("error", ex.getMessage());
+            return itemForSale(model, code, authentication);
+        }
+        return "redirect:" + UIConfig.SHOP_URL;
     }
 
 

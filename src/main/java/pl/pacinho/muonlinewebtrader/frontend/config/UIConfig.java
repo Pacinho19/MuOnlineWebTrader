@@ -26,4 +26,5 @@ public class UIConfig {
     public static final String SHOP_CLEAR_FILTERS = SHOP_URL + "/clear-filters";
     public static final String READ_NOTIFICATION = HOME_URL + "/notification/{id}";
     public static final String READ_ALL_NOTIFICATIONS = HOME_URL + "/notification/read-all";
+    public static final String CANCEL_ITEM_OFFER = ITEM_FOR_SALE + "{code}/cancel-offer";
 }

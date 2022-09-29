@@ -128,11 +128,21 @@ public class ItemShopTools {
         return 0L;
     }
 
-    private ItemShop getItemOffer(String code) {
+    private ItemShop getItemOffer(String code) throws ItemNotFoundException {
         Optional<ItemShop> itemOpt = itemShopService.findByCodeAndActive(code, 1);
         if (itemOpt.isEmpty())
             throw new ItemNotFoundException("Not found offers for selected item in shop!");
 
         return itemOpt.get();
+    }
+
+    @Transactional
+    public void cancel(String name, String code) throws IllegalStateException {
+        ItemShop itemOffer = getItemOffer(code);
+
+        if (!itemOffer.getSellerAccount().getName().equals(name))
+            throw new IllegalStateException("This item isn't yours ! What you doing ! The police were informed for this situation.");
+
+        itemShopService.closeOffer(itemOffer, null);
     }
 }
