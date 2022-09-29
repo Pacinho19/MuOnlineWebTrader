@@ -42,7 +42,7 @@ public class ShopController {
         }
 
         model.addAttribute("filter", filterDto);
-        model.addAttribute("pageItems", itemShopService.findActiveOffers(page, filterDto));
+        model.addAttribute("pageItems", itemShopService.findActiveOffers(authentication, page, filterDto));
         if (authentication != null) {
             model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
             model.addAttribute("notifications", notificationService.findUnreadByAccount(authentication.getName()));

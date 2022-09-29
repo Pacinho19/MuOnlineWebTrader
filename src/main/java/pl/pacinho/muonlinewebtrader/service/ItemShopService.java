@@ -3,6 +3,7 @@ package pl.pacinho.muonlinewebtrader.service;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.ListUtils;
 import org.springframework.data.domain.*;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import pl.pacinho.muonlinewebtrader.entity.Account;
 import pl.pacinho.muonlinewebtrader.entity.ItemShop;
@@ -64,14 +65,16 @@ public class ItemShopService {
         return itemShopRepository.findByItemAndActive(code, active);
     }
 
-    public Paged<ItemShopDto> findActiveOffers(Optional<Integer> page, FilterDto filterDto) {
+    public Paged<ItemShopDto> findActiveOffers(Authentication authentication, Optional<Integer> page, FilterDto filterDto) {
         int pageNumber = page.orElse(1);
         int pageSize = filterDto.getPageSize();
 
 //        Pageable request = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Direction.DESC, "id"));
 //        Page<ItemShop> pageItems = itemShopRepository.findAllByActive(1, request);
 
-        List<ItemShopDto> items = itemShopRepository.findAllByActiveOrderByIdDesc(1)
+        List<ItemShopDto> items = (!filterDto.isMyOffers() || (filterDto.isMyOffers() && authentication == null)
+                ? itemShopRepository.findAllByActiveOrderByIdDesc(1)
+                : itemShopRepository.findAllByActiveAndSellerAccountNameEqualsOrderByIdDesc(1, authentication.getName()))
                 .stream()
                 .map(itemShopDtoMapper::parse)
                 .sorted(ComparatorUtils.itemShopDtoComparator(filterDto.getSort()))

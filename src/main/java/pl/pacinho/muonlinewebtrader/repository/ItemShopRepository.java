@@ -20,4 +20,6 @@ public interface ItemShopRepository extends PagingAndSortingRepository<ItemShop,
     List<ItemShop> findAllByActiveOrderByAddDateDesc(int active, Pageable pageable);
 
     List<ItemShop> findAllByActiveOrderByViewsDesc(int active, Pageable pageable);
+
+    List<ItemShop> findAllByActiveAndSellerAccountNameEqualsOrderByIdDesc(int i, String name);
 }

@@ -22,6 +22,8 @@ public class FilterDto {
     private List<Integer> pageSizeOptions;
     private SortDto sort;
 
+    private boolean myOffers;
+
     public FilterDto() {
         this.classFilter = Stream.of(CharacterClass.values())
                 .map(ClassFilterDto::new)
@@ -34,5 +36,6 @@ public class FilterDto {
         this.pageSize = 5;
         pageSizeOptions = List.of(5, 10, 15, 20, 25);
         this.sort = new SortDto();
+        this.myOffers = false;
     }
 }

@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.pacinho.muonlinewebtrader.frontend.config.UIConfig;
-import pl.pacinho.muonlinewebtrader.service.AccountService;
-import pl.pacinho.muonlinewebtrader.service.NotificationService;
-import pl.pacinho.muonlinewebtrader.service.WebWalletService;
+import pl.pacinho.muonlinewebtrader.service.*;
 import pl.pacinho.muonlinewebtrader.tools.WarehouseTools;
 
 @RequiredArgsConstructor

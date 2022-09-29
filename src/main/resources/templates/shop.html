@@ -32,131 +32,159 @@
             text-align:center
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </style>
 </head>
 <body>
 <div th:replace="fragments/topnav :: navbar"/>
 
-
 <div class="row" style="margin-top:1%;">
-    <div class="col-sm-2"></div>
-    <div class="col-md-8">
-
+    <div class="col-1"></div>
+    <div class="col-md-3">
         <div class="card" style="margin-top:1%;">
-            <div class="card-header">
-                <a th:href="'#collapseFilter'"
-                   style="text-align:center"
-                   data-toggle="collapse">Filters</a>
-                <div th:id="'collapseFilter'"
-                     class="panel-collapse collapse">
+            <div class="card-header" style="text-align:center">
+                <a style="text-align:center">Filters</a>
+                <div>
                     <div class="card-body">
                         <form th:method="post" th:action="@{'/mu-online/web-trader/shop'}" th:object="${filter}">
+                            <div class="row" sec:authorize="isAuthenticated()">
+                                <h5 style="margin-top:1%">Offers</h5>
+                                <div class="row" style="width:100%;text-align:left">
+                                    <div class="col-md-2">
+                                        <input
+                                                style="text-align:left;height:100%"
+                                                th:field="*{myOffers}"
+                                                th:checked="${myOffers}"
+                                                type="checkbox"
+                                                class="form-control">
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label style="text-align:left;">
+                                            Only My offers
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
-                                <h4>Class</h4>
-                                <div th:each="cf, iterStat : ${filter.classFilter}"
-                                     style="margin-left:2%">
-                                    <div class="row" style="text-align:center">
-                                        <div class="col-md-6" style="text-align:center">
-                                            <img style="max-width:30px;max-height:30px" class="rounded"
-                                                 th:src="@{${'data:image/jpeg;base64,'+ cf.characterClass.icon}}"/>
-                                        </div>
-                                        <div class="col-md-6" style="text-align:center">
+                                <h5 style="width:100%;text-align:left;">Class</h5>
+                                <div style="width:100%;text-align:left;margin-top:1%"
+                                     th:each="cf, iterStat : ${filter.classFilter}">
+                                    <div class="row" style="text-align:left">
+                                        <div class="col-md-2" style="text-align:left">
                                             <input style="text-align:left;height:100%"
                                                    th:field="*{classFilter[__${iterStat.index}__].selected}"
                                                    th:checked="${cf.selected}"
                                                    type="checkbox"
                                                    class="form-control">
                                         </div>
+                                        <div class="col-md-2" style="text-align:left">
+                                            <img style="max-width:30px;max-height:30px" class="rounded"
+                                                 th:src="@{${'data:image/jpeg;base64,'+ cf.characterClass.icon}}"/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row" style="margin-top:1%text-align:center">
-                                <h4 style="margin-top:1%">Category</h4>
-                                <div th:each="cf, iterStat : ${filter.categoryFilter}"
-                                     style="margin-top:1%;margin-left:2%;">
+                            <div class="row">
+                                <h5 style="margin-top:1%">Category</h5>
+                                <div style="width:100%;text-align:left;margin-top:1%"
+                                     th:each="cf, iterStat : ${filter.categoryFilter}">
                                     <div class="row"
-                                         style="text-align:center;margin-top:1%;margin-left:2%;border: 2px solid black; border-radius: 5px;">
-                                        <label style="text-align:center;display:inline-block"
-                                               th:text="${cf.category.name}"></label>
-                                        <input style="display:inline-block;text-align:left;height:100%"
-                                               th:field="*{categoryFilter[__${iterStat.index}__].selected}"
-                                               th:checked="${cf.selected}"
-                                               type="checkbox"
-                                               class="form-control">
+                                         style="text-align:left;margin-top:1%;">
+                                        <div class="col-md-2">
+                                            <input
+                                                    style="text-align:left;height:100%"
+                                                    th:field="*{categoryFilter[__${iterStat.index}__].selected}"
+                                                    th:checked="${cf.selected}"
+                                                    type="checkbox"
+                                                    class="form-control">
+                                        </div>
+                                        <div class="col-md-10">
+                                            <label style="text-align:left;"
+                                                   th:text="${cf.category.name}"
+                                            >Category</label>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
-                            <div class="row"
-                                 style="margin-top:2%;text-align:center; display: flex; flex-direction: row;">
-                                <h4 style="margin-top:1%">Price</h4>
-                                <select style="display: block;margin-left:2%" id="dropDownList"
-                                        th:field="*{priceFilter.paymentMethod}">
-                                    <option th:each="paymentMethod : ${filter.paymentMethods}"
-                                            th:value="${paymentMethod}"
-                                            th:text="${paymentMethod}"
-                                    >
-                                    </option>
-                                </select>
-                                <input style="display: block;margin-left:2%"
-                                       placeholder="Min Amount"
-                                       type="number"
-                                       th:value="${amountMin}"
-                                       th:field="*{priceFilter.amountMin}"
-                                >
-                                <input style="display: block;margin-left:2%"
-                                       placeholder="Max Amount"
-                                       th:value="${amountMax}"
-                                       th:field="*{priceFilter.amountMax}"
-                                >
+                            <div class="row">
+                                <div class="row" style="width:100%;">
+                                    <div class="col-md-12">
+                                        <h5 style="margin-top:1%;text-align:left">Price</h5>
+                                    </div>
+                                </div>
+                                <div class="row" style="width:100%;text-align:left;margin-top:1%">
+                                    <div class="col-md-12">
+                                        <select id="dropDownList"
+                                                th:field="*{priceFilter.paymentMethod}">
+                                            <option th:each="paymentMethod : ${filter.paymentMethods}"
+                                                    th:value="${paymentMethod}"
+                                                    th:text="${paymentMethod}"
+                                            >
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row" style="width:100%;text-align:left;margin-top:1%">
+                                    <div class="col-md-12">
+                                        <input placeholder="Min Amount"
+                                               type="number"
+                                               th:value="${amountMin}"
+                                               th:field="*{priceFilter.amountMin}"
+                                        >
+                                    </div>
+                                </div>
+                                <div class="row" style="width:100%;text-align:left;margin-top:1%">
+                                    <div class="col-md-12">
+                                        <input placeholder="Max Amount"
+                                               th:value="${amountMax}"
+                                               th:field="*{priceFilter.amountMax}"
+                                        >
+                                    </div>
+                                </div>
                             </div>
-                            <div class="row"
-                                 style="margin-top:2%;text-align:center; display: flex; flex-direction: row;">
-                                <h4 style="margin-top:1%">Page Size</h4>
-                                <select style="display: block;margin-left:2%" id="dropDownList2"
-                                        th:field="*{pageSize}">
-                                    <option th:each="pageSizeOpt : ${filter.pageSizeOptions}"
-                                            th:value="${pageSizeOpt}"
-                                            th:text="${pageSizeOpt}"
-                                    >
-                                    </option>
-                                </select>
+                            <div class="row">
+                                <h5 style="margin-top:1%">Page Size</h5>
+                                <div class="row" style="width:100%;text-align:left;margin-top:1%">
+                                    <div class="col-md-12">
+                                        <select style="text-align:left" id="dropDownList2"
+                                                th:field="*{pageSize}">
+                                            <option th:each="pageSizeOpt : ${filter.pageSizeOptions}"
+                                                    th:value="${pageSizeOpt}"
+                                                    th:text="${pageSizeOpt}"
+                                            >
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="row"
-                                 style="margin-top:2%;text-align:center; display: flex; flex-direction: row;">
-                                <h4 style="margin-top:1%">Sort</h4>
-                                <select style="display: block;margin-left:2%" id="dropDownList3"
-                                        th:field="*{sort.type}">
-                                    <option th:each="sortType : ${filter.sort.sortTypes}"
-                                            th:value="${sortType}"
-                                            th:text="${sortType}"
-                                    >
-                                    </option>
-                                </select>
-                                <select style="display: block;margin-left:2%" id="dropDownList4"
-                                        th:field="*{sort.method}">
-                                    <option th:each="sortMethod : ${filter.sort.sortMethods}"
-                                            th:value="${sortMethod}"
-                                            th:text="${sortMethod}"
-                                    >
-                                    </option>
-                                </select>
+                            <div class="row">
+                                <h5 style="margin-top:1%">Sort</h5>
+                                <div class="row" style="width:100%;text-align:left;margin-top:1%">
+                                    <div class="col-md-12">
+                                        <select id="dropDownList3"
+                                                th:field="*{sort.type}">
+                                            <option th:each="sortType : ${filter.sort.sortTypes}"
+                                                    th:value="${sortType}"
+                                                    th:text="${sortType}"
+                                            >
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row" style="width:100%;text-align:left;margin-top:1%">
+                                    <div class="col-md-12">
+                                        <select id="dropDownList4"
+                                                th:field="*{sort.method}">
+                                            <option th:each="sortMethod : ${filter.sort.sortMethods}"
+                                                    th:value="${sortMethod}"
+                                                    th:text="${sortMethod}"
+                                            >
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                            <button style="margin-top:1%;width:100%" type="submit" class="btn btn-primary">Filter
+                            <button style="margin-top:3%;width:100%" type="submit" class="btn btn-primary">Filter
                             </button>
                         </form>
                         <form th:method="get" th:action="@{'/mu-online/web-trader/shop/clear-filters'}">
@@ -169,6 +197,9 @@
             </div>
 
         </div>
+
+    </div>
+    <div class="col-md-7">
 
         <table id="myTable" style="margin-top:1%;" th:if="${pageItems!=null}" class="table">
             <thead>
@@ -236,7 +267,7 @@
             </ul>
         </nav>
     </div>
-    <div class="col-sm-2"></div>
+    <div class="col-sm-1"></div>
 </div>
 </body>
 <div id="source" style="display:none;" th:insert="~{fragments/notifications :: notifications}"/>
