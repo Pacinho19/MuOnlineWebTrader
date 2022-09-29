@@ -1,0 +1,19 @@
+<div th:fragment="notifications">
+    <div  th:each="notification: ${notifications}" class="row" style="min-width:450px">
+        <div class="col-md-8">
+            <form method="POST" th:action="@{'/mu-online/web-trader/notification/' + ${notification.id}}" th:method="post">
+                <button style="width:100%;font-size:15px;" type="submit" name="submit" value="value" class="btn btn-primary btn-lg active">
+                    <a th:text="${notification.text}">Text</a>
+                </button>
+            </form>
+        </div>
+        <div class="col-md-4" style="margin-top:1%">
+            <a disabled style="width:100%;font-size:15px;"  class="btn btn-secondary btn-lg active"
+               th:text="${#temporals.format(notification.addDate,'dd-MM-yyyy HH:mm')}">Data</a>
+        </div>
+    </div>
+    <div th:if="${notifications!=null && notifications.size>0}">
+        <a href="/mu-online/web-trader/notification/read-all" class="link-info">Select all notification as read</a>
+    </div>
+
+</div>

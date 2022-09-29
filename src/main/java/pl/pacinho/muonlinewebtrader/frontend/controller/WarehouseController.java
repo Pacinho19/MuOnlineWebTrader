@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.pacinho.muonlinewebtrader.entity.Warehouse;
 import pl.pacinho.muonlinewebtrader.frontend.config.UIConfig;
 import pl.pacinho.muonlinewebtrader.model.dto.WarehouseDto;
-import pl.pacinho.muonlinewebtrader.service.WarehouseService;
-import pl.pacinho.muonlinewebtrader.service.WebWalletService;
-import pl.pacinho.muonlinewebtrader.service.WebWarehouseItemService;
-import pl.pacinho.muonlinewebtrader.service.WebWarehouseService;
+import pl.pacinho.muonlinewebtrader.service.*;
 import pl.pacinho.muonlinewebtrader.tools.CodeUtils;
 import pl.pacinho.muonlinewebtrader.tools.WarehouseDecoder;
 import pl.pacinho.muonlinewebtrader.tools.WarehouseTools;
@@ -29,6 +26,7 @@ public class WarehouseController {
     private final WarehouseDecoder warehouseDecoder;
     private final WarehouseTools warehouseTools;
     private final WebWalletService webWalletService;
+    private final NotificationService notificationService;
 
     @GetMapping(UIConfig.WAREHOUSE_URL)
     public String gameWarehouse(Model model, Authentication authentication) {
@@ -43,6 +41,7 @@ public class WarehouseController {
                         warehouseDecoder.decodeExtended(ware.getContent())
                         , CodeUtils.WAREHOUSE_ROW_SIZE));
         model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
+        model.addAttribute("notifications", notificationService.findUnreadByAccount(authentication.getName()));
         return "game-ware";
     }
 
@@ -53,6 +52,7 @@ public class WarehouseController {
                 warehouseDecoder.decodeWebItems(webWarehouseItemService.getWarehouseItemsByAccountName(authentication.getName())));
         model.addAttribute("zen", webWarehouseService.getWarehouseByAccountName(authentication.getName()).getZen());
         model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
+        model.addAttribute("notifications", notificationService.findUnreadByAccount(authentication.getName()));
         return "web-ware";
     }
 
@@ -64,7 +64,7 @@ public class WarehouseController {
             model.addAttribute("error", ex.getMessage());
             return gameWarehouse(model, authentication);
         }
-        return "redirect:" + UIConfig.WEB_WAREHOUSE_URL;
+        return "redirect:" + UIConfig.WAREHOUSE_URL;
     }
 
     @PostMapping(UIConfig.TRANSFER_TO_GAME_WAREHOUSE_URL)
@@ -75,7 +75,7 @@ public class WarehouseController {
             model.addAttribute("error", ex.getMessage());
             return webWarehouse(model, authentication);
         }
-        return "redirect:" + UIConfig.WAREHOUSE_URL;
+        return "redirect:" + UIConfig.WEB_WAREHOUSE_URL;
     }
 
     @PostMapping(UIConfig.TRANSFER_ZEN_TO_WEB_WAREHOUSE_URL)
@@ -86,7 +86,7 @@ public class WarehouseController {
             model.addAttribute("error", ex.getMessage());
             return gameWarehouse(model, authentication);
         }
-        return "redirect:" + UIConfig.WEB_WAREHOUSE_URL;
+        return "redirect:" + UIConfig.WAREHOUSE_URL;
     }
 
     @PostMapping(UIConfig.TRANSFER_ZEN_TO_GAME_WAREHOUSE_URL)
@@ -97,7 +97,7 @@ public class WarehouseController {
             model.addAttribute("error", ex.getMessage());
             return webWarehouse(model, authentication);
         }
-        return "redirect:" + UIConfig.WAREHOUSE_URL;
+        return "redirect:" + UIConfig.WEB_WAREHOUSE_URL;
     }
 
 

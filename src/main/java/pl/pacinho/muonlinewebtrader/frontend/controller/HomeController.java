@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.pacinho.muonlinewebtrader.frontend.config.UIConfig;
 import pl.pacinho.muonlinewebtrader.service.ItemShopService;
+import pl.pacinho.muonlinewebtrader.service.NotificationService;
 import pl.pacinho.muonlinewebtrader.service.WebWalletService;
 
 @Controller
@@ -18,6 +19,7 @@ public class HomeController {
 
     private final WebWalletService webWalletService;
     private final ItemShopService itemShopService;
+    private final NotificationService notificationService;
 
     @GetMapping
     public String home3() {
@@ -34,8 +36,10 @@ public class HomeController {
         model.addAttribute("items", ListUtils.partition(itemShopService.findMostViewedItems(12), 3));
         model.addAttribute("itemsRecentlyAdded", ListUtils.partition(itemShopService.findLastAdded(6), 3));
 
-        if (authentication != null)
+        if (authentication != null) {
+            model.addAttribute("notifications", notificationService.findUnreadByAccount(authentication.getName()));
             model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
+        }
         return "home";
     }
 }

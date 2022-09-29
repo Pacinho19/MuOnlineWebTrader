@@ -5,12 +5,14 @@ import org.springframework.stereotype.Component;
 import pl.pacinho.muonlinewebtrader.entity.ItemShop;
 import pl.pacinho.muonlinewebtrader.entity.WebWallet;
 import pl.pacinho.muonlinewebtrader.exceptions.ItemNotFoundException;
+import pl.pacinho.muonlinewebtrader.model.dto.ExtendedItemDto;
 import pl.pacinho.muonlinewebtrader.model.dto.ItemShopDto;
 import pl.pacinho.muonlinewebtrader.model.dto.PriceDto;
 import pl.pacinho.muonlinewebtrader.model.dto.WebWalletDto;
 import pl.pacinho.muonlinewebtrader.model.dto.mapper.ItemShopDtoMapper;
 import pl.pacinho.muonlinewebtrader.model.enums.PaymentMethod;
 import pl.pacinho.muonlinewebtrader.service.ItemShopService;
+import pl.pacinho.muonlinewebtrader.service.NotificationService;
 import pl.pacinho.muonlinewebtrader.service.WebWalletService;
 import pl.pacinho.muonlinewebtrader.service.WebWarehouseItemService;
 
@@ -27,6 +29,8 @@ public class ItemShopTools {
     private final ItemShopService itemShopService;
     private final ItemShopDtoMapper itemShopDtoMapper;
     private final WebWalletService webWalletService;
+    private final NotificationService notificationService;
+    private final ItemDecoder itemDecoder;
     private final ReentrantLock lock = new ReentrantLock();
 
     @Transactional
@@ -81,6 +85,11 @@ public class ItemShopTools {
             webWalletService.addToWallet(itemOffer.getSellerAccount().getName(), price.intValue(), paymentMethod);
             itemShopService.closeOffer(itemOffer, webWallet.getAccount());
             webWarehouseItemService.addItem(name, itemOffer.getItem());
+
+            ExtendedItemDto item = itemDecoder.decode(itemOffer.getItem(), -1);
+            notificationService.add(
+                    "Your item " + item.getName() + " was sold for " + price.intValue() + " " + paymentMethod.getName(),
+                    itemOffer.getSellerAccount());
         } catch (Exception e) {
             throw e;
         } finally {

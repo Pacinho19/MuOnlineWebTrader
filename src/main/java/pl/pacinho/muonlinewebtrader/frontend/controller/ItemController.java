@@ -15,6 +15,7 @@ import pl.pacinho.muonlinewebtrader.model.dto.SimpleItemDto;
 import pl.pacinho.muonlinewebtrader.model.dto.mapper.ItemDtoMapper;
 import pl.pacinho.muonlinewebtrader.model.enums.PaymentMethod;
 import pl.pacinho.muonlinewebtrader.service.ItemService;
+import pl.pacinho.muonlinewebtrader.service.NotificationService;
 import pl.pacinho.muonlinewebtrader.service.WebWalletService;
 import pl.pacinho.muonlinewebtrader.tools.ItemDecoder;
 import pl.pacinho.muonlinewebtrader.tools.ItemShopTools;
@@ -33,12 +34,15 @@ public class ItemController {
     private final ItemService itemService;
     private final ItemShopTools itemShopTools;
     private final WebWalletService webWalletService;
+    private final NotificationService notificationService;
 
 
     @GetMapping(UIConfig.DECODE_ITEM_URL)
     public String decodeItemPage(Model model, Authentication authentication) {
-        if (authentication != null)
+        if (authentication != null) {
             model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
+            model.addAttribute("notifications", notificationService.findUnreadByAccount(authentication.getName()));
+        }
         return "decode-item";
     }
 
@@ -54,8 +58,10 @@ public class ItemController {
     public String itemList(Model model, Authentication authentication) {
         List<SimpleItemDto> items = ItemDtoMapper.parseList(itemService.findAll());
         model.addAttribute("items", items);
-        if (authentication != null)
+        if (authentication != null) {
             model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
+            model.addAttribute("notifications", notificationService.findUnreadByAccount(authentication.getName()));
+        }
         return "item-list";
     }
 
@@ -64,6 +70,7 @@ public class ItemController {
         model.addAttribute("item", itemDecoder.decode(code, -1));
         model.addAttribute("prizeDto", priceDto != null ? priceDto : new PriceDto());
         model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
+        model.addAttribute("notifications", notificationService.findUnreadByAccount(authentication.getName()));
         return "put-for-sale";
     }
 
@@ -92,8 +99,10 @@ public class ItemController {
             model.addAttribute("skipSearch", true);
             return itemForSale(model, code, authentication);
         }
-        if (authentication != null)
+        if (authentication != null) {
             model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
+            model.addAttribute("notifications", notificationService.findUnreadByAccount(authentication.getName()));
+        }
         return "item-for-sale";
     }
 

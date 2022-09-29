@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.pacinho.muonlinewebtrader.frontend.config.UIConfig;
 import pl.pacinho.muonlinewebtrader.model.dto.filters.FilterDto;
 import pl.pacinho.muonlinewebtrader.service.ItemShopService;
+import pl.pacinho.muonlinewebtrader.service.NotificationService;
 import pl.pacinho.muonlinewebtrader.service.WebWalletService;
 
 import javax.servlet.http.HttpSession;
@@ -22,6 +23,7 @@ public class ShopController {
 
     private final ItemShopService itemShopService;
     private final WebWalletService webWalletService;
+    private final NotificationService notificationService;
 
     @GetMapping(UIConfig.SHOP_URL)
     public String shopPage(Model model,
@@ -41,8 +43,10 @@ public class ShopController {
 
         model.addAttribute("filter", filterDto);
         model.addAttribute("pageItems", itemShopService.findActiveOffers(page, filterDto));
-        if (authentication != null)
+        if (authentication != null) {
             model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
+            model.addAttribute("notifications", notificationService.findUnreadByAccount(authentication.getName()));
+        }
         return "shop";
     }
 

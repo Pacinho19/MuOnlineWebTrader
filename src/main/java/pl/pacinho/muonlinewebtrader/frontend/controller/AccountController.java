@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.pacinho.muonlinewebtrader.frontend.config.UIConfig;
 import pl.pacinho.muonlinewebtrader.service.AccountService;
+import pl.pacinho.muonlinewebtrader.service.NotificationService;
 import pl.pacinho.muonlinewebtrader.service.WebWalletService;
 import pl.pacinho.muonlinewebtrader.tools.WarehouseTools;
 
@@ -16,14 +17,15 @@ import pl.pacinho.muonlinewebtrader.tools.WarehouseTools;
 @Controller
 public class AccountController {
 
-    private final AccountService accountService;
     private final WebWalletService webWalletService;
     private final WarehouseTools warehouseTools;
+    private final NotificationService notificationService;
 
     @GetMapping(UIConfig.ACCOUNT_URL)
     public String accountPage(Model model, Authentication authentication) {
         model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
         model.addAttribute("ware", warehouseTools.getPaymentsItem(authentication.getName()));
+        model.addAttribute("notifications", notificationService.findUnreadByAccount(authentication.getName()));
         return "account";
     }
 
