@@ -5,6 +5,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.pacinho.muonlinewebtrader.frontend.config.UIConfig;
 import pl.pacinho.muonlinewebtrader.model.dto.filters.FilterDto;
@@ -24,21 +26,29 @@ public class ShopController {
     @GetMapping(UIConfig.SHOP_URL)
     public String shopPage(Model model,
                            Authentication authentication,
-                           FilterDto filterDto,
                            @RequestParam("page") Optional<Integer> page,
-                           @RequestParam("size") Optional<Integer> size,
                            HttpSession session) {
 
-        if (filterDto == null && page.isPresent()) filterDto = (FilterDto) session.getAttribute("filter");
-        else if (page.isEmpty()) {
-            filterDto = new FilterDto();
-            session.setAttribute("filter", filterDto);
-        } else session.setAttribute("filter", filterDto);
+        FilterDto filterDto = (FilterDto) session.getAttribute("filter");
+        if (filterDto == null) filterDto = new FilterDto();
 
         model.addAttribute("filter", filterDto);
-        model.addAttribute("pageItems", itemShopService.findActiveOffers(page, size, filterDto));
+        model.addAttribute("pageItems", itemShopService.findActiveOffers(page, filterDto));
         if (authentication != null)
             model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
         return "shop";
+    }
+
+    @PostMapping(UIConfig.SHOP_URL)
+    public String shopPage(@ModelAttribute FilterDto filterDto,
+                           HttpSession session) {
+        session.setAttribute("filter", filterDto);
+        return "redirect:" + UIConfig.SHOP_URL;
+    }
+
+    @GetMapping(UIConfig.SHOP_CLEAR_FILTERS)
+    public String clearShopFilters(HttpSession session) {
+        session.setAttribute("filter", new FilterDto());
+        return "redirect:" + UIConfig.SHOP_URL;
     }
 }

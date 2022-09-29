@@ -20,6 +20,11 @@ public class HomeController {
     private final ItemShopService itemShopService;
 
     @GetMapping
+    public String home3() {
+        return "redirect:" + UIConfig.HOME_URL;
+    }
+
+    @GetMapping(UIConfig.HOME_URL + "/")
     public String home2() {
         return "redirect:" + UIConfig.HOME_URL;
     }

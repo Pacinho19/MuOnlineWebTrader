@@ -2,6 +2,8 @@ package pl.pacinho.muonlinewebtrader.model.dto;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import pl.pacinho.muonlinewebtrader.model.dto.filters.ClassFilterDto;
+import pl.pacinho.muonlinewebtrader.model.enums.CharacterClass;
 import pl.pacinho.muonlinewebtrader.model.enums.options.ExcOption;
 
 import java.util.List;
@@ -24,6 +26,9 @@ public class ExtendedItemDto extends SimpleItemDto {
     private int width;
     @Setter
     private int height;
+
+    @Setter
+    private List<CharacterClass> characterClasses;
 
     public String getFullName() {
         return

@@ -23,5 +23,5 @@ public class UIConfig {
     public static final String BLESS_DISBURSEMENT = ACCOUNT_URL + "/bless-disbursement";
     public static final String SOUL_DISBURSEMENT = ACCOUNT_URL + "/soul-disbursement";
     public static final String ZEN_DISBURSEMENT = ACCOUNT_URL + "/zen-disbursement";
-            ;
+    public static final String SHOP_CLEAR_FILTERS = SHOP_URL + "/clear-filters";
 }

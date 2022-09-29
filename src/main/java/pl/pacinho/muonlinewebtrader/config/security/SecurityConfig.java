@@ -32,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/**").permitAll()
                 .antMatchers(UIConfig.HOME_URL).permitAll()
+                .antMatchers(UIConfig.HOME_URL + "/").permitAll()
                 .antMatchers(UIConfig.DECODE_ITEM_URL).permitAll()
                 .antMatchers(UIConfig.ITEM_LIST_URL).permitAll()
                 .antMatchers(UIConfig.SHOP_URL + "/**").permitAll()

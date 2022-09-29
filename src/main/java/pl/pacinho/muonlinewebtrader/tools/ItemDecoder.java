@@ -3,11 +3,14 @@ package pl.pacinho.muonlinewebtrader.tools;
 import org.springframework.stereotype.Component;
 import pl.pacinho.muonlinewebtrader.entity.Item;
 import pl.pacinho.muonlinewebtrader.model.dto.ExtendedItemDto;
+import pl.pacinho.muonlinewebtrader.model.dto.filters.ClassFilterDto;
+import pl.pacinho.muonlinewebtrader.model.enums.CharacterClass;
 import pl.pacinho.muonlinewebtrader.model.enums.ItemType;
 import pl.pacinho.muonlinewebtrader.model.enums.options.ExcOption;
 import pl.pacinho.muonlinewebtrader.service.ItemService;
 import pl.pacinho.muonlinewebtrader.utils.ImageUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -78,8 +81,21 @@ public class ItemDecoder {
         extendedItemDto.setIcon(ImageUtils.encodeFileToBase64Binary(itemDict.getIconPath()));
         extendedItemDto.setWidth(itemDict.getWidth());
         extendedItemDto.setHeight(itemDict.getHeight());
+        extendedItemDto.setCharacterClasses(getCharacterClasses(itemDict));
         if (extendedItemDto.isExc()) extendedItemDto.setExcOptions(getExcOptions(itemCode, extendedItemDto));
         return extendedItemDto;
+    }
+
+    private List<CharacterClass> getCharacterClasses(Item itemDict) {
+        List<CharacterClass> out = new ArrayList<>();
+        if (itemDict.getDk() > 0) out.add(CharacterClass.BK);
+        if (itemDict.getDw() > 0) out.add(CharacterClass.SM);
+        if (itemDict.getDl() > 0) out.add(CharacterClass.DL);
+        if (itemDict.getFe() > 0) out.add(CharacterClass.ELF);
+        if (itemDict.getMg() > 0) out.add(CharacterClass.MG);
+        if (itemDict.getSu() > 0) out.add(CharacterClass.SUM);
+        if (itemDict.getRf() > 0) out.add(CharacterClass.RF);
+        return out;
     }
 
     private ExtendedItemDto unknownItem(ExtendedItemDto extendedItemDto) {

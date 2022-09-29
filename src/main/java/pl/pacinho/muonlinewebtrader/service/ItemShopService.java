@@ -1,6 +1,7 @@
 package pl.pacinho.muonlinewebtrader.service;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.ListUtils;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import pl.pacinho.muonlinewebtrader.entity.Account;
@@ -10,10 +11,12 @@ import pl.pacinho.muonlinewebtrader.model.dto.PriceDto;
 import pl.pacinho.muonlinewebtrader.model.dto.filters.FilterDto;
 import pl.pacinho.muonlinewebtrader.model.dto.mapper.ItemShopDtoMapper;
 import pl.pacinho.muonlinewebtrader.repository.ItemShopRepository;
+import pl.pacinho.muonlinewebtrader.tools.filters.FilterUtils;
 import pl.pacinho.muonlinewebtrader.tools.pageable.Paging;
 import pl.pacinho.muonlinewebtrader.tools.pageable.model.Paged;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.locks.ReentrantLock;
@@ -26,7 +29,6 @@ public class ItemShopService {
     private final AccountService accountService;
     private final ReentrantLock lock = new ReentrantLock();
     private final ItemShopDtoMapper itemShopDtoMapper;
-
 
     public void addItem(String code, PriceDto priceDto, String accountName) {
         Account acc = accountService.findByLogin(accountName);
@@ -61,17 +63,22 @@ public class ItemShopService {
         return itemShopRepository.findByItemAndActive(code, active);
     }
 
-    public Paged<ItemShopDto> findActiveOffers(Optional<Integer> page, Optional<Integer> size, FilterDto filterDto) {
+    public Paged<ItemShopDto> findActiveOffers(Optional<Integer> page, FilterDto filterDto) {
         int pageNumber = page.orElse(1);
-        int pageSize = size.orElse(5);
+        int pageSize = filterDto.getPageSize();
 
-        Pageable request = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Direction.DESC, "id"));
-        Page<ItemShop> pageItems = itemShopRepository.findAllByActive(1, request);
-        return new Paged<>(pageItems.getContent()
+//        Pageable request = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Direction.DESC, "id"));
+//        Page<ItemShop> pageItems = itemShopRepository.findAllByActive(1, request);
+
+        List<ItemShopDto> items = itemShopRepository.findAllByActiveOrderByIdDesc(1)
                 .stream()
                 .map(itemShopDtoMapper::parse)
-                .toList()
-                , Paging.of(pageItems.getTotalPages(), pageNumber, pageSize));
+                .toList();
+        List<ItemShopDto> filteredItems = FilterUtils.filterItems(filterDto, items);
+        List<List<ItemShopDto>> listPages = ListUtils.partition(filteredItems, pageSize);
+
+        return new Paged<>(listPages.isEmpty() ? Collections.emptyList() : listPages.get(pageNumber - 1)
+                , Paging.of(listPages.size(), pageNumber, pageSize));
 
     }
 
