@@ -117,9 +117,6 @@
                         </table>
 
                         <table th:if="${itemShop.itemDto.exc}" style="margin-top:1%;" class="table">
-                            <thead>
-                            <h2>Options</h2>
-                            </thead>
                             <tbody style="text-align:center;">
                             <tr style="text-align:center" class="table"
                                 th:each="option : ${itemShop.itemDto.excOptions}">

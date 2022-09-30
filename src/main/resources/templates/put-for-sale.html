@@ -80,12 +80,25 @@
                         <img class="rounded" th:src="@{${'data:image/jpeg;base64,'+ item.icon}}"/>
                     </div>
                     <div class="card-body">
-                        <table th:if="${item.exc}" style="margin-top:1%;" class="table">
-                            <thead>
-                            <h2>Options</h2>
-                            </thead>
+                        <table th:if="${item.luck || item.skill}" style="margin-top:1%;"
+                               class="table">
                             <tbody style="text-align:center;">
-                            <tr style="text-align:center" class="table" th:each="option : ${item.excOptions}">
+                            <tr class="table" th:if="${item.luck}">
+                                <td><strong th:text="${'Luck (success rate of Jewel of Soul +25%)'}"/>
+                                </td>
+                            </tr>
+                            <tr class="table" th:if="${item.luck}">
+                                <td><strong th:text="${'Luck (critical damage rate +5%)'}"/></td>
+                            </tr>
+                            <tr class="table" th:if="${item.skill}">
+                                <td><strong th:text="${'Skill'}"/></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <table th:if="${item.exc}" style="margin-top:1%;" class="table">
+                            <tbody style="text-align:center;">
+                            <tr  th:if="${item.exc}" style="text-align:center" class="table" th:each="option : ${item.excOptions}">
                                 <td style="text-align:center"><label th:text="${option.name}"/></td>
                             </tr>
                             </tbody>
