@@ -164,5 +164,6 @@ public class ItemShopTools {
             throw new IllegalStateException("This item isn't yours ! What you doing ! The police were informed for this situation.");
 
         itemShopService.closeOffer(itemOffer, null);
+        webWarehouseItemService.addItem(name, itemOffer.getItem());
     }
 }
