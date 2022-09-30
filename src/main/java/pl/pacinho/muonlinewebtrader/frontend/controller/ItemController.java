@@ -22,6 +22,7 @@ import pl.pacinho.muonlinewebtrader.tools.ItemDecoder;
 import pl.pacinho.muonlinewebtrader.tools.ItemShopTools;
 
 import javax.servlet.http.HttpSession;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -53,7 +54,7 @@ public class ItemController {
                 Map.of("itemDetails", itemDecoder.decode(code, -1),
                         "code", code
                         , "webWallet", authentication == null ? "" : webWalletService.findByAccountName(authentication.getName())
-                        , "notifications", authentication == null ? "" : notificationService.findUnreadByAccount(authentication.getName())));
+                        , "notifications", authentication == null ? Collections.emptyList() : notificationService.findUnreadByAccount(authentication.getName())));
     }
 
     @GetMapping(UIConfig.ITEM_LIST_URL)
