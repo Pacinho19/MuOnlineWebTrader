@@ -54,4 +54,8 @@ public class ImageUtils {
         return encodeFileToBase64Binary(FileUtils.IMG_LOCATION + "/" + name + ".png");
     }
 
+    public static String getBackgroundImage(){
+        return encodeFileToBase64Binary(FileUtils.IMG_LOCATION + "/loginBackground.jpg");
+    }
+
 }
