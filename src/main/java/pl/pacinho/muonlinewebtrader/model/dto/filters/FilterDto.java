@@ -21,8 +21,9 @@ public class FilterDto {
     private int pageSize;
     private List<Integer> pageSizeOptions;
     private SortDto sort;
-
     private boolean myOffers;
+    private boolean withoutMyOffers;
+    private boolean allOffers;
 
     public FilterDto() {
         this.classFilter = Stream.of(CharacterClass.values())
@@ -37,5 +38,7 @@ public class FilterDto {
         pageSizeOptions = List.of(5, 10, 15, 20, 25);
         this.sort = new SortDto();
         this.myOffers = false;
+        this.withoutMyOffers = false;
+        this.allOffers = true;
     }
 }

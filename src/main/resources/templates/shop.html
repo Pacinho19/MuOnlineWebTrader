@@ -55,14 +55,47 @@
                                     <div class="col-md-2">
                                         <input
                                                 style="text-align:left;height:100%"
-                                                th:field="*{myOffers}"
-                                                th:checked="${myOffers}"
+                                                th:value="${allOffers}"
+                                                th:field="*{allOffers}"
                                                 type="checkbox"
-                                                class="form-control">
+                                                name="offer0"
+                                                class="off form-control">
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label style="text-align:left;">
+                                            All offers
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row" style="width:100%;text-align:left;margin-top:1%">
+                                    <div class="col-md-2">
+                                        <input
+                                                style="text-align:left;height:100%"
+                                                th:value="${myOffers}"
+                                                th:field="*{myOffers}"
+                                                type="checkbox"
+                                                name="offer1"
+                                                class="off form-control">
                                     </div>
                                     <div class="col-md-10">
                                         <label style="text-align:left;">
                                             Only My offers
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row" style="width:100%;text-align:left;margin-top:1%">
+                                    <div class="col-md-2">
+                                        <input
+                                                style="text-align:left;height:100%"
+                                                th:value="${withoutMyOffers}"
+                                                th:field="*{withoutMyOffers}"
+                                                type="checkbox"
+                                                name="offer2"
+                                                class="off form-control">
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label style="text-align:left;">
+                                            Without My offers
                                         </label>
                                     </div>
                                 </div>
@@ -272,7 +305,14 @@
     </div>
     <div class="col-sm-1"></div>
 </div>
-</body>
 <div id="source" style="display:none;" th:insert="~{fragments/notifications :: notifications}"/>
 
+<script>
+        $('input[type="checkbox"]').on('change', function() {
+            if(this.name.includes('Offers')){
+               $('input[class="off form-control"]').not(this).prop('checked', false);
+            }
+        })
+</script>
+</body>
 </html>

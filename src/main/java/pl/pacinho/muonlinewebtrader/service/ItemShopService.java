@@ -72,9 +72,11 @@ public class ItemShopService {
 //        Pageable request = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Direction.DESC, "id"));
 //        Page<ItemShop> pageItems = itemShopRepository.findAllByActive(1, request);
 
-        List<ItemShopDto> items = (!filterDto.isMyOffers() || (filterDto.isMyOffers() && authentication == null)
+        List<ItemShopDto> items = (filterDto.isAllOffers() || authentication == null
                 ? itemShopRepository.findAllByActiveOrderByIdDesc(1)
-                : itemShopRepository.findAllByActiveAndSellerAccountNameEqualsOrderByIdDesc(1, authentication.getName()))
+                : filterDto.isMyOffers() ?
+                itemShopRepository.findAllByActiveAndSellerAccountNameEqualsOrderByIdDesc(1, authentication.getName())
+                : itemShopRepository.findAllByActiveAndSellerAccountNameNotOrderByIdDesc(1, authentication.getName()))
                 .stream()
                 .map(itemShopDtoMapper::parse)
                 .sorted(ComparatorUtils.itemShopDtoComparator(filterDto.getSort()))
