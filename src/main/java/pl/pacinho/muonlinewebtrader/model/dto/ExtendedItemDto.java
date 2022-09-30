@@ -17,6 +17,7 @@ public class ExtendedItemDto extends SimpleItemDto {
     @Setter
     private List<ExcOption> excOptions;
     private int level;
+    private int life;
     private int durability;
     private boolean luck;
     private boolean skill;

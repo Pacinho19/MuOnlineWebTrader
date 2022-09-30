@@ -3,7 +3,6 @@ package pl.pacinho.muonlinewebtrader.tools;
 import org.springframework.stereotype.Component;
 import pl.pacinho.muonlinewebtrader.entity.Item;
 import pl.pacinho.muonlinewebtrader.model.dto.ExtendedItemDto;
-import pl.pacinho.muonlinewebtrader.model.dto.filters.ClassFilterDto;
 import pl.pacinho.muonlinewebtrader.model.enums.CharacterClass;
 import pl.pacinho.muonlinewebtrader.model.enums.ItemType;
 import pl.pacinho.muonlinewebtrader.model.enums.options.ExcOption;
@@ -48,7 +47,7 @@ public class ItemDecoder {
                     .serialNumber(getSerialNumber(itemCode))
                     .luck(getLuck(itemCode))
                     .skill(getSkill(itemCode))
-                    .durability(getDurability(itemCode))
+                    .life(getLifeOption(itemCode))
                     .code(itemCode)
                     .position(position)
                     .build();
@@ -147,9 +146,9 @@ public class ItemDecoder {
         return getSecondByteBinary(itemCode).charAt(0) == '1';
     }
 
-    private int getDurability(String itemCode) {
-        String durability = getSecondByteBinary(itemCode).substring(6);
-        return Integer.parseInt(durability);
+    private int getLifeOption(String itemCode) {
+        String lifeOption = getSecondByteBinary(itemCode).substring(6);
+        return Integer.parseInt(lifeOption) * 4;
     }
 
     private boolean getLuck(String itemCode) {
