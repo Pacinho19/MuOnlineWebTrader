@@ -4,16 +4,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import pl.pacinho.muonlinewebtrader.entity.Warehouse;
 import pl.pacinho.muonlinewebtrader.model.dto.*;
-import pl.pacinho.muonlinewebtrader.model.enums.CellType;
-import pl.pacinho.muonlinewebtrader.model.enums.PaymentItem;
-import pl.pacinho.muonlinewebtrader.model.enums.PaymentMethod;
-import pl.pacinho.muonlinewebtrader.service.WarehouseService;
-import pl.pacinho.muonlinewebtrader.service.WebWalletService;
-import pl.pacinho.muonlinewebtrader.service.WebWarehouseItemService;
-import pl.pacinho.muonlinewebtrader.service.WebWarehouseService;
+import pl.pacinho.muonlinewebtrader.model.enums.*;
+import pl.pacinho.muonlinewebtrader.model.enums.transactions.TransactionDescription;
+import pl.pacinho.muonlinewebtrader.model.enums.transactions.TransactionDirection;
+import pl.pacinho.muonlinewebtrader.model.enums.transactions.TransactionType;
+import pl.pacinho.muonlinewebtrader.service.*;
 
 import javax.resource.spi.IllegalStateException;
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +32,8 @@ public class WarehouseTools {
     private final WebWarehouseItemService webWarehouseItemService;
     private final WebWarehouseService webWarehouseService;
     private final WebWalletService webWalletService;
+
+    private final TransactionService transactionService;
     private final WarehouseDecoder warehouseDecoder;
     private final ItemDecoder itemDecoder;
 
@@ -119,9 +121,9 @@ public class WarehouseTools {
         return PaymentItemsDto.builder()
                 .zenCount(webWarehouseService.findZenByAccountName(name))
                 .blessCount(paymentItemSum(paymentItems, PaymentItem.BLESS)
-                        + paymentItemSum(paymentItems, PaymentItem.BLESS_BUNDLE))
+                            + paymentItemSum(paymentItems, PaymentItem.BLESS_BUNDLE))
                 .soulCount(paymentItemSum(paymentItems, PaymentItem.SOUL)
-                        + paymentItemSum(paymentItems, PaymentItem.SOUL_BUNDLE))
+                           + paymentItemSum(paymentItems, PaymentItem.SOUL_BUNDLE))
                 .build();
     }
 
@@ -158,6 +160,17 @@ public class WarehouseTools {
 
         webWarehouseService.subtractZen(name, Long.valueOf(count));
         webWalletService.addToWallet(name, count, PaymentMethod.ZEN);
+
+        transactionService.addTransaction(
+                name,
+                new TransactionDto(TransactionDirection.INCOMING,
+                        TransactionType.PAYMENT,
+                        PaymentMethod.ZEN,
+                        count.longValue(),
+                        LocalDateTime.now(),
+                        TransactionDescription.SELF_PAYMENT.getText()
+                )
+        );
     }
 
     @Transactional
@@ -180,6 +193,17 @@ public class WarehouseTools {
 
         removeJewelFromWebWarehouse(name, count, paymentMethod);
         webWalletService.addToWallet(name, count, paymentMethod);
+
+        transactionService.addTransaction(
+                name,
+                new TransactionDto(TransactionDirection.INCOMING,
+                        TransactionType.PAYMENT,
+                        paymentMethod,
+                        count.longValue(),
+                        LocalDateTime.now(),
+                        TransactionDescription.SELF_PAYMENT.getText()
+                )
+        );
     }
 
     private void removeJewelFromWebWarehouse(String name, Integer count, PaymentMethod paymentMethod) {
@@ -265,6 +289,17 @@ public class WarehouseTools {
 
         webWarehouseService.addZen(name, Long.valueOf(zenCount));
         webWalletService.addToWallet(name, (-1 * zenCount), PaymentMethod.ZEN);
+
+        transactionService.addTransaction(
+                name,
+                new TransactionDto(TransactionDirection.OUTGOING,
+                        TransactionType.DISBURSEMENT,
+                        PaymentMethod.ZEN,
+                        (-1L * zenCount),
+                        LocalDateTime.now(),
+                        TransactionDescription.SELF_DISBURSEMENT.getText()
+                )
+        );
     }
 
     private void disbursementJewelsFromWallet(String name, Integer count, PaymentMethod paymentMethod) throws IllegalStateException {
@@ -277,6 +312,17 @@ public class WarehouseTools {
 
         webWalletService.addToWallet(name, (-1 * count), paymentMethod);
         transferJewelsFromWebWallet(name, count, paymentMethod);
+
+        transactionService.addTransaction(
+                name,
+                new TransactionDto(TransactionDirection.OUTGOING,
+                        TransactionType.DISBURSEMENT,
+                        paymentMethod,
+                        (-1L * count),
+                        LocalDateTime.now(),
+                        TransactionDescription.SELF_DISBURSEMENT.getText()
+                )
+        );
     }
 
     private void transferJewelsFromWebWallet(String name, Integer count, PaymentMethod paymentMethod) {

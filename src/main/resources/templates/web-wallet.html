@@ -31,6 +31,16 @@
         .popover{
             min-width:550px;
         }
+
+
+
+
+
+
+
+
+
+
     </style>
 </head>
 <body>
@@ -74,7 +84,7 @@
                                         <div th:id="'collapseBlessToGame'"
                                              class="panel-collapse collapse">
                                             <form th:method="post"
-                                                  th:action="@{/mu-online/web-trader/account/bless-disbursement}">
+                                                  th:action="@{/mu-online/web-trader/web-wallet/bless-disbursement}">
                                                 <div class="input-group mb-3">
                                                     <input style="text-align:center"
                                                            id="webWalletBlessI"
@@ -105,7 +115,7 @@
                                                        class="form-control" aria-label="blessW">
                                             </div>
                                             <form th:method="post"
-                                                  th:action="@{/mu-online/web-trader/account/bless-transfer}">
+                                                  th:action="@{/mu-online/web-trader/web-wallet/bless-transfer}">
                                                 <i style="text-align:center">Deposit</i>
                                                 <div class="input-group mb-3">
                                                     <input style="text-align:center"
@@ -150,7 +160,7 @@
                                         <div th:id="'collapseSoulToGame'"
                                              class="panel-collapse collapse">
                                             <form th:method="post"
-                                                  th:action="@{/mu-online/web-trader/account/soul-disbursement}">
+                                                  th:action="@{/mu-online/web-trader/web-wallet/soul-disbursement}">
                                                 <div class="input-group mb-3">
                                                     <input style="text-align:center"
                                                            id="webWalletSoulI"
@@ -181,7 +191,7 @@
                                                        class="form-control" aria-label="soulW">
                                             </div>
                                             <form th:method="post"
-                                                  th:action="@{/mu-online/web-trader/account/soul-transfer}">
+                                                  th:action="@{/mu-online/web-trader/web-wallet/soul-transfer}">
                                                 <i style="text-align:center">Deposit</i>
                                                 <div class="input-group mb-3">
                                                     <input style="text-align:center"
@@ -226,7 +236,7 @@
                                         <div th:id="'collapseZenToGame'"
                                              class="panel-collapse collapse">
                                             <form th:method="post"
-                                                  th:action="@{/mu-online/web-trader/account/zen-disbursement}">
+                                                  th:action="@{/mu-online/web-trader/web-wallet/zen-disbursement}">
                                                 <div class="input-group mb-3">
                                                     <input style="text-align:center"
                                                            id="webWalletZenI"
@@ -257,7 +267,7 @@
                                                        class="form-control" aria-label="zenW">
                                             </div>
                                             <form th:method="post"
-                                                  th:action="@{/mu-online/web-trader/account/zen-transfer}">
+                                                  th:action="@{/mu-online/web-trader/web-wallet/zen-transfer}">
                                                 <i style="text-align:center">Deposit</i>
                                                 <div class="input-group mb-3">
                                                     <input style="text-align:center"
@@ -283,9 +293,51 @@
                 </div>
             </div>
         </div>
+
+        <div class="card" style="margin-top:2%;">
+            <div class="card-header" style="text-align:center;">
+                <h3>
+                    <a th:href="'#collapseTransactions'" style="text-align:center"
+                       data-toggle="collapse">Transactions</a>
+                </h3>
+            </div>
+            <div class="card-body">
+                <div th:id="'collapseTransactions'" class="panel-collapse collapse">
+
+                    <table id="myTable" style="margin-top:1%;" th:if="${transactions!=null}" class="table">
+                        <thead>
+                        <tr class="table-secondary">
+                            <th>No.</th>
+                            <th>Direction</th>
+                            <th>Type</th>
+                            <th>Means of payment</th>
+                            <th>Amount</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="table-secondary" th:each="transaction, iterStat : ${transactions}">
+                                <td><span th:text="${iterStat.count}"></span></td>
+                                <td><span
+                                        th:style="${transaction.direction.name == 'INCOMING' ? 'color: GREEN;' : 'color: RED;'}"
+                                        th:text="${transaction.direction.name}"></span></td>
+                                <td><span th:text="${transaction.type.name}"></span></td>
+                                <td><span th:text="${transaction.meansOfPayment.name}"></span></td>
+                                <td><span th:text="${transaction.amount}"></span></td>
+                                <td><span th:text="${transaction.description}"></span></td>
+                                <td><span th:text="${#temporals.format(transaction.date,'dd-MM-yyyy HH:mm:ss')}"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
     </div>
     <div class="col-sm-2"></div>
 </div>
+
 <div id="source" style="display:none;" th:insert="~{fragments/notifications :: notifications}"/>
 
 </body>

@@ -13,18 +13,20 @@ import pl.pacinho.muonlinewebtrader.tools.WarehouseTools;
 
 @RequiredArgsConstructor
 @Controller
-public class AccountController {
+public class WebWalletController {
 
     private final WebWalletService webWalletService;
     private final WarehouseTools warehouseTools;
     private final NotificationService notificationService;
+    private final TransactionService transactionService;
 
-    @GetMapping(UIConfig.ACCOUNT_URL)
-    public String accountPage(Model model, Authentication authentication) {
+    @GetMapping(UIConfig.WEB_WALLET_URL)
+    public String webWalletPage(Model model, Authentication authentication) {
         model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
         model.addAttribute("ware", warehouseTools.getPaymentsItem(authentication.getName()));
         model.addAttribute("notifications", notificationService.findUnreadByAccount(authentication.getName()));
-        return "account";
+        model.addAttribute("transactions", transactionService.findAllByAccountName(authentication.getName()));
+        return "web-wallet";
     }
 
     @PostMapping(UIConfig.BLESS_TRANSFER)
@@ -33,9 +35,9 @@ public class AccountController {
             warehouseTools.transferBlessToWallet(authentication.getName(), blessCount);
         } catch (Exception ex) {
             model.addAttribute("error", ex.getMessage());
-            return accountPage(model, authentication);
+            return webWalletPage(model, authentication);
         }
-        return "redirect:" + UIConfig.ACCOUNT_URL;
+        return "redirect:" + UIConfig.WEB_WALLET_URL;
     }
 
     @PostMapping(UIConfig.SOUL_TRANSFER)
@@ -44,19 +46,20 @@ public class AccountController {
             warehouseTools.transferSoulToWallet(authentication.getName(), soulCount);
         } catch (Exception ex) {
             model.addAttribute("error", ex.getMessage());
-            return accountPage(model, authentication);
+            return webWalletPage(model, authentication);
         }
-        return "redirect:" + UIConfig.ACCOUNT_URL;
+        return "redirect:" + UIConfig.WEB_WALLET_URL;
     }
+
     @PostMapping(UIConfig.ZEN_TRANSFER)
     public String zenTransfer(Model model, Authentication authentication, @RequestParam(value = "zenCount", required = false) Integer soulCount) {
         try {
             warehouseTools.transferZenToWallet(authentication.getName(), soulCount);
         } catch (Exception ex) {
             model.addAttribute("error", ex.getMessage());
-            return accountPage(model, authentication);
+            return webWalletPage(model, authentication);
         }
-        return "redirect:" + UIConfig.ACCOUNT_URL;
+        return "redirect:" + UIConfig.WEB_WALLET_URL;
     }
 
     @PostMapping(UIConfig.BLESS_DISBURSEMENT)
@@ -65,9 +68,9 @@ public class AccountController {
             warehouseTools.disbursementBlessFromWallet(authentication.getName(), blessCount);
         } catch (Exception ex) {
             model.addAttribute("error", ex.getMessage());
-            return accountPage(model, authentication);
+            return webWalletPage(model, authentication);
         }
-        return "redirect:" + UIConfig.ACCOUNT_URL;
+        return "redirect:" + UIConfig.WEB_WALLET_URL;
     }
 
     @PostMapping(UIConfig.SOUL_DISBURSEMENT)
@@ -76,9 +79,9 @@ public class AccountController {
             warehouseTools.disbursementSoulFromWallet(authentication.getName(), soulCount);
         } catch (Exception ex) {
             model.addAttribute("error", ex.getMessage());
-            return accountPage(model, authentication);
+            return webWalletPage(model, authentication);
         }
-        return "redirect:" + UIConfig.ACCOUNT_URL;
+        return "redirect:" + UIConfig.WEB_WALLET_URL;
     }
 
     @PostMapping(UIConfig.ZEN_DISBURSEMENT)
@@ -87,9 +90,9 @@ public class AccountController {
             warehouseTools.disbursementZenFromWallet(authentication.getName(), zenCount);
         } catch (Exception ex) {
             model.addAttribute("error", ex.getMessage());
-            return accountPage(model, authentication);
+            return webWalletPage(model, authentication);
         }
-        return "redirect:" + UIConfig.ACCOUNT_URL;
+        return "redirect:" + UIConfig.WEB_WALLET_URL;
     }
 
 }

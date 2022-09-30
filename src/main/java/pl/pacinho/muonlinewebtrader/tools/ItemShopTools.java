@@ -5,19 +5,18 @@ import org.springframework.stereotype.Component;
 import pl.pacinho.muonlinewebtrader.entity.ItemShop;
 import pl.pacinho.muonlinewebtrader.entity.WebWallet;
 import pl.pacinho.muonlinewebtrader.exceptions.ItemNotFoundException;
-import pl.pacinho.muonlinewebtrader.model.dto.ExtendedItemDto;
-import pl.pacinho.muonlinewebtrader.model.dto.ItemShopDto;
-import pl.pacinho.muonlinewebtrader.model.dto.PriceDto;
-import pl.pacinho.muonlinewebtrader.model.dto.WebWalletDto;
+import pl.pacinho.muonlinewebtrader.model.dto.*;
 import pl.pacinho.muonlinewebtrader.model.dto.mapper.ItemShopDtoMapper;
 import pl.pacinho.muonlinewebtrader.model.enums.PaymentMethod;
-import pl.pacinho.muonlinewebtrader.service.ItemShopService;
-import pl.pacinho.muonlinewebtrader.service.NotificationService;
-import pl.pacinho.muonlinewebtrader.service.WebWalletService;
-import pl.pacinho.muonlinewebtrader.service.WebWarehouseItemService;
+import pl.pacinho.muonlinewebtrader.model.enums.transactions.TransactionDescription;
+import pl.pacinho.muonlinewebtrader.model.enums.transactions.TransactionDirection;
+import pl.pacinho.muonlinewebtrader.model.enums.transactions.TransactionType;
+import pl.pacinho.muonlinewebtrader.service.*;
 
 import javax.resource.spi.IllegalStateException;
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -25,6 +24,7 @@ import java.util.concurrent.locks.ReentrantLock;
 @RequiredArgsConstructor
 public class ItemShopTools {
 
+    private final TransactionService transactionService;
     private final WebWarehouseItemService webWarehouseItemService;
     private final ItemShopService itemShopService;
     private final ItemShopDtoMapper itemShopDtoMapper;
@@ -47,8 +47,8 @@ public class ItemShopTools {
             throw new IllegalStateException("Price Settings must be set!");
 
         if (priceDto.getPriceBless() <= 0
-                && priceDto.getPriceSoul() <= 0
-                && priceDto.getPriceZen() <= 0)
+            && priceDto.getPriceSoul() <= 0
+            && priceDto.getPriceZen() <= 0)
             throw new IllegalStateException("Minimum one price type mus be set!");
     }
 
@@ -90,8 +90,28 @@ public class ItemShopTools {
             notificationService.add(
                     "Your item " + item.getName() + " was sold for " + price.intValue() + " " + paymentMethod.getName(),
                     itemOffer.getSellerAccount());
-        } catch (Exception e) {
-            throw e;
+
+            transactionService.addTransaction(
+                    itemOffer.getSellerAccount().getName(),
+                    new TransactionDto(TransactionDirection.INCOMING,
+                            TransactionType.SHOP,
+                            paymentMethod,
+                            price,
+                            LocalDateTime.now(),
+                            TransactionDescription.ITEM_SALES.getText() + ": " + item.getName()
+                    )
+            );
+
+            transactionService.addTransaction(
+                    name,
+                    new TransactionDto(TransactionDirection.OUTGOING,
+                            TransactionType.SHOP,
+                            paymentMethod,
+                            -1L * price.intValue(),
+                            LocalDateTime.now(),
+                            TransactionDescription.ITEM_PURCHASE.getText() + ": " + item.getName()
+                    )
+            );
         } finally {
             lock.unlock();
         }
