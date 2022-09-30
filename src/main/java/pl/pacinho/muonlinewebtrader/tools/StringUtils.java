@@ -1,7 +1,5 @@
 package pl.pacinho.muonlinewebtrader.tools;
 
-import java.math.BigInteger;
-
 public class StringUtils {
     public static Integer convertToHexadecimal(String text) {
         return Integer.parseInt(text,16);

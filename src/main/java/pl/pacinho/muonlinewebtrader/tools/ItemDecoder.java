@@ -48,6 +48,7 @@ public class ItemDecoder {
                     .luck(getLuck(itemCode))
                     .skill(getSkill(itemCode))
                     .life(getLifeOption(itemCode))
+                    .durability(getDurability(itemCode))
                     .code(itemCode)
                     .position(position)
                     .build();
@@ -136,6 +137,12 @@ public class ItemDecoder {
         s = CodeUtils.addZero(s, null);
         return s;
     }
+    private String getThirdByteBinary(String itemCode) {
+        String s = itemCode.substring(4, 6);
+        s = CodeUtils.baseConvert(s, 16, 2);
+        s = CodeUtils.addZero(s, null);
+        return s;
+    }
 
     private int getLevel(String itemCode) {
         String lvlS = getSecondByteBinary(itemCode).substring(1, 5);
@@ -153,6 +160,11 @@ public class ItemDecoder {
 
     private boolean getLuck(String itemCode) {
         return getSecondByteBinary(itemCode).charAt(5) == '1';
+    }
+
+    private int getDurability(String itemCode) {
+        String durability = getThirdByteBinary(itemCode);
+        return Integer.parseInt(durability, 2);
     }
 
     private int getSection(String itemCode) {
