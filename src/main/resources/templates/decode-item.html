@@ -139,6 +139,21 @@
                             <thead>
                             <h2>Options</h2>
                             </thead>
+                            <table th:if="${itemDetails.luck || itemDetails.skill}" style="margin-top:1%;"
+                                   class="table">
+                                <tbody style="text-align:center;">
+                                <tr class="table" th:if="${itemDetails.luck}">
+                                    <td><strong th:text="${'Luck (success rate of Jewel of Soul +25%)'}"/>
+                                    </td>
+                                </tr>
+                                <tr class="table" th:if="${itemDetails.luck}">
+                                    <td><strong th:text="${'Luck (critical damage rate +5%)'}"/></td>
+                                </tr>
+                                <tr class="table" th:if="${itemDetails.skill}">
+                                    <td><strong th:text="${'Skill'}"/></td>
+                                </tr>
+                                </tbody>
+                            </table>
                             <tbody  style="text-align:center;">
                             <tr style="text-align:center" class="table" th:each="option : ${itemDetails.excOptions}">
                                 <td style="text-align:center"><label th:text="${option.name}"/></td>
