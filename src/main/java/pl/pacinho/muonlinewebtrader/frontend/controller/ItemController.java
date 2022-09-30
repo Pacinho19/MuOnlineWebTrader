@@ -52,7 +52,8 @@ public class ItemController {
         return new ModelAndView("decode-item",
                 Map.of("itemDetails", itemDecoder.decode(code, -1),
                         "code", code
-                        , "webWallet", authentication == null ? "" : webWalletService.findByAccountName(authentication.getName())));
+                        , "webWallet", authentication == null ? "" : webWalletService.findByAccountName(authentication.getName())
+                        , "notifications", authentication == null ? "" : notificationService.findUnreadByAccount(authentication.getName())));
     }
 
     @GetMapping(UIConfig.ITEM_LIST_URL)

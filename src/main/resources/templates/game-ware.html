@@ -161,11 +161,14 @@
                                                          th:src="@{${'data:image/jpeg;base64,'+ item.icon}}"/>
                                                 </tr>
                                                 <tr class="table" th:if="${item.luck}">
-                                                    <td><strong th:text="Luck (success rate of Jewel of Soul +25%)"/>
+                                                    <td><strong th:text="${'Luck (success rate of Jewel of Soul +25%)'}"/>
                                                     </td>
                                                 </tr>
                                                 <tr class="table" th:if="${item.luck}">
-                                                    <td><strong th:text="Luck (critical damage rate +5%)"/></td>
+                                                    <td><strong th:text="${'Luck (critical damage rate +5%)'}"/></td>
+                                                </tr>
+                                                <tr class="table" th:if="${item.skill}">
+                                                    <td><strong th:text="${'Skill'}"/></td>
                                                 </tr>
                                                 <tr class="table" th:if="${item.exc}"
                                                     th:each="option : ${item.excOptions}">

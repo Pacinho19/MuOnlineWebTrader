@@ -46,6 +46,9 @@ public class ItemDecoder {
                     .level(getLevel(itemCode))
                     .exc(checkExc(itemCode))
                     .serialNumber(getSerialNumber(itemCode))
+                    .luck(getLuck(itemCode))
+                    .skill(getSkill(itemCode))
+                    .durability(getDurability(itemCode))
                     .code(itemCode)
                     .position(position)
                     .build();
@@ -128,13 +131,29 @@ public class ItemDecoder {
         return false;
     }
 
+    private String getSecondByteBinary(String itemCode) {
+        String s = itemCode.substring(2, 4);
+        s = CodeUtils.baseConvert(s, 16, 2);
+        s = CodeUtils.addZero(s, null);
+        return s;
+    }
 
     private int getLevel(String itemCode) {
-        String lvlS = itemCode.substring(2, 4);
-        lvlS = CodeUtils.baseConvert(lvlS, 16, 2);
-        lvlS = CodeUtils.addZero(lvlS, null);
-        lvlS = lvlS.substring(1, 5);
+        String lvlS = getSecondByteBinary(itemCode).substring(1, 5);
         return Integer.parseInt(CodeUtils.baseConvert(lvlS, 2, 10));
+    }
+
+    private boolean getSkill(String itemCode) {
+        return getSecondByteBinary(itemCode).charAt(0) == '1';
+    }
+
+    private int getDurability(String itemCode) {
+        String durability = getSecondByteBinary(itemCode).substring(6);
+        return Integer.parseInt(durability);
+    }
+
+    private boolean getLuck(String itemCode) {
+        return getSecondByteBinary(itemCode).charAt(5) == '1';
     }
 
     private int getSection(String itemCode) {

@@ -48,6 +48,8 @@
         #myBtn:hover {
           background-color: #333;
         }
+
+
     </style>
 </head>
 <body>
@@ -98,6 +100,22 @@
                         <img class="rounded" th:src="@{${'data:image/jpeg;base64,'+ itemShop.itemDto.icon}}"/>
                     </div>
                     <div class="card-body">
+                        <table th:if="${itemShop.itemDto.luck || itemShop.itemDto.skill}" style="margin-top:1%;"
+                               class="table">
+                            <tbody style="text-align:center;">
+                            <tr class="table" th:if="${itemShop.itemDto.luck}">
+                                <td><strong th:text="${'Luck (success rate of Jewel of Soul +25%)'}"/>
+                                </td>
+                            </tr>
+                            <tr class="table" th:if="${itemShop.itemDto.luck}">
+                                <td><strong th:text="${'Luck (critical damage rate +5%)'}"/></td>
+                            </tr>
+                            <tr class="table" th:if="${itemShop.itemDto.skill}">
+                                <td><strong th:text="${'Skill'}"/></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
                         <table th:if="${itemShop.itemDto.exc}" style="margin-top:1%;" class="table">
                             <thead>
                             <h2>Options</h2>
@@ -221,6 +239,8 @@
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
     }
+
+
 </script>
 
 </body>

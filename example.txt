@@ -7,3 +7,5 @@ Bundled Jewel of Bless 10 : 1E0000FFFFE9B70000C000FFFFFFFFFF
 Bundled Jewel of Bless 100 : 1E4800FFFFE99A0000C000FFFFFFFFFF
 Elven Shield : 037924FFFFE9BB03006000FFFFFFFFFF
 Pendant of Water : 1B1032FFFFE9B93F00D000FFFFFFFFFF
+
+https://forum.ragezone.com/f196/guide-explain-item-hexcode-season-1175952/
