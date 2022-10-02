@@ -35,11 +35,11 @@ public class ExtendedItemDto extends SimpleItemDto {
     public String getFullName() {
         return
                 (exc ? "Exc " : "")
-                + this.getName()
-                + (level > 0 ? "+" + level : "")
-                + (luck ? "+Luck " : "")
-                + (skill ? "+Skill " : "")
-                + (excOptions != null && !excOptions.isEmpty()
+                        + this.getName()
+                        + (level > 0 ? "+" + level : "")
+                        + (luck ? "+Luck " : "")
+                        + (skill ? "+Skill " : "")
+                        + (excOptions != null && !excOptions.isEmpty()
                         ? excOptions.stream().map(ExcOption::getName).collect(Collectors.joining(" +", " +", ""))
                         : "");
     }

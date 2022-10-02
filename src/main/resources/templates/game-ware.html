@@ -198,8 +198,8 @@
                                      th:src="@{${'data:image/jpeg;base64,'+ cellItem.icon}}"/>
                             </td>
                             <td th:if="${cellItem.type.name=='ITEM'}"
-                                th:colspan="${cellItem.extendedItemDto.width}"
-                                th:rowspan="${cellItem.extendedItemDto.height}"
+                                th:colspan="${cellItem.extendedItemDto.width==0 ? 1 : cellItem.extendedItemDto.width}"
+                                th:rowspan="${cellItem.extendedItemDto.height==0 ? 1 : cellItem.extendedItemDto.height}"
                                 class="itemcell">
                                 <a data-toggle="collapse" th:id="'start_collapse' + ${cellItem.extendedItemDto.serialNumber}" style="display:none;" th:href="'#collapse' + ${cellItem.extendedItemDto.serialNumber}" ></a>
 

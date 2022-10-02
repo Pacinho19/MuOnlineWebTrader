@@ -104,6 +104,9 @@ public class ItemDecoder {
     private ExtendedItemDto unknownItem(ExtendedItemDto extendedItemDto) {
         extendedItemDto.setName("Unknown");
         extendedItemDto.setItemType(ItemType.UNKNOWN);
+        extendedItemDto.setWidth(1);
+        extendedItemDto.setHeight(1);
+        extendedItemDto.setIcon(ImageUtils.encodeFileToBase64Binary(ImageUtils.UNKNOWN_IMAGE));
         return extendedItemDto;
     }
 
