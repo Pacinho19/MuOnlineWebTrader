@@ -58,21 +58,12 @@ public class WarehouseTools {
         return -1;
     }
 
-    private boolean isFreeSpaceForItem(List<Integer> itemIndexes, Map<Integer, WareCellDto> cellsMap) {
-        return itemIndexes.stream()
-                .allMatch(i -> {
-                    WareCellDto wareCellDto = cellsMap.get(i);
-                    if (wareCellDto == null) return false;
-                    return wareCellDto.getType() == CellType.FREE;
-                });
-    }
-
     @Transactional
     public void transferToGame(String accountName, String code) throws IllegalStateException {
         int startPosition = checkSpaceForPutItem(itemDecoder.decode(code, -1), warehouseService.getWarehouseByAccountName(accountName));
-        if (startPosition == -1) {
+        if (startPosition == -1)
             throw new IllegalStateException("Not enough space in game warehouse for transfer selected item!");
-        }
+
         webWarehouseItemService.removeItem(accountName, code);
         warehouseService.addItem(accountName, code, startPosition);
     }
@@ -362,5 +353,28 @@ public class WarehouseTools {
                 .boxed()
                 .map(i -> CodeUtils.EMPTY_CODE)
                 .collect(Collectors.joining());
+    }
+
+    public static boolean isFreeSpaceForItem(List<Integer> itemIndexes, Map<Integer, WareCellDto> cellsMap) {
+        return itemIndexes.stream()
+                .allMatch(i -> {
+                    WareCellDto wareCellDto = cellsMap.get(i);
+                    if (wareCellDto == null) return false;
+                    return wareCellDto.getType() == CellType.FREE;
+                });
+    }
+
+    public static void blockingItemCells(Map<Integer, WareCellDto> cellMap) {
+        cellMap.values()
+                .stream()
+                .filter(i -> i.getType() == CellType.ITEM)
+                .forEach(c -> {
+                    ItemWareCellDto item = (ItemWareCellDto) c;
+                    if (item.getCellsIdx() != null)
+                        item.getCellsIdx()
+                                .forEach(ci -> {
+                                    if (ci != item.getNumber()) cellMap.get(ci).setType(CellType.BLOCKED);
+                                });
+                });
     }
 }

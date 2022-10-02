@@ -15,6 +15,7 @@ import pl.pacinho.muonlinewebtrader.model.dto.WareCellDto;
 import pl.pacinho.muonlinewebtrader.service.*;
 import pl.pacinho.muonlinewebtrader.tools.CodeUtils;
 import pl.pacinho.muonlinewebtrader.tools.ItemUtils;
+import pl.pacinho.muonlinewebtrader.tools.TradeTools;
 import pl.pacinho.muonlinewebtrader.tools.WarehouseDecoder;
 
 import javax.servlet.http.HttpSession;
@@ -25,6 +26,7 @@ import java.util.List;
 public class TradeController {
 
     private final WarehouseDecoder warehouseDecoder;
+    private final TradeTools tradeTools;
     private final TradeService tradeService;
     private final WebWarehouseItemService webWarehouseItemService;
     private final WebWalletService webWalletService;
@@ -35,7 +37,10 @@ public class TradeController {
                             Authentication authentication,
                             HttpSession session) {
         List<WareCellDto> tradeItems = (List<WareCellDto>) session.getAttribute("tradeItems");
-        if (tradeItems == null) tradeItems = ItemUtils.crateEmptyTrade();
+        if (tradeItems == null) {
+            tradeItems = ItemUtils.crateEmptyTrade();
+            session.setAttribute("tradeItems", tradeItems);
+        }
         model.addAttribute("wareItems", warehouseDecoder.decodeWebItems(webWarehouseItemService.getWarehouseItemsByAccountName(authentication.getName())));
         model.addAttribute("tradeItems", ListUtils.partition(tradeItems, CodeUtils.TRADE_COL_COUNT));
         model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
@@ -46,7 +51,16 @@ public class TradeController {
     }
 
     @PostMapping(UIConfig.TRADE_PUT_ITEM)
-    public String putItemToTrade(Model model, Authentication authentication, @RequestParam("itemCode") String itemCode){
-        return "redirect:"+UIConfig.TRADE_HOME_URL;
+    public String putItemToTrade(Model model,
+                                 HttpSession session,
+                                 Authentication authentication,
+                                 @RequestParam("itemCode") String itemCode) {
+        try {
+            tradeTools.putItem(authentication.getName(), (List<WareCellDto>) session.getAttribute("tradeItems"), itemCode);
+        } catch (Exception ex) {
+            model.addAttribute("error", ex.getMessage());
+            return tradeHome(model, authentication, session);
+        }
+        return "redirect:" + UIConfig.TRADE_HOME_URL;
     }
 }

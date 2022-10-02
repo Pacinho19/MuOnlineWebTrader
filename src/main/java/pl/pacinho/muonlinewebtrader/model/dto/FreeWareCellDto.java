@@ -16,11 +16,11 @@ public class FreeWareCellDto extends WareCellDto {
 
     private String icon;
 
-    public static FreeWareCellDto createFreeCell(Integer rowNumber, Integer colNumber, int cellNumber, CellLocation cellLocation) {
+    public static FreeWareCellDto createFreeCell(Integer rowNumber, Integer colNumber, CellLocation cellLocation) {
         return FreeWareCellDto.builder()
                 .rowNumber(rowNumber)
                 .colNumber(colNumber)
-                .number(cellNumber)
+                .number((rowNumber * CodeUtils.WAREHOUSE_ROW_SIZE) + colNumber)
                 .type(CellType.FREE)
                 .icon(cellLocation.getIcon())
                 .build();

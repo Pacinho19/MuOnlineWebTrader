@@ -64,6 +64,7 @@
         }
 
 
+
     </style>
 </head>
 <body>
@@ -77,6 +78,11 @@
 <div class="row" style="margin-top:1%;">
     <div class="col-1"></div>
     <div class="col-md-7">
+
+        <div th:if="${error!=null}"
+             style="text-align:center; margin-top:1%" class="alert alert-danger">
+            <h3 class="error" th:text="${error}">Error message</h3>
+        </div>
 
         <table id="myTable" style="margin-top:1%;" class="table">
             <thead>
@@ -171,6 +177,7 @@
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
     }
+
 
 
 </script>

@@ -58,27 +58,13 @@ public class WarehouseDecoder {
                 .flatMap(List::stream)
                 .collect(Collectors.toMap(WareCellDto::getNumber, Function.identity()));
 
-        blockingItemCells(cellMap);
+        WarehouseTools.blockingItemCells(cellMap);
 
 //        printToConsole(cellMap.values());
 
         return cellMap.values()
                 .stream()
                 .toList();
-    }
-
-    private void blockingItemCells(Map<Integer, WareCellDto> cellMap) {
-        cellMap.values()
-                .stream()
-                .filter(i -> i.getType() == CellType.ITEM)
-                .forEach(c -> {
-                    ItemWareCellDto item = (ItemWareCellDto) c;
-                    if (item.getCellsIdx() != null)
-                        item.getCellsIdx()
-                                .forEach(ci -> {
-                                    if (ci != item.getNumber()) cellMap.get(ci).setType(CellType.BLOCKED);
-                                });
-                });
     }
 
     private List<WareCellDto> decodeItemsByRow(Integer rowNumber, List<String> cells) {
@@ -89,7 +75,7 @@ public class WarehouseDecoder {
                     ExtendedItemDto itemDto = itemDecoder.decode(cells.get(cell),
                             cellNumber * CodeUtils.ITEM_CHUNK_SIZE);
 
-                    if (itemDto == null) return FreeWareCellDto.createFreeCell(rowNumber, cell, cellNumber, CellLocation.WARE);
+                    if (itemDto == null) return FreeWareCellDto.createFreeCell(rowNumber, cell, CellLocation.WARE);
                     return ItemWareCellDto.createItemCell(rowNumber, cell, cellNumber, itemDto);
                 })
                 .toList();

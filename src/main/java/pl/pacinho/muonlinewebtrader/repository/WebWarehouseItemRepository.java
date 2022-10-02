@@ -11,6 +11,6 @@ import java.util.Optional;
 @Repository
 public interface WebWarehouseItemRepository extends JpaRepository<WebWarehouseItem, Long> {
     List<WebWarehouseItem> findByAccountNameAndActive(String accountName, int active);
-
     Optional<WebWarehouseItem> findByAccountNameAndItemAndActive(String name, String code, int active);
+    boolean existsByAccountNameAndItem(String name, String itemCode);
 }

@@ -66,7 +66,7 @@ public class ItemUtils {
         List<WareCellDto> out = new ArrayList<>();
         for (int row = 0; row < CodeUtils.TRADE_ROW_COUNT; row++) {
             for (int col = 0; col < CodeUtils.TRADE_COL_COUNT; col++) {
-                out.add(FreeWareCellDto.createFreeCell(row, col, row * col, CellLocation.TRADE));
+                out.add(FreeWareCellDto.createFreeCell(row, col, CellLocation.TRADE));
             }
         }
         return out;

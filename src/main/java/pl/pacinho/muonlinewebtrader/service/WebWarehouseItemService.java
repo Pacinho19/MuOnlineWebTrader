@@ -46,4 +46,8 @@ public class WebWarehouseItemService {
         webWareItem.setActive(0);
         webWarehouseItemRepository.save(webWareItem);
     }
+
+    public boolean checkItemExists(String name, String itemCode) {
+        return webWarehouseItemRepository.existsByAccountNameAndItem(name,itemCode);
+    }
 }
