@@ -20,9 +20,12 @@ public class WebWalletService {
 
     public WebWalletDto findByAccountName(String name) {
         Optional<WebWallet> webWalletOpt = webWalletRepository.findByAccountName(name);
-        if (webWalletOpt.isEmpty())
-            return WebWalletDtoMapper.parse(save(WebWallet.empty(accountService.findByLogin(name))));
-        return WebWalletDtoMapper.parse(webWalletOpt.get());
+        if (webWalletOpt.isPresent()) return WebWalletDtoMapper.parse(webWalletOpt.get());
+        return WebWalletDtoMapper.parse(createEmptyWebWallet(name));
+    }
+
+    private WebWallet createEmptyWebWallet(String name) {
+        return save(WebWallet.empty(accountService.findByLogin(name)));
     }
 
     public WebWallet findEntityByAccountName(String name) {

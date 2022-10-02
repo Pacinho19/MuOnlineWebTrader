@@ -2,27 +2,22 @@ package pl.pacinho.muonlinewebtrader.model.dto;
 
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
-import pl.pacinho.muonlinewebtrader.model.enums.CellLocation;
 import pl.pacinho.muonlinewebtrader.model.enums.CellType;
-import pl.pacinho.muonlinewebtrader.tools.CodeUtils;
 import pl.pacinho.muonlinewebtrader.utils.FileUtils;
 import pl.pacinho.muonlinewebtrader.utils.ImageUtils;
 
-import java.util.List;
-
 @SuperBuilder(toBuilder = true)
 @Getter
-public class FreeWareCellDto extends WareCellDto {
+public class FreeTradeCellDto extends WareCellDto {
 
     private String icon;
-
-    public static FreeWareCellDto createFreeCell(Integer rowNumber, Integer colNumber, int cellNumber, CellLocation cellLocation) {
-        return FreeWareCellDto.builder()
+    public static FreeTradeCellDto createFreeCell(Integer rowNumber, Integer colNumber, int cellNumber) {
+        return FreeTradeCellDto.builder()
                 .rowNumber(rowNumber)
                 .colNumber(colNumber)
                 .number(cellNumber)
                 .type(CellType.FREE)
-                .icon(cellLocation.getIcon())
+                .icon(ImageUtils.encodeFileToBase64Binary(FileUtils.IMG_LOCATION+"/tradeCell.png"))
                 .build();
     }
 }

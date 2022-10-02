@@ -9,6 +9,7 @@ import pl.pacinho.muonlinewebtrader.model.dto.ExtendedItemDto;
 import pl.pacinho.muonlinewebtrader.model.dto.FreeWareCellDto;
 import pl.pacinho.muonlinewebtrader.model.dto.ItemWareCellDto;
 import pl.pacinho.muonlinewebtrader.model.dto.WareCellDto;
+import pl.pacinho.muonlinewebtrader.model.enums.CellLocation;
 import pl.pacinho.muonlinewebtrader.model.enums.CellType;
 
 import java.util.*;
@@ -88,7 +89,7 @@ public class WarehouseDecoder {
                     ExtendedItemDto itemDto = itemDecoder.decode(cells.get(cell),
                             cellNumber * CodeUtils.ITEM_CHUNK_SIZE);
 
-                    if (itemDto == null) return FreeWareCellDto.createFreeCell(rowNumber, cell, cellNumber);
+                    if (itemDto == null) return FreeWareCellDto.createFreeCell(rowNumber, cell, cellNumber, CellLocation.WARE);
                     return ItemWareCellDto.createItemCell(rowNumber, cell, cellNumber, itemDto);
                 })
                 .toList();

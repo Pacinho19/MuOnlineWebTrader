@@ -16,12 +16,15 @@ public class WebWarehouseService {
 
     public WebWarehouse getWarehouseByAccountName(String accountName) {
         Optional<WebWarehouse> webWareOpt = webWarehouseRepository.findByAccountName(accountName);
-        if (webWareOpt.isEmpty())
-            return save(WebWarehouse.builder()
-                    .zen(0L)
-                    .account(accountService.findByLogin(accountName))
-                    .build());
-        return webWareOpt.get();
+        if (webWareOpt.isPresent()) webWareOpt.get();
+        return createEmptyWebWarehouse(accountName);
+    }
+
+    private WebWarehouse createEmptyWebWarehouse(String accountName) {
+        return save(WebWarehouse.builder()
+                .zen(0L)
+                .account(accountService.findByLogin(accountName))
+                .build());
     }
 
     private WebWarehouse save(WebWarehouse ware) {

@@ -1,7 +1,12 @@
 package pl.pacinho.muonlinewebtrader.tools;
 
+import pl.pacinho.muonlinewebtrader.model.dto.FreeWareCellDto;
+import pl.pacinho.muonlinewebtrader.model.dto.WareCellDto;
+import pl.pacinho.muonlinewebtrader.model.enums.CellLocation;
 import pl.pacinho.muonlinewebtrader.model.enums.PaymentItem;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -57,4 +62,13 @@ public class ItemUtils {
         return sum.get();
     }
 
+    public static List<WareCellDto> crateEmptyTrade() {
+        List<WareCellDto> out = new ArrayList<>();
+        for (int row = 0; row < CodeUtils.TRADE_ROW_COUNT; row++) {
+            for (int col = 0; col < CodeUtils.TRADE_COL_COUNT; col++) {
+                out.add(FreeWareCellDto.createFreeCell(row, col, row * col, CellLocation.TRADE));
+            }
+        }
+        return out;
+    }
 }

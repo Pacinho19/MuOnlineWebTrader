@@ -27,12 +27,12 @@ import java.util.stream.IntStream;
 @Component
 public class WarehouseTools {
 
+    public static final String EMPTY_WARE = createEmptyWarehouse();
     private final Long GAME_WAREHOUSE_ZEN_LIMIT = 2_000_000_000L;
     private final WarehouseService warehouseService;
     private final WebWarehouseItemService webWarehouseItemService;
     private final WebWarehouseService webWarehouseService;
     private final WebWalletService webWalletService;
-
     private final TransactionService transactionService;
     private final WarehouseDecoder warehouseDecoder;
     private final ItemDecoder itemDecoder;
@@ -121,9 +121,9 @@ public class WarehouseTools {
         return PaymentItemsDto.builder()
                 .zenCount(webWarehouseService.findZenByAccountName(name))
                 .blessCount(paymentItemSum(paymentItems, PaymentItem.BLESS)
-                            + paymentItemSum(paymentItems, PaymentItem.BLESS_BUNDLE))
+                        + paymentItemSum(paymentItems, PaymentItem.BLESS_BUNDLE))
                 .soulCount(paymentItemSum(paymentItems, PaymentItem.SOUL)
-                           + paymentItemSum(paymentItems, PaymentItem.SOUL_BUNDLE))
+                        + paymentItemSum(paymentItems, PaymentItem.SOUL_BUNDLE))
                 .build();
     }
 
@@ -354,5 +354,13 @@ public class WarehouseTools {
             }
         }
         return 0;
+    }
+
+    private static String createEmptyWarehouse() {
+        return "0x"
+                + IntStream.range(0, CodeUtils.WAREHOUSE_CELLS_COUNT)
+                .boxed()
+                .map(i -> CodeUtils.EMPTY_CODE)
+                .collect(Collectors.joining());
     }
 }

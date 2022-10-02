@@ -28,4 +28,5 @@ public class UIConfig {
     public static final String READ_ALL_NOTIFICATIONS = HOME_URL + "/notification/read-all";
     public static final String CANCEL_ITEM_OFFER = ITEM_FOR_SALE + "{code}/cancel-offer";
     public static final String LOGIN_URL = "/login";
+    public static final String TRADE_HOME_URL = HOME_URL + "/trade";
 }

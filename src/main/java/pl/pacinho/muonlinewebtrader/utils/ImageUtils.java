@@ -14,6 +14,9 @@ import java.util.Map;
 public class ImageUtils {
 
     public static final String UNKNOWN_IMAGE = FileUtils.IMG_LOCATION + "/null.png";
+    public static final String ACCEPT_TRADE_IMAGE =  encodeFileToBase64Binary(FileUtils.IMG_LOCATION + "/acceptTrade.png");
+    public static final String DECLINE_TRADE_IMAGE = encodeFileToBase64Binary(FileUtils.IMG_LOCATION + "/declineTrade.png");
+    public static final String BACKGROUND_TRADE_IMAGE = encodeFileToBase64Binary(FileUtils.IMG_LOCATION + "/backgroundTrade.png");
 
     public static String encodeFileToBase64Binary(String path) {
         if (path == null || path.isEmpty()) return null;

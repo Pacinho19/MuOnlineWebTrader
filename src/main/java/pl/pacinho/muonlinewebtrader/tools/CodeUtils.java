@@ -12,6 +12,8 @@ public class CodeUtils {
 
     public static final int ITEM_CHUNK_SIZE = 32;
     public static final Integer WAREHOUSE_ROW_SIZE = 8;
+    public static final Integer TRADE_COL_COUNT = 8;
+    public static final Integer TRADE_ROW_COUNT = 4;
     public static final Integer WAREHOUSE_CELLS_COUNT = 120;
     public static final String EMPTY_CODE = "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF";
 

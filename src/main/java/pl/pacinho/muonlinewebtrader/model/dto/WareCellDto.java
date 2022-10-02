@@ -16,13 +16,4 @@ public class WareCellDto {
     private int colNumber;
     @Setter
     private CellType type;
-
-    public static WareCellDto createFreeCell(Integer rowNumber, Integer colNumber, int cellNumber) {
-        return WareCellDto.builder()
-                .rowNumber(rowNumber)
-                .colNumber(colNumber)
-                .type(CellType.FREE)
-                .number(cellNumber)
-                .build();
-    }
 }
