@@ -70,7 +70,7 @@ public class TradeController {
                                  HttpSession session,
                                  Authentication authentication) {
         try {
-            tradeTools.sendOffer(authentication.getName(), session.getAttribute("tradeItems"));
+            tradeTools.sendOffer( session, authentication.getName());
         } catch (Exception ex) {
             model.addAttribute("error", ex.getMessage());
             return tradeHome(model, authentication, session);

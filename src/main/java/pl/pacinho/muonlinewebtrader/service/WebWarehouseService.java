@@ -16,8 +16,7 @@ public class WebWarehouseService {
 
     public WebWarehouse getWarehouseByAccountName(String accountName) {
         Optional<WebWarehouse> webWareOpt = webWarehouseRepository.findByAccountName(accountName);
-        if (webWareOpt.isPresent()) webWareOpt.get();
-        return createEmptyWebWarehouse(accountName);
+        return webWareOpt.orElseGet(() -> createEmptyWebWarehouse(accountName));
     }
 
     private WebWarehouse createEmptyWebWarehouse(String accountName) {

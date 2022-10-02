@@ -12,12 +12,8 @@ import pl.pacinho.muonlinewebtrader.service.*;
 
 import javax.resource.spi.IllegalStateException;
 import javax.transaction.Transactional;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -376,5 +372,17 @@ public class WarehouseTools {
                                     if (ci != item.getNumber()) cellMap.get(ci).setType(CellType.BLOCKED);
                                 });
                 });
+    }
+
+
+    public static List<WareCellDto> unlockCells(List<WareCellDto> items2, List<Integer> cellsIdx) {
+        List<WareCellDto> temp = new ArrayList<>(items2);
+        items2.forEach(i -> {
+            if (i.getType() == CellType.BLOCKED && cellsIdx.contains(i.getNumber())) {
+                temp.remove(i.getNumber());
+                temp.add(i.getNumber(), FreeWareCellDto.createFreeCell(i.getRowNumber(), i.getColNumber(), CellLocation.TRADE));
+            }
+        });
+       return temp;
     }
 }
