@@ -20,7 +20,7 @@ public class TradeTools {
     private final WebWarehouseItemService webWarehouseItemService;
     private final ItemDecoder itemDecoder;
 
-    public void putItem(String name, List<WareCellDto> tradeItems, String itemCode) throws IllegalStateException {
+    public List<WareCellDto> putItem(String name, List<WareCellDto> tradeItems, String itemCode) throws IllegalStateException {
         if (!webWarehouseItemService.checkItemExists(name, itemCode))
             throw new IllegalStateException("Selected item doesn't exists in Web Warehouse  !");
 
@@ -30,6 +30,8 @@ public class TradeTools {
         boolean success = addItem(itemCode, tradeItems);
         if (!success)
             throw new IllegalStateException("Not enough space in for put this item!");
+
+        return tradeItems;
     }
 
     private boolean checkJustExistInTradeItems(List<WareCellDto> tradeItems, String itemCode) {
@@ -75,4 +77,17 @@ public class TradeTools {
         return false;
     }
 
+    public void sendOffer(String name, Object tradeItemsObj) throws IllegalStateException {
+        if (tradeItemsObj == null)
+            throw new IllegalStateException("No items for trade!");
+
+        List<WareCellDto> items = (List<WareCellDto>) tradeItemsObj;
+        if (checkEmpty(items))
+            throw new IllegalStateException("No items for trade!");
+    }
+
+    private boolean checkEmpty(List<WareCellDto> items) {
+        return items.stream()
+                .allMatch(i -> i.getType() == CellType.FREE);
+    }
 }

@@ -56,7 +56,21 @@ public class TradeController {
                                  Authentication authentication,
                                  @RequestParam("itemCode") String itemCode) {
         try {
-            tradeTools.putItem(authentication.getName(), (List<WareCellDto>) session.getAttribute("tradeItems"), itemCode);
+            List<WareCellDto> tradeItems = tradeTools.putItem(authentication.getName(), (List<WareCellDto>) session.getAttribute("tradeItems"), itemCode);
+            session.setAttribute("tradeItems", tradeItems);
+        } catch (Exception ex) {
+            model.addAttribute("error", ex.getMessage());
+            return tradeHome(model, authentication, session);
+        }
+        return "redirect:" + UIConfig.TRADE_HOME_URL;
+    }
+
+    @PostMapping(UIConfig.TRADE_SEND_OFFER)
+    public String putItemToTrade(Model model,
+                                 HttpSession session,
+                                 Authentication authentication) {
+        try {
+            tradeTools.sendOffer(authentication.getName(), session.getAttribute("tradeItems"));
         } catch (Exception ex) {
             model.addAttribute("error", ex.getMessage());
             return tradeHome(model, authentication, session);

@@ -30,4 +30,5 @@ public class UIConfig {
     public static final String LOGIN_URL = "/login";
     public static final String TRADE_HOME_URL = HOME_URL + "/trade";
     public static final String TRADE_PUT_ITEM = TRADE_HOME_URL + "/put-item";
+    public static final String TRADE_SEND_OFFER = TRADE_HOME_URL + "/send-offer";
 }
