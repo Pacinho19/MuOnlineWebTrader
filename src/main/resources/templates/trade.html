@@ -101,7 +101,10 @@
                     </th:block>
                 </td>
                 <td>
-                    <button type="submit" class="btn btn-primary"><i class="bi bi-arrow-left-right"></i></button>
+                    <form th:action="@{/mu-online/web-trader/trade/put-item}" th:method="post">
+                        <input th:type="hidden" th:value="${item.code}" name="itemCode">
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-arrow-left-right"></i></button>
+                    </form>
                 </td>
             </tr>
             </tbody>

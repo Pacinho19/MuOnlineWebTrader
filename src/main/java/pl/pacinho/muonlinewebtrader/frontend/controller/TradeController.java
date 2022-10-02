@@ -6,6 +6,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.pacinho.muonlinewebtrader.frontend.config.UIConfig;
 import pl.pacinho.muonlinewebtrader.model.dto.ExtendedItemDto;
 import pl.pacinho.muonlinewebtrader.model.dto.TradeImages;
@@ -41,5 +43,10 @@ public class TradeController {
         model.addAttribute("img", new TradeImages());
         model.addAttribute("colCount", CodeUtils.TRADE_COL_COUNT);
         return "trade";
+    }
+
+    @PostMapping(UIConfig.TRADE_PUT_ITEM)
+    public String putItemToTrade(Model model, Authentication authentication, @RequestParam("itemCode") String itemCode){
+        return "redirect:"+UIConfig.TRADE_HOME_URL;
     }
 }
