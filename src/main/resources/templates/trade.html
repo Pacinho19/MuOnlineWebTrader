@@ -6,8 +6,8 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
             crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
             integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
@@ -62,9 +62,6 @@
             width:40px;
             height:40px;
         }
-
-
-
 
     </style>
 </head>
@@ -133,17 +130,27 @@
                         th:colspan="${cellItem.extendedItemDto.width==0 ? 1 : cellItem.extendedItemDto.width}"
                         th:rowspan="${cellItem.extendedItemDto.height==0 ? 1 : cellItem.extendedItemDto.height}"
                         class="itemcell">
-                        <div
+                        <div class="itemcell2"
+                             th:id="${cellItem.extendedItemDto.code}"
                                 th:style="'width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'">
                         </div>
                     </td>
                 </th:block>
             </tr>
             <tr>
-                <td class="itemcell" th:each="i: ${#numbers.sequence(1, colCount - 1)}">
+                <td class="itemcell" th:each="i: ${#numbers.sequence(1, colCount - 2)}">
                     <div
                             th:style="'width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ img.BACKGROUND}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'">
                     </div>
+                </td>
+                <td class="itemcell">
+                    <form style="width:100%;height:100%" th:action="@{/mu-online/web-trader/trade/clear-offer}" th:method="post">
+                        <button
+                                type="submit"
+                                class="btn"
+                                th:style="'width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ img.DECLINE}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'">
+                        </button>
+                    </form>
                 </td>
                 <td class="itemcell">
                     <form style="width:100%;height:100%" th:action="@{/mu-online/web-trader/trade/send-offer}" th:method="post">
@@ -182,10 +189,40 @@
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
     }
+</script>
 
+<script>
+    $(document).ready(function(){
+      $('.itemcell').contextmenu(function(event){
+        event.preventDefault()
+      });
 
-
-
+      $('.itemcell2').contextmenu(function(event){
+        var id  = $(this).attr('id');
+        if(id!=null) removeItem(id);
+        event.preventDefault()
+      });
+    });
+</script>
+<script>
+    function removeItem(id) {
+        var tempId = id;
+        $.ajax({
+            type : "POST",
+            url : "/mu-online/web-trader/trade/remove/" + tempId,
+            data : {id:tempId},
+            success : function(id) {
+                location.reload();
+                console.log("SUCCESS: ", id);
+            },
+            error : function(e) {
+                console.log("ERROR: ", e);
+            },
+            done : function(e) {
+                console.log("DONE");
+            }
+        });
+    }
 </script>
 </body>
 </html>

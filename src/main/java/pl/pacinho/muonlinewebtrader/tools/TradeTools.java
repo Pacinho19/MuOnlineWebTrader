@@ -115,13 +115,46 @@ public class TradeTools {
         String error = errors.stream().collect(Collectors.joining(", ", "", ""));
         session.setAttribute("tradeItems", items2);
         throw new IllegalStateException("Items : " +
-                error
-                + " doesn't exists in Web Warehouse!");
-
+                                        error
+                                        + " doesn't exists in Web Warehouse!");
     }
 
     private boolean checkEmpty(List<WareCellDto> items) {
         return items.stream()
                 .allMatch(i -> i.getType() == CellType.FREE);
+    }
+
+    public List<ExtendedItemDto> filterItems(List<WareCellDto> tradeItems, List<ExtendedItemDto> wareItems) {
+        List<String> itemCodes = tradeItems.stream()
+                .filter(ti -> ti.getType() == CellType.ITEM)
+                .map(ti -> ((ItemWareCellDto) ti).getExtendedItemDto().getCode())
+                .toList();
+        return wareItems.stream()
+                .filter(i -> !itemCodes.contains(i.getCode()))
+                .toList();
+    }
+
+    public List<WareCellDto> removeItem(String code, Object tradeItemsObj) {
+        if (tradeItemsObj == null) return ItemUtils.crateEmptyTrade();
+
+        List<WareCellDto> items = (List<WareCellDto>) tradeItemsObj;
+        List<WareCellDto> temp = new ArrayList<>();
+        List<Integer> cellsIndex = null;
+        for (WareCellDto item : items) {
+            if (item.getType() != CellType.ITEM) {
+                temp.add(item);
+                continue;
+            }
+
+            ItemWareCellDto itemCell = (ItemWareCellDto) item;
+            if (!itemCell.getExtendedItemDto().getCode().equals(code)) {
+                temp.add(item);
+                continue;
+            }
+
+            temp.add(FreeWareCellDto.createFreeCell(itemCell.getRowNumber(), itemCell.getColNumber(), CellLocation.TRADE));
+            cellsIndex = itemCell.getCellsIdx();
+        }
+        return WarehouseTools.unlockCells(temp, cellsIndex);
     }
 }

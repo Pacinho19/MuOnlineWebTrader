@@ -6,10 +6,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.pacinho.muonlinewebtrader.frontend.config.UIConfig;
-import pl.pacinho.muonlinewebtrader.model.dto.ExtendedItemDto;
 import pl.pacinho.muonlinewebtrader.model.dto.TradeImages;
 import pl.pacinho.muonlinewebtrader.model.dto.WareCellDto;
 import pl.pacinho.muonlinewebtrader.service.*;
@@ -19,6 +19,7 @@ import pl.pacinho.muonlinewebtrader.tools.TradeTools;
 import pl.pacinho.muonlinewebtrader.tools.WarehouseDecoder;
 
 import javax.servlet.http.HttpSession;
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -41,7 +42,7 @@ public class TradeController {
             tradeItems = ItemUtils.crateEmptyTrade();
             session.setAttribute("tradeItems", tradeItems);
         }
-        model.addAttribute("wareItems", warehouseDecoder.decodeWebItems(webWarehouseItemService.getWarehouseItemsByAccountName(authentication.getName())));
+        model.addAttribute("wareItems", tradeTools.filterItems(tradeItems, warehouseDecoder.decodeWebItems(webWarehouseItemService.getWarehouseItemsByAccountName(authentication.getName()))));
         model.addAttribute("tradeItems", ListUtils.partition(tradeItems, CodeUtils.TRADE_COL_COUNT));
         model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
         model.addAttribute("notifications", notificationService.findUnreadByAccount(authentication.getName()));
@@ -70,11 +71,24 @@ public class TradeController {
                                  HttpSession session,
                                  Authentication authentication) {
         try {
-            tradeTools.sendOffer( session, authentication.getName());
+            tradeTools.sendOffer(session, authentication.getName());
         } catch (Exception ex) {
             model.addAttribute("error", ex.getMessage());
             return tradeHome(model, authentication, session);
         }
         return "redirect:" + UIConfig.TRADE_HOME_URL;
     }
+
+    @PostMapping(UIConfig.TRADE_CLEAR_OFFER)
+    public String clearOffer(HttpSession session) {
+        session.setAttribute("tradeItems", ItemUtils.crateEmptyTrade());
+        return "redirect:" + UIConfig.TRADE_HOME_URL;
+    }
+
+    @PostMapping(UIConfig.TRADE_REMOVE_ITEM)
+    public String removeItem(@PathVariable("id") String code, HttpSession session) {
+        session.setAttribute("tradeItems", tradeTools.removeItem(code, session.getAttribute("tradeItems")));
+        return "redirect:" + UIConfig.TRADE_HOME_URL;
+    }
+
 }

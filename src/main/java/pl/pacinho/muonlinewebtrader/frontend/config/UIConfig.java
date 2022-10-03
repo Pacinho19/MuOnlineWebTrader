@@ -31,4 +31,6 @@ public class UIConfig {
     public static final String TRADE_HOME_URL = HOME_URL + "/trade";
     public static final String TRADE_PUT_ITEM = TRADE_HOME_URL + "/put-item";
     public static final String TRADE_SEND_OFFER = TRADE_HOME_URL + "/send-offer";
+    public static final String TRADE_CLEAR_OFFER = TRADE_HOME_URL + "/clear-offer";
+    public static final String TRADE_REMOVE_ITEM = TRADE_HOME_URL + "/remove/{id}";
 }
