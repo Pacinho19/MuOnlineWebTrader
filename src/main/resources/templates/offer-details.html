@@ -85,6 +85,7 @@
 
 
 
+
     </style>
 </head>
 <body>
@@ -122,7 +123,8 @@
                             <td th:if="${cellItem.type.name=='ITEM'}"
                                 th:colspan="${cellItem.extendedItemDto.width==0 ? 1 : cellItem.extendedItemDto.width}"
                                 th:rowspan="${cellItem.extendedItemDto.height==0 ? 1 : cellItem.extendedItemDto.height}"
-                                class="itemcell">
+                                class="itemcell"
+                                th:style="'width:'+${cellItem.extendedItemDto.width*40 } + 'px'">
                                 <div
                                         th:style="'width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'">
                                 </div>
@@ -159,7 +161,8 @@
                             <td th:if="${cellItem.type.name=='ITEM'}"
                                 th:colspan="${cellItem.extendedItemDto.width==0 ? 1 : cellItem.extendedItemDto.width}"
                                 th:rowspan="${cellItem.extendedItemDto.height==0 ? 1 : cellItem.extendedItemDto.height}"
-                                class="itemcell">
+                                class="itemcell"
+                                th:style="'width:'+${cellItem.extendedItemDto.width*40 } + 'px'">
                                 <div class="itemcell2"
                                      th:id="${cellItem.extendedItemDto.code}"
                                      th:style="'width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'">
@@ -234,6 +237,7 @@
       document.documentElement.scrollTop = 0;
     }
 
+
 </script>
 
 <script>
@@ -248,6 +252,7 @@
         event.preventDefault()
       });
     });
+
 
 </script>
 <script>
@@ -270,21 +275,6 @@
             }
         });
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </script>
 </body>
