@@ -1,20 +1,16 @@
 package pl.pacinho.muonlinewebtrader.model.dto.mapper;
 
-import pl.pacinho.muonlinewebtrader.entity.Account;
-import pl.pacinho.muonlinewebtrader.entity.TradeOffer;
-import pl.pacinho.muonlinewebtrader.model.enums.TradeOfferStatus;
-
-import java.time.LocalDateTime;
+import pl.pacinho.muonlinewebtrader.entity.Trade;
+import pl.pacinho.muonlinewebtrader.model.dto.TradeOfferDto;
 
 public class TradeOfferDtoMapper {
-
-//    public static TradeOffer parse(String content, Account seller, Account buyer) {
-//        return TradeOffer.builder()
-//                .buyerAccount(buyer)
-//                .sellerAccount(seller)
-//                .offerDate(LocalDateTime.now())
-//                .content(content)
-//                .status(TradeOfferStatus.WAITING)
-//                .build();
-//    }
+    public static TradeOfferDto parse(Trade trade) {
+        return TradeOfferDto.builder()
+                .id(trade.getId())
+                .offerDate(trade.getOfferDate())
+                .status(trade.getStatus())
+                .receiverName(trade.getReceiverOffer().getAccount().getName())
+                .senderName(trade.getSenderOffer().getAccount().getName())
+                .build();
+    }
 }

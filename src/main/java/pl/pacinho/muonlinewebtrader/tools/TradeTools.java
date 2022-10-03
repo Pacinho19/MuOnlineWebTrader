@@ -2,13 +2,15 @@ package pl.pacinho.muonlinewebtrader.tools;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+import pl.pacinho.muonlinewebtrader.entity.Account;
 import pl.pacinho.muonlinewebtrader.entity.WebWarehouseItem;
-import pl.pacinho.muonlinewebtrader.model.dto.ExtendedItemDto;
-import pl.pacinho.muonlinewebtrader.model.dto.FreeWareCellDto;
-import pl.pacinho.muonlinewebtrader.model.dto.ItemWareCellDto;
-import pl.pacinho.muonlinewebtrader.model.dto.WareCellDto;
+import pl.pacinho.muonlinewebtrader.model.dto.*;
+import pl.pacinho.muonlinewebtrader.model.dto.mapper.TradeOfferDtoMapper;
 import pl.pacinho.muonlinewebtrader.model.enums.CellLocation;
 import pl.pacinho.muonlinewebtrader.model.enums.CellType;
+import pl.pacinho.muonlinewebtrader.service.AccountService;
+import pl.pacinho.muonlinewebtrader.service.TradeService;
 import pl.pacinho.muonlinewebtrader.service.WebWarehouseItemService;
 
 import javax.resource.spi.IllegalStateException;
@@ -22,6 +24,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Component
 public class TradeTools {
+
+    private final AccountService accountService;
+    private final TradeService tradeService;
     private final WebWarehouseItemService webWarehouseItemService;
     private final ItemDecoder itemDecoder;
 
@@ -82,7 +87,18 @@ public class TradeTools {
         return false;
     }
 
-    public void sendOffer(HttpSession session, String name) throws IllegalStateException {
+    @Transactional
+    public boolean sendOffer(HttpSession session, String name, String targetAccountName) throws IllegalStateException {
+        if (targetAccountName == null)
+            throw new IllegalStateException("Target Account not found!");
+
+        if (targetAccountName.equals(name))
+            throw new IllegalStateException("Stupid ! It's your account!");
+
+        Account targetAccount = accountService.findByLogin(targetAccountName);
+        if (targetAccount == null)
+            throw new IllegalStateException(targetAccountName + " Account not found!");
+
         Object tradeItemsObj = session.getAttribute("tradeItems");
         if (tradeItemsObj == null)
             throw new IllegalStateException("No items for trade!");
@@ -92,6 +108,32 @@ public class TradeTools {
             throw new IllegalStateException("No items for trade!");
 
         checkItemsForTrade(items, name, session);
+        tradeService.sendOffer(accountService.findByLogin(name), hexTrade(items), targetAccount);
+        removeWebWareItems(name, items);
+
+        return true;
+    }
+
+    private void removeWebWareItems(String name, List<WareCellDto> items) {
+        items.stream()
+                .filter(i -> i.getType() == CellType.ITEM)
+                .map(i -> (ItemWareCellDto) i)
+                .forEach(i -> {
+                    try {
+                        webWarehouseItemService.removeItem(name, i.getExtendedItemDto().getCode());
+                    } catch (IllegalStateException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+    }
+
+    private String hexTrade(List<WareCellDto> items) {
+        return items.stream()
+                .map(wc -> {
+                    if (wc.getType() == CellType.FREE || wc.getType() == CellType.BLOCKED) return CodeUtils.EMPTY_CODE;
+                    return ((ItemWareCellDto) wc).getExtendedItemDto().getCode();
+                })
+                .collect(Collectors.joining());
     }
 
     private void checkItemsForTrade(List<WareCellDto> items, String name, HttpSession session) throws IllegalStateException {
@@ -156,5 +198,12 @@ public class TradeTools {
             cellsIndex = itemCell.getCellsIdx();
         }
         return WarehouseTools.unlockCells(temp, cellsIndex);
+    }
+
+    public List<TradeOfferDto> myOffers(String name) {
+        return tradeService.findByName(name)
+                .stream()
+                .map(TradeOfferDtoMapper::parse)
+                .toList();
     }
 }

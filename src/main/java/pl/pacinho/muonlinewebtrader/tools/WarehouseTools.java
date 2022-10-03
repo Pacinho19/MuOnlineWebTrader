@@ -108,9 +108,9 @@ public class WarehouseTools {
         return PaymentItemsDto.builder()
                 .zenCount(webWarehouseService.findZenByAccountName(name))
                 .blessCount(paymentItemSum(paymentItems, PaymentItem.BLESS)
-                        + paymentItemSum(paymentItems, PaymentItem.BLESS_BUNDLE))
+                            + paymentItemSum(paymentItems, PaymentItem.BLESS_BUNDLE))
                 .soulCount(paymentItemSum(paymentItems, PaymentItem.SOUL)
-                        + paymentItemSum(paymentItems, PaymentItem.SOUL_BUNDLE))
+                           + paymentItemSum(paymentItems, PaymentItem.SOUL_BUNDLE))
                 .build();
     }
 
@@ -193,7 +193,7 @@ public class WarehouseTools {
         );
     }
 
-    private void removeJewelFromWebWarehouse(String name, Integer count, PaymentMethod paymentMethod) {
+    private void removeJewelFromWebWarehouse(String name, Integer count, PaymentMethod paymentMethod) throws IllegalStateException {
         List<ExtendedItemDto> items = getPaymentsItemsFromWebWarehouse(name)
                 .stream()
                 .filter(ei -> paymentMethod.getPaymentItems().contains(PaymentItem.fromNumber(ei.getNumber())))
@@ -216,8 +216,9 @@ public class WarehouseTools {
             }
         });
 
-        tj.getItemsToRemove()
-                .forEach(code -> webWarehouseItemService.removeItem(name, code));
+        for (String s : tj.getItemsToRemove()) {
+            webWarehouseItemService.removeItem(name, s);
+        }
 
         checkJewelsToPutBack(countI, paymentMethod, tj);
         tj.getItemsToAdd()
@@ -345,10 +346,10 @@ public class WarehouseTools {
 
     private static String createEmptyWarehouse() {
         return "0x"
-                + IntStream.range(0, CodeUtils.WAREHOUSE_CELLS_COUNT)
-                .boxed()
-                .map(i -> CodeUtils.EMPTY_CODE)
-                .collect(Collectors.joining());
+               + IntStream.range(0, CodeUtils.WAREHOUSE_CELLS_COUNT)
+                       .boxed()
+                       .map(i -> CodeUtils.EMPTY_CODE)
+                       .collect(Collectors.joining());
     }
 
     public static boolean isFreeSpaceForItem(List<Integer> itemIndexes, Map<Integer, WareCellDto> cellsMap) {
@@ -383,6 +384,6 @@ public class WarehouseTools {
                 temp.add(i.getNumber(), FreeWareCellDto.createFreeCell(i.getRowNumber(), i.getColNumber(), CellLocation.TRADE));
             }
         });
-       return temp;
+        return temp;
     }
 }

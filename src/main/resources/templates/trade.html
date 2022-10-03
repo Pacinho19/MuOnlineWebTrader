@@ -63,6 +63,12 @@
             height:40px;
         }
 
+        ::placeholder {
+          color: white;
+          opacity: 1; /* Firefox */
+        }
+
+
     </style>
 </head>
 <body>
@@ -76,6 +82,11 @@
 <div class="row" style="margin-top:1%;">
     <div class="col-1"></div>
     <div class="col-md-8">
+
+        <div th:if="${success!=null && success}"
+             style="text-align:center; margin-top:1%" class="alert alert-success">
+            <h3 class="success">Trade Offer sent successfully</h3>
+        </div>
 
         <div th:if="${error!=null}"
              style="text-align:center; margin-top:1%" class="alert alert-danger">
@@ -132,35 +143,43 @@
                         class="itemcell">
                         <div class="itemcell2"
                              th:id="${cellItem.extendedItemDto.code}"
-                                th:style="'width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'">
+                             th:style="'width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'">
                         </div>
                     </td>
                 </th:block>
             </tr>
             <tr>
-                <td class="itemcell" th:each="i: ${#numbers.sequence(1, colCount - 2)}">
-                    <div
-                            th:style="'width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ img.BACKGROUND}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'">
-                    </div>
-                </td>
-                <td class="itemcell">
-                    <form style="width:100%;height:100%" th:action="@{/mu-online/web-trader/trade/clear-offer}" th:method="post">
-                        <button
+                <form style="width:100%;height:100%" th:action="@{/mu-online/web-trader/trade/send-offer}"
+                      th:method="post">
+
+                    <td class="itemcell" th:each="i: ${#numbers.sequence(1, 2)}">
+                        <div
+                                th:style="'width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ img.BACKGROUND}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'">
+                        </div>
+                    </td>
+                    <td class="itemcell" colspan="4">
+                        <input
+                                th:style="'color:white;width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ img.BACKGROUND}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'"
+                                type="text"
+                                name="targetAccount"
+                                placeholder="Target Account"
+                        >
+                    </td>
+                    <td class="itemcell">
+                        <button th:formaction="@{/mu-online/web-trader/trade/clear-offer}"
                                 type="submit"
                                 class="btn"
                                 th:style="'width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ img.DECLINE}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'">
                         </button>
-                    </form>
-                </td>
-                <td class="itemcell">
-                    <form style="width:100%;height:100%" th:action="@{/mu-online/web-trader/trade/send-offer}" th:method="post">
+                    </td>
+                    <td class="itemcell">
                         <button
                                 type="submit"
                                 class="btn"
                                 th:style="'width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ img.ACCEPT}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'">
                         </button>
-                    </form>
-                </td>
+                    </td>
+                </form>
             </tr>
         </table>
 
@@ -189,6 +208,11 @@
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
     }
+
+
+
+
+
 </script>
 
 <script>
@@ -203,6 +227,11 @@
         event.preventDefault()
       });
     });
+
+
+
+
+
 </script>
 <script>
     function removeItem(id) {
@@ -223,6 +252,11 @@
             }
         });
     }
+
+
+
+
+
 </script>
 </body>
 </html>

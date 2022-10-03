@@ -28,9 +28,11 @@ public class UIConfig {
     public static final String READ_ALL_NOTIFICATIONS = HOME_URL + "/notification/read-all";
     public static final String CANCEL_ITEM_OFFER = ITEM_FOR_SALE + "{code}/cancel-offer";
     public static final String LOGIN_URL = "/login";
-    public static final String TRADE_HOME_URL = HOME_URL + "/trade";
-    public static final String TRADE_PUT_ITEM = TRADE_HOME_URL + "/put-item";
-    public static final String TRADE_SEND_OFFER = TRADE_HOME_URL + "/send-offer";
-    public static final String TRADE_CLEAR_OFFER = TRADE_HOME_URL + "/clear-offer";
-    public static final String TRADE_REMOVE_ITEM = TRADE_HOME_URL + "/remove/{id}";
+    public static final String TRADE_HOME = HOME_URL + "/trade";
+    public static final String TRADE_PUT_ITEM = TRADE_HOME + "/put-item";
+    public static final String TRADE_SEND_OFFER = TRADE_HOME + "/send-offer";
+    public static final String TRADE_CLEAR_OFFER = TRADE_HOME + "/clear-offer";
+    public static final String TRADE_REMOVE_ITEM = TRADE_HOME + "/remove/{id}";
+    public static final String TRADE_OFFERS_URl = TRADE_HOME + "/offers";
+    public static final String TRADE_OFFER_DETAILS_URL = TRADE_OFFERS_URl + "/{offerId}";
 }

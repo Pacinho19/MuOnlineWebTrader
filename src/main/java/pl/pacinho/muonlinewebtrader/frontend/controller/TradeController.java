@@ -19,8 +19,8 @@ import pl.pacinho.muonlinewebtrader.tools.TradeTools;
 import pl.pacinho.muonlinewebtrader.tools.WarehouseDecoder;
 
 import javax.servlet.http.HttpSession;
-import javax.websocket.server.PathParam;
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Controller
@@ -28,12 +28,11 @@ public class TradeController {
 
     private final WarehouseDecoder warehouseDecoder;
     private final TradeTools tradeTools;
-    private final TradeService tradeService;
     private final WebWarehouseItemService webWarehouseItemService;
     private final WebWalletService webWalletService;
     private final NotificationService notificationService;
 
-    @GetMapping(UIConfig.TRADE_HOME_URL)
+    @GetMapping(UIConfig.TRADE_HOME)
     public String tradeHome(Model model,
                             Authentication authentication,
                             HttpSession session) {
@@ -42,6 +41,12 @@ public class TradeController {
             tradeItems = ItemUtils.crateEmptyTrade();
             session.setAttribute("tradeItems", tradeItems);
         }
+        Object success = session.getAttribute("success");
+        if (success != null && (boolean) success) {
+            model.addAttribute("success", false);
+        }
+
+        model.addAttribute("success", success != null && (boolean) success);
         model.addAttribute("wareItems", tradeTools.filterItems(tradeItems, warehouseDecoder.decodeWebItems(webWarehouseItemService.getWarehouseItemsByAccountName(authentication.getName()))));
         model.addAttribute("tradeItems", ListUtils.partition(tradeItems, CodeUtils.TRADE_COL_COUNT));
         model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
@@ -63,32 +68,52 @@ public class TradeController {
             model.addAttribute("error", ex.getMessage());
             return tradeHome(model, authentication, session);
         }
-        return "redirect:" + UIConfig.TRADE_HOME_URL;
+        return "redirect:" + UIConfig.TRADE_HOME;
     }
 
     @PostMapping(UIConfig.TRADE_SEND_OFFER)
     public String putItemToTrade(Model model,
                                  HttpSession session,
+                                 String targetAccount,
                                  Authentication authentication) {
         try {
-            tradeTools.sendOffer(session, authentication.getName());
+            if (tradeTools.sendOffer(session, authentication.getName(), targetAccount)) {
+                session.setAttribute("tradeItems", ItemUtils.crateEmptyTrade());
+                session.setAttribute("success", true);
+            }
         } catch (Exception ex) {
+            model.addAttribute("success", false);
             model.addAttribute("error", ex.getMessage());
             return tradeHome(model, authentication, session);
         }
-        return "redirect:" + UIConfig.TRADE_HOME_URL;
+        return "redirect:" + UIConfig.TRADE_HOME;
     }
 
     @PostMapping(UIConfig.TRADE_CLEAR_OFFER)
     public String clearOffer(HttpSession session) {
         session.setAttribute("tradeItems", ItemUtils.crateEmptyTrade());
-        return "redirect:" + UIConfig.TRADE_HOME_URL;
+        return "redirect:" + UIConfig.TRADE_HOME;
     }
 
     @PostMapping(UIConfig.TRADE_REMOVE_ITEM)
     public String removeItem(@PathVariable("id") String code, HttpSession session) {
         session.setAttribute("tradeItems", tradeTools.removeItem(code, session.getAttribute("tradeItems")));
-        return "redirect:" + UIConfig.TRADE_HOME_URL;
+        return "redirect:" + UIConfig.TRADE_HOME;
+    }
+
+    @GetMapping(UIConfig.TRADE_OFFERS_URl)
+    public String tradeOffers(Model model, Authentication authentication) {
+        model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
+        model.addAttribute("notifications", notificationService.findUnreadByAccount(authentication.getName()));
+        model.addAttribute("offers", tradeTools.myOffers(authentication.getName()));
+        return "trade-offers";
+    }
+
+    @PostMapping(UIConfig.TRADE_OFFER_DETAILS_URL)
+    public String offerDetails(Model model,
+                               Authentication authentication,
+                               @PathVariable("offerId") UUID offerId) {
+        return "offer-details";
     }
 
 }

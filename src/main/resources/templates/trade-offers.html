@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MuOnline Trade</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+    <script type="text/javascript" th:src="@{/js/popover.js}"></script>
+
+    <style>
+         body {
+            background:#333;
+        }
+         img{
+            height:100px;
+            width:100px;
+        }
+         td, tr{
+            text-align:center
+        }
+
+        .popover{
+            min-width:550px;
+        }
+
+         #myBtn {
+          display: none;
+          position: fixed;
+          bottom: 10px;
+          right: 30px;
+          z-index: 99;
+          border: none;
+          outline: none;
+          cursor: pointer;
+          padding: 15px;
+          border-radius: 4px;
+        }
+
+        #myBtn:hover {
+          background-color: #333;
+        }
+
+         .center {
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .itemcell{
+            width:40px;
+            height:40px;
+        }
+
+        ::placeholder {
+          color: white;
+          opacity: 1; /* Firefox */
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+
+<button onclick="topFunction()" id="myBtn" title="Go to top" class="btn">
+    <i style="font-size:40px;font-color:red;color: #705D9D" class="bi bi-arrow-up-square-fill"></i>
+</button>
+
+<div th:replace="fragments/topnav :: navbar"/>
+
+<div class="row" style="margin-top:1%;">
+    <div class="col-2"></div>
+    <div class="col-md-8">
+
+        <div th:if="${error!=null}"
+             style="text-align:center; margin-top:1%" class="alert alert-danger">
+            <h3 class="error" th:text="${error}">Error message</h3>
+        </div>
+
+        <table id="myTable" style="margin-top:1%;" class="table">
+            <thead>
+            <tr class="table-secondary">
+                <th>Sender</th>
+                <th>Receiver</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="table-secondary" th:each="offer : ${offers}">
+                <td>
+                    <span th:text="${offer.senderName}">Sender</span>
+                </td>
+                <td>
+                    <span th:text="${offer.receiverName}">Receiver</span>
+                </td>
+                <td>
+                    <span th:text="${#temporals.format(offer.offerDate,'dd-MM-yyyy HH:mm')}">Date</span>
+                </td>
+                <td>
+                    <span th:text="${offer.status}">Status</span>
+                </td>
+                <td>
+                    <form th:method="post" th:action="@{'/mu-online/web-trader/trade/offers/'+ ${offer.id}}">
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-eye"></i></button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-2"></div>
+
+</div>
+<div id="source" style="display:none;" th:insert="~{fragments/notifications :: notifications}"/>
+
+<script>
+    // Get the button
+    let mybutton = document.getElementById("myBtn");
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        mybutton.style.display = "block";
+      } else {
+        mybutton.style.display = "none";
+      }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+
+
+
+
+
+
+
+</script>
+
+<script>
+    $(document).ready(function(){
+      $('.itemcell').contextmenu(function(event){
+        event.preventDefault()
+      });
+
+      $('.itemcell2').contextmenu(function(event){
+        var id  = $(this).attr('id');
+        if(id!=null) removeItem(id);
+        event.preventDefault()
+      });
+    });
+
+
+
+
+
+
+
+</script>
+<script>
+    function removeItem(id) {
+        var tempId = id;
+        $.ajax({
+            type : "POST",
+            url : "/mu-online/web-trader/trade/remove/" + tempId,
+            data : {id:tempId},
+            success : function(id) {
+                location.reload();
+                console.log("SUCCESS: ", id);
+            },
+            error : function(e) {
+                console.log("ERROR: ", e);
+            },
+            done : function(e) {
+                console.log("DONE");
+            }
+        });
+    }
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

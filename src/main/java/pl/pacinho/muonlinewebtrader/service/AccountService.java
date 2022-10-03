@@ -36,6 +36,6 @@ public class AccountService implements org.springframework.security.core.userdet
 
     public Account findByLogin(String name) {
         return accountRepository.findByName(name)
-                .get();
+                .orElse(null);
     }
 }

@@ -21,12 +21,9 @@ import pl.pacinho.muonlinewebtrader.service.WebWalletService;
 import pl.pacinho.muonlinewebtrader.tools.ItemDecoder;
 import pl.pacinho.muonlinewebtrader.tools.ItemShopTools;
 
-import javax.servlet.http.HttpSession;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
-import static pl.pacinho.muonlinewebtrader.frontend.config.UIConfig.ITEM_FOR_SALE;
 
 @RequiredArgsConstructor
 @Controller

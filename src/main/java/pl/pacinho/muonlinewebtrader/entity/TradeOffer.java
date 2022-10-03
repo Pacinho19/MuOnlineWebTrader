@@ -1,14 +1,9 @@
 package pl.pacinho.muonlinewebtrader.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -21,4 +16,12 @@ public class TradeOffer {
     @GenericGenerator(name = "tradeOfferIdGen", strategy = "increment")
     @GeneratedValue(generator = "tradeOfferIdGen")
     private Long id;
+
+    @Column(length = 1024)
+    private String content;
+
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "acc_id")
+    private Account account;
 }

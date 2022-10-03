@@ -36,8 +36,7 @@ public class WebWarehouseItemService {
                         .build());
     }
 
-    @SneakyThrows
-    public void removeItem(String accountName, String code) {
+    public void removeItem(String accountName, String code) throws IllegalStateException {
         Optional<WebWarehouseItem> webWareOpt = webWarehouseItemRepository.findByAccountNameAndItemAndActive(accountName, code, 1);
         if (webWareOpt.isEmpty())
             throw new IllegalStateException("Selected item not found in Web Warehouse!");
@@ -48,6 +47,6 @@ public class WebWarehouseItemService {
     }
 
     public boolean checkItemExists(String name, String itemCode) {
-        return webWarehouseItemRepository.existsByAccountNameAndItem(name,itemCode);
+        return webWarehouseItemRepository.existsByAccountNameAndItem(name, itemCode);
     }
 }
