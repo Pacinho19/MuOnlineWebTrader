@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.pacinho.muonlinewebtrader.entity.Warehouse;
 import pl.pacinho.muonlinewebtrader.frontend.config.UIConfig;
 import pl.pacinho.muonlinewebtrader.model.dto.WarehouseDto;
+import pl.pacinho.muonlinewebtrader.model.enums.CellLocation;
 import pl.pacinho.muonlinewebtrader.service.*;
 import pl.pacinho.muonlinewebtrader.tools.CodeUtils;
 import pl.pacinho.muonlinewebtrader.tools.WarehouseDecoder;
@@ -38,7 +39,7 @@ public class WarehouseController {
         model.addAttribute(
                 "warehouse",
                 ListUtils.partition(
-                        warehouseDecoder.decodeExtended(ware.getContent())
+                        warehouseDecoder.decodeExtended(ware.getContent(), CellLocation.WARE)
                         , CodeUtils.WAREHOUSE_ROW_SIZE));
         model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
         model.addAttribute("notifications", notificationService.findUnreadByAccount(authentication.getName()));

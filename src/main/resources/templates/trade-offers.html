@@ -102,10 +102,10 @@
             <tbody>
             <tr class="table-secondary" th:each="offer : ${offers}">
                 <td>
-                    <span th:text="${offer.senderName}">Sender</span>
+                    <span th:text="${offer.sender.accountName}">Sender</span>
                 </td>
                 <td>
-                    <span th:text="${offer.receiverName}">Receiver</span>
+                    <span th:text="${offer.receiver.accountName}">Receiver</span>
                 </td>
                 <td>
                     <span th:text="${#temporals.format(offer.offerDate,'dd-MM-yyyy HH:mm')}">Date</span>
@@ -114,7 +114,7 @@
                     <span th:text="${offer.status}">Status</span>
                 </td>
                 <td>
-                    <form th:method="post" th:action="@{'/mu-online/web-trader/trade/offers/'+ ${offer.id}}">
+                    <form th:method="get" th:action="@{'/mu-online/web-trader/trade/offers/'+ ${offer.uuid}}">
                         <button type="submit" class="btn btn-primary"><i class="bi bi-eye"></i></button>
                     </form>
                 </td>

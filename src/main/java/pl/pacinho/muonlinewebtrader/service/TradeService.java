@@ -11,6 +11,8 @@ import pl.pacinho.muonlinewebtrader.repository.TradeRepository;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -25,6 +27,7 @@ public class TradeService {
         TradeOffer receiverOffer = tradeOfferService.addOffer(null, targetAccount);
         tradeRepository.save(
                 Trade.builder()
+                        .extendedId(UUID.randomUUID().toString())
                         .senderOffer(senderOffer)
                         .receiverOffer(receiverOffer)
                         .offerDate(LocalDateTime.now())
@@ -35,5 +38,9 @@ public class TradeService {
 
     public List<Trade> findByName(String name) {
         return tradeRepository.findAllBySenderOfferAccountName(name);
+    }
+
+    public Optional<Trade> findByAccountAndOfferId(String name, String offerId) {
+        return tradeRepository.findOfferById(name, offerId);
     }
 }

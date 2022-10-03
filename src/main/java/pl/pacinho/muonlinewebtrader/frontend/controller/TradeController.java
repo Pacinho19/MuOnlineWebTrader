@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.pacinho.muonlinewebtrader.frontend.config.UIConfig;
+import pl.pacinho.muonlinewebtrader.model.dto.TradeDto;
 import pl.pacinho.muonlinewebtrader.model.dto.TradeImages;
+import pl.pacinho.muonlinewebtrader.model.dto.TradeOfferDto;
 import pl.pacinho.muonlinewebtrader.model.dto.WareCellDto;
 import pl.pacinho.muonlinewebtrader.service.*;
 import pl.pacinho.muonlinewebtrader.tools.CodeUtils;
@@ -20,7 +22,8 @@ import pl.pacinho.muonlinewebtrader.tools.WarehouseDecoder;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.UUID;
+
+import static pl.pacinho.muonlinewebtrader.model.enums.TradeOfferStatus.IN_PROGRESS;
 
 @RequiredArgsConstructor
 @Controller
@@ -109,11 +112,50 @@ public class TradeController {
         return "trade-offers";
     }
 
-    @PostMapping(UIConfig.TRADE_OFFER_DETAILS_URL)
+    @GetMapping(UIConfig.TRADE_OFFER_DETAILS_URL)
     public String offerDetails(Model model,
                                Authentication authentication,
-                               @PathVariable("offerId") UUID offerId) {
+                               HttpSession session,
+                               @PathVariable("offerId") String offerId) {
+        try {
+            TradeDto tradeDto = tradeTools.offerDetails(authentication.getName(), offerId);
+            model.addAttribute("offerDetails", tradeDto);
+            model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
+            model.addAttribute("notifications", notificationService.findUnreadByAccount(authentication.getName()));
+            List<WareCellDto> tradeItems = ItemUtils.crateEmptyTrade();
+            if (tradeDto.getStatus() == IN_PROGRESS && tradeDto.getReceiver().getAccountName().equals(authentication.getName())) {
+                List<WareCellDto> tempTradeItems = (List<WareCellDto>) session.getAttribute("tradeOfferItems");
+                if (tempTradeItems != null) {
+                    tradeItems = tempTradeItems;
+                    session.setAttribute("tradeOfferItems", tradeItems);
+                }
+                model.addAttribute("wareItems", tradeTools.filterItems(tradeItems, warehouseDecoder.decodeWebItems(webWarehouseItemService.getWarehouseItemsByAccountName(authentication.getName()))));
+            }
+            model.addAttribute("inProgress", tradeDto.getSender().getAccountName().equals(authentication.getName()) && tradeDto.getStatus() == IN_PROGRESS);
+            model.addAttribute("tradeItems", ListUtils.partition(tradeItems, CodeUtils.TRADE_COL_COUNT));
+
+        } catch (Exception ex) {
+            model.addAttribute("error", ex.getMessage());
+            return tradeOffers(model, authentication);
+        }
         return "offer-details";
+    }
+
+    @PostMapping(UIConfig.TRADE_OFFER_PUT_ITEM)
+    public String putItemToTradeOffer(Model model,
+                                      HttpSession session,
+                                      Authentication authentication,
+                                      @PathVariable("offerId") String offerId,
+                                      @RequestParam("itemCode") String itemCode) {
+        try {
+            List<WareCellDto> tradeItems = tradeTools.putItem(authentication.getName(), (List<WareCellDto>) session.getAttribute("tradeOfferItems"), itemCode);
+            session.setAttribute("tradeOfferItems", tradeItems);
+        } catch (Exception ex) {
+            model.addAttribute("error", ex.getMessage());
+            return tradeHome(model, authentication, session);
+        }
+        model.addAttribute("offerId", offerId);
+        return "redirect:" + UIConfig.TRADE_OFFER_DETAILS_URL;
     }
 
 }

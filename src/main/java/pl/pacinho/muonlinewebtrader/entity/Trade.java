@@ -21,6 +21,9 @@ public class Trade {
     @GeneratedValue(generator = "tradeOfferIdGen")
     private Long id;
 
+    @Column(length=36)
+    private String extendedId;
+
     @OneToOne
     @JoinColumn(name = "send_offer_id")
     private TradeOffer senderOffer;

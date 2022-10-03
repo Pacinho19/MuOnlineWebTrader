@@ -33,8 +33,8 @@ public class WarehouseTools {
     private final WarehouseDecoder warehouseDecoder;
     private final ItemDecoder itemDecoder;
 
-    private int checkSpaceForPutItem(ExtendedItemDto item, Warehouse warehouseByAccountName) {
-        List<WareCellDto> freeCells = warehouseDecoder.decodeExtended(warehouseByAccountName.getContent())
+    private int checkSpaceForPutItem(ExtendedItemDto item, Warehouse warehouseByAccountName, CellLocation location) {
+        List<WareCellDto> freeCells = warehouseDecoder.decodeExtended(warehouseByAccountName.getContent(), location)
                 .stream()
                 .filter(c -> c.getType() == CellType.FREE)
                 .toList();
@@ -56,7 +56,7 @@ public class WarehouseTools {
 
     @Transactional
     public void transferToGame(String accountName, String code) throws IllegalStateException {
-        int startPosition = checkSpaceForPutItem(itemDecoder.decode(code, -1), warehouseService.getWarehouseByAccountName(accountName));
+        int startPosition = checkSpaceForPutItem(itemDecoder.decode(code, -1), warehouseService.getWarehouseByAccountName(accountName), CellLocation.WARE);
         if (startPosition == -1)
             throw new IllegalStateException("Not enough space in game warehouse for transfer selected item!");
 

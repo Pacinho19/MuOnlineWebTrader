@@ -4,9 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pl.pacinho.muonlinewebtrader.entity.Account;
+import pl.pacinho.muonlinewebtrader.entity.Trade;
 import pl.pacinho.muonlinewebtrader.entity.WebWarehouseItem;
 import pl.pacinho.muonlinewebtrader.model.dto.*;
-import pl.pacinho.muonlinewebtrader.model.dto.mapper.TradeOfferDtoMapper;
+import pl.pacinho.muonlinewebtrader.model.dto.mapper.TradeDtoMapper;
 import pl.pacinho.muonlinewebtrader.model.enums.CellLocation;
 import pl.pacinho.muonlinewebtrader.model.enums.CellType;
 import pl.pacinho.muonlinewebtrader.service.AccountService;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -29,6 +31,7 @@ public class TradeTools {
     private final TradeService tradeService;
     private final WebWarehouseItemService webWarehouseItemService;
     private final ItemDecoder itemDecoder;
+    private final TradeDtoMapper tradeDtoMapper;
 
     public List<WareCellDto> putItem(String name, List<WareCellDto> tradeItems, String itemCode) throws IllegalStateException {
         if (!webWarehouseItemService.checkItemExists(name, itemCode))
@@ -200,10 +203,18 @@ public class TradeTools {
         return WarehouseTools.unlockCells(temp, cellsIndex);
     }
 
-    public List<TradeOfferDto> myOffers(String name) {
+    public List<TradeDto> myOffers(String name) {
         return tradeService.findByName(name)
                 .stream()
-                .map(TradeOfferDtoMapper::parse)
+                .map(tradeDtoMapper::parse)
                 .toList();
+    }
+
+    public TradeDto offerDetails(String name, String offerId) throws IllegalStateException {
+        Optional<Trade> tradeOpt = tradeService.findByAccountAndOfferId(name, offerId);
+        if (tradeOpt.isEmpty())
+            throw new IllegalStateException("Not found selected offer!");
+
+        return tradeDtoMapper.parse(tradeOpt.get());
     }
 }

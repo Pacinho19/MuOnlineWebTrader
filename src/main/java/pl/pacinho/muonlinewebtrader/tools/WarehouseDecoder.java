@@ -44,9 +44,10 @@ public class WarehouseDecoder {
                 .toList();
     }
 
-    public List<WareCellDto> decodeExtended(String wareContent) {
+    public List<WareCellDto> decodeExtended(String wareContent, CellLocation location) {
         if (wareContent.startsWith("0x")) wareContent = wareContent.substring(2);
-        if (wareContent.length() > CodeUtils.WAREHOUSE_CELLS_COUNT) wareContent = wareContent.substring(0, CodeUtils.ITEM_CHUNK_SIZE * CodeUtils.WAREHOUSE_CELLS_COUNT);
+        int maxSize = CodeUtils.ITEM_CHUNK_SIZE * CodeUtils.WAREHOUSE_CELLS_COUNT;
+        if (wareContent.length() > maxSize) wareContent = wareContent.substring(0, maxSize);
 
         final String wareContentF = wareContent;
         String[] content = wareContentF.split("(?<=\\G.{" + CodeUtils.ITEM_CHUNK_SIZE + "})");
@@ -54,7 +55,7 @@ public class WarehouseDecoder {
 
         Map<Integer, WareCellDto> cellMap = IntStream.range(0, rows.size())
                 .boxed()
-                .map(row -> decodeItemsByRow(row, rows.get(row)))
+                .map(row -> decodeItemsByRow(row, rows.get(row), location))
                 .flatMap(List::stream)
                 .collect(Collectors.toMap(WareCellDto::getNumber, Function.identity()));
 
@@ -67,7 +68,7 @@ public class WarehouseDecoder {
                 .toList();
     }
 
-    private List<WareCellDto> decodeItemsByRow(Integer rowNumber, List<String> cells) {
+    private List<WareCellDto> decodeItemsByRow(Integer rowNumber, List<String> cells, CellLocation location) {
         return IntStream.range(0, cells.size())
                 .boxed()
                 .map(cell -> {
@@ -75,7 +76,7 @@ public class WarehouseDecoder {
                     ExtendedItemDto itemDto = itemDecoder.decode(cells.get(cell),
                             cellNumber * CodeUtils.ITEM_CHUNK_SIZE);
 
-                    if (itemDto == null) return FreeWareCellDto.createFreeCell(rowNumber, cell, CellLocation.WARE);
+                    if (itemDto == null) return FreeWareCellDto.createFreeCell(rowNumber, cell, location);
                     return ItemWareCellDto.createItemCell(rowNumber, cell, cellNumber, itemDto);
                 })
                 .toList();

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MuOnline Trade</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+    <script type="text/javascript" th:src="@{/js/filter.js}"></script>
+    <script type="text/javascript" th:src="@{/js/popover.js}"></script>
+
+    <style>
+         body {
+            background:#333;
+        }
+         img{
+            height:100px;
+            width:100px;
+        }
+         td, tr{
+            text-align:center
+        }
+
+        .popover{
+            min-width:550px;
+        }
+
+         #myBtn {
+          display: none;
+          position: fixed;
+          bottom: 10px;
+          right: 30px;
+          z-index: 99;
+          border: none;
+          outline: none;
+          cursor: pointer;
+          padding: 15px;
+          border-radius: 4px;
+        }
+
+        #myBtn:hover {
+          background-color: #333;
+        }
+
+         .center {
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .itemcell{
+            width:40px;
+            height:40px;
+        }
+
+        ::placeholder {
+          color: white;
+          opacity: 1; /* Firefox */
+        }
+
+        .vertical-center {
+          margin: 0;
+          position: absolute;
+          top: 50%;
+          left: 40%;
+          -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+<button onclick="topFunction()" id="myBtn" title="Go to top" class="btn">
+    <i style="font-size:40px;font-color:red;color: #705D9D" class="bi bi-arrow-up-square-fill"></i>
+</button>
+
+<div th:replace="fragments/topnav :: navbar"/>
+
+<div class="row" style="margin-top:1%;">
+    <div class="col-2"></div>
+    <div class="col-md-8">
+        <div th:if="${error!=null}"
+             style="text-align:center; margin-top:1%" class="alert alert-danger">
+            <h3 class="error" th:text="${error}">Error message</h3>
+        </div>
+
+        <div class="row" style="text-align:center">
+            <div class="col-md-1" style="text-align:center"></div>
+            <div class="col-md-4" style="text-align:center">
+                <div class="row" style="text-align:center">
+                    <strong th:text="${offerDetails.sender.accountName}"
+                            style="text-align:center;width:100%;color:white">Trade Window</strong>
+                </div>
+                <table class="center" style="text-align:center;margin-top:1%;">
+                    <tr th:each="rowItems : ${offerDetails.sender.cells}">
+                        <th:block th:each="cellItem : ${rowItems}">
+                            <td class="itemcell" th:if="${cellItem.type.name=='FREE'}">
+                                <img width="100%" height="100%"
+                                     style="display:block;width:100%;height:100%"
+                                     th:src="@{${'data:image/jpeg;base64,'+ cellItem.icon}}"/>
+                            </td>
+                            <td th:if="${cellItem.type.name=='ITEM'}"
+                                th:colspan="${cellItem.extendedItemDto.width==0 ? 1 : cellItem.extendedItemDto.width}"
+                                th:rowspan="${cellItem.extendedItemDto.height==0 ? 1 : cellItem.extendedItemDto.height}"
+                                class="itemcell">
+                                <div class="itemcell2"
+                                     th:id="${cellItem.extendedItemDto.code}"
+                                     th:style="'width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'">
+                                </div>
+                            </td>
+                        </th:block>
+                    </tr>
+                </table>
+
+            </div>
+            <div class="col-sm-1" style="text-align:center;position: relative">
+                <div class="vertical-center" style="text-align:center">
+                    <i style="font-size:35px;color:WHITE;text-align:center" class="bi bi-arrow-left-right"></i>
+                </div>
+            </div>
+            <div class="col-md-4" style="text-align:center">
+                <div class="row" style="text-align:center">
+                    <div class="col-md-6" style="text-align:right">
+                        <strong th:text="${offerDetails.receiver.accountName}"
+                                style="text-align:right;width:100%;color:white">Account Name</strong>
+                    </div>
+                    <div class="col-md-6" style="text-align:left">
+                        <strong th:if="${inProgress}" style="text-align:left;width:100%;color:RED">IN
+                            PROGRESS</strong>
+                    </div>
+                </div>
+                <table class="center" style="text-align:center;margin-top:1%;" th:if="${tradeItems}">
+                    <tr th:each="rowItems : ${tradeItems}">
+                        <th:block th:each="cellItem : ${rowItems}">
+                            <td class="itemcell" th:if="${cellItem.type.name=='FREE'}">
+                                <img width="100%" height="100%"
+                                     style="display:block;width:100%;height:100%"
+                                     th:src="@{${'data:image/jpeg;base64,'+ cellItem.icon}}"/>
+                            </td>
+                            <td th:if="${cellItem.type.name=='ITEM'}"
+                                th:colspan="${cellItem.extendedItemDto.width==0 ? 1 : cellItem.extendedItemDto.width}"
+                                th:rowspan="${cellItem.extendedItemDto.height==0 ? 1 : cellItem.extendedItemDto.height}"
+                                class="itemcell">
+                                <div class="itemcell2"
+                                     th:id="${cellItem.extendedItemDto.code}"
+                                     th:style="'width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'">
+                                </div>
+                            </td>
+                        </th:block>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-1" style="text-align:center"></div>
+
+        </div>
+
+        <div class="row" th:if="${wareItems!=null}">
+            <table id="myTable" style="margin-top:1%;" class="table">
+                <thead>
+                <tr class="table-secondary">
+                    <th>Icon</th>
+                    <th style="text-align:left">Name</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="table-secondary" th:each="item, iterStat : ${wareItems}">
+                    <td>
+                        <img class="rounded" th:src="@{${'data:image/jpeg;base64,'+ item.icon}}"/>
+                    </td>
+                    <td style="text-align:left">
+                        <span th:if="${item.exc}" style="color:green;text-align:left">Exc</span>
+                        <span th:text="${item.name}" style="color:black;text-align:left"></span>
+                        <span th:if="${item.luck}" style="color:blue;text-align:left">+Luck</span>
+                        <span th:if="${item.skill}" style="color:blue;text-align:left">+Skill</span>
+                        <th:block th:if="${item.exc}" th:each="exc :${item.excOptions}">
+                            <span th:text="${'+' + exc.name}" style="text-align:left"></span>
+                        </th:block>
+                    </td>
+                    <td>
+                        <form th:action="@{/mu-online/web-trader/trade/put-item}" th:method="post">
+                            <input th:type="hidden" th:value="${item.code}" name="itemCode">
+                            <button type="submit" class="btn btn-primary"><i class="bi bi-plus"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-sm-2"></div>
+</div>
+<div id="source" style="display:none;" th:insert="~{fragments/notifications :: notifications}"/>
+
+<script>
+    // Get the button
+    let mybutton = document.getElementById("myBtn");
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        mybutton.style.display = "block";
+      } else {
+        mybutton.style.display = "none";
+      }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+<script>
+    $(document).ready(function(){
+      $('.itemcell').contextmenu(function(event){
+        event.preventDefault()
+      });
+
+      $('.itemcell2').contextmenu(function(event){
+        var id  = $(this).attr('id');
+        if(id!=null) removeItem(id);
+        event.preventDefault()
+      });
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+<script>
+    function removeItem(id) {
+        var tempId = id;
+        $.ajax({
+            type : "POST",
+            url : "/mu-online/web-trader/trade/remove/" + tempId,
+            data : {id:tempId},
+            success : function(id) {
+                location.reload();
+                console.log("SUCCESS: ", id);
+            },
+            error : function(e) {
+                console.log("ERROR: ", e);
+            },
+            done : function(e) {
+                console.log("DONE");
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

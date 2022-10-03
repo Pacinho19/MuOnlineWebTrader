@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.pacinho.muonlinewebtrader.model.dto.ExtendedItemDto;
 import pl.pacinho.muonlinewebtrader.model.dto.WareCellDto;
 import pl.pacinho.muonlinewebtrader.model.dto.WarehouseRequestDto;
+import pl.pacinho.muonlinewebtrader.model.enums.CellLocation;
 import pl.pacinho.muonlinewebtrader.tools.ItemDecoder;
 import pl.pacinho.muonlinewebtrader.tools.WarehouseDecoder;
 
@@ -25,7 +26,7 @@ public class ItemDecoderController {
 
     @PostMapping("/warehouse/decode/extended")
     public List<WareCellDto> decodeExtended(@RequestBody WarehouseRequestDto warehouse) {
-        return warehouseDecoder.decodeExtended(warehouse.getContent());
+        return warehouseDecoder.decodeExtended(warehouse.getContent(), CellLocation.WARE);
     }
 
     @GetMapping("/item/{itemCode}/decode")
