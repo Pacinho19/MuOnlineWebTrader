@@ -116,6 +116,7 @@
                                     </div>
                                     <input th:field="*{priceZen}" id="zen" th:value="${priceZen}" name="zen" min="0"
                                            type="number"
+                                           required="true"
                                            class="form-control"
                                            aria-label="Zen">
                                 </div>
@@ -126,6 +127,7 @@
                                     </div>
                                     <input th:field="*{priceBless}" th:value="${priceBless}" id="bless" name="bless"
                                            min="0" type="number"
+                                           required="true"
                                            class="form-control"
                                            aria-label="Jewel of Bless">
                                 </div>
@@ -134,7 +136,9 @@
                                     <div class="input-group-prepend">
                                         <label class="input-group-text">Jewel of Soul</label>
                                     </div>
-                                    <input th:field="*{priceSoul}" th:value="${priceSoul}" id="soul" name="soul" min="0"
+                                    <input th:field="*{priceSoul}" th:value="${priceSoul}" id="soul" name="soul"
+                                           required="true"
+                                           min="0"
                                            type="number"
                                            class="form-control"
                                            aria-label="Jewel of Soul">
