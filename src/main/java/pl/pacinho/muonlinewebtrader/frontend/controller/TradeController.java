@@ -124,11 +124,11 @@ public class TradeController {
             model.addAttribute("notifications", notificationService.findUnreadByAccount(authentication.getName()));
             List<WareCellDto> tradeItems = ItemUtils.crateEmptyTrade();
             if (tradeDto.getStatus() == IN_PROGRESS && tradeDto.getReceiver().getAccountName().equals(authentication.getName())) {
-                List<WareCellDto> tempTradeItems = (List<WareCellDto>) session.getAttribute("tradeOfferItems");
+                List<WareCellDto> tempTradeItems = (List<WareCellDto>) session.getAttribute("tradeOfferItems" + offerId);
                 if (tempTradeItems != null) {
                     tradeItems = tempTradeItems;
-                    session.setAttribute("tradeOfferItems", tradeItems);
                 }
+                session.setAttribute("tradeOfferItems" + offerId, tradeItems);
                 model.addAttribute("wareItems", tradeTools.filterItems(tradeItems, warehouseDecoder.decodeWebItems(webWarehouseItemService.getWarehouseItemsByAccountName(authentication.getName()))));
             }
             model.addAttribute("inProgress", tradeDto.getSender().getAccountName().equals(authentication.getName()) && tradeDto.getStatus() == IN_PROGRESS);
@@ -148,12 +148,22 @@ public class TradeController {
                                       @PathVariable("offerId") String offerId,
                                       @RequestParam("itemCode") String itemCode) {
         try {
-            List<WareCellDto> tradeItems = tradeTools.putItem(authentication.getName(), (List<WareCellDto>) session.getAttribute("tradeOfferItems"), itemCode);
-            session.setAttribute("tradeOfferItems", tradeItems);
+            List<WareCellDto> tradeItems = tradeTools.putItem(authentication.getName(), (List<WareCellDto>) session.getAttribute("tradeOfferItems" + offerId), itemCode);
+            session.setAttribute("tradeOfferItems" + offerId, tradeItems);
         } catch (Exception ex) {
             model.addAttribute("error", ex.getMessage());
-            return tradeHome(model, authentication, session);
+            return offerDetails(model, authentication, session, offerId);
         }
+        model.addAttribute("offerId", offerId);
+        return "redirect:" + UIConfig.TRADE_OFFER_DETAILS_URL;
+    }
+
+    @PostMapping(UIConfig.TRADE_OFFER_REMOVE_ITEM)
+    public String removeOfferItem(@PathVariable("offerId") String offerId,
+                                  @PathVariable("id") String code,
+                                  HttpSession session,
+                                  Model model) {
+        session.setAttribute("tradeOfferItems" + offerId, tradeTools.removeItem(code, session.getAttribute("tradeOfferItems" + offerId)));
         model.addAttribute("offerId", offerId);
         return "redirect:" + UIConfig.TRADE_OFFER_DETAILS_URL;
     }

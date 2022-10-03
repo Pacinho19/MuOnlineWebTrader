@@ -63,6 +63,11 @@
             height:40px;
         }
 
+        .itemcell2{
+            width:40px;
+            height:40px;
+        }
+
         ::placeholder {
           color: white;
           opacity: 1; /* Firefox */
@@ -76,6 +81,7 @@
           -ms-transform: translateY(-50%);
           transform: translateY(-50%);
         }
+
 
 
 
@@ -100,6 +106,7 @@
         <div class="row" style="text-align:center">
             <div class="col-md-1" style="text-align:center"></div>
             <div class="col-md-4" style="text-align:center">
+                <input type="hidden" th:value="${offerDetails.uuid}" id="offerId">
                 <div class="row" style="text-align:center">
                     <strong th:text="${offerDetails.sender.accountName}"
                             style="text-align:center;width:100%;color:white">Trade Window</strong>
@@ -116,9 +123,8 @@
                                 th:colspan="${cellItem.extendedItemDto.width==0 ? 1 : cellItem.extendedItemDto.width}"
                                 th:rowspan="${cellItem.extendedItemDto.height==0 ? 1 : cellItem.extendedItemDto.height}"
                                 class="itemcell">
-                                <div class="itemcell2"
-                                     th:id="${cellItem.extendedItemDto.code}"
-                                     th:style="'width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'">
+                                <div
+                                        th:style="'width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'">
                                 </div>
                             </td>
                         </th:block>
@@ -191,7 +197,8 @@
                         </th:block>
                     </td>
                     <td>
-                        <form th:action="@{/mu-online/web-trader/trade/put-item}" th:method="post">
+                        <form th:action="@{'/mu-online/web-trader/trade/offers/' + ${offerDetails.uuid} +'/put-item'}"
+                              th:method="post">
                             <input th:type="hidden" th:value="${item.code}" name="itemCode">
                             <button type="submit" class="btn btn-primary"><i class="bi bi-plus"></i>
                             </button>
@@ -227,20 +234,6 @@
       document.documentElement.scrollTop = 0;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </script>
 
 <script>
@@ -256,28 +249,15 @@
       });
     });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </script>
 <script>
     function removeItem(id) {
         var tempId = id;
+        var offerId = document.getElementById("offerId").value;
         $.ajax({
             type : "POST",
-            url : "/mu-online/web-trader/trade/remove/" + tempId,
-            data : {id:tempId},
+            url : "/mu-online/web-trader/trade/offers/"+offerId+"/remove/" + tempId,
+            data : {id:tempId, offerId: offerId},
             success : function(id) {
                 location.reload();
                 console.log("SUCCESS: ", id);
@@ -290,6 +270,7 @@
             }
         });
     }
+
 
 
 
