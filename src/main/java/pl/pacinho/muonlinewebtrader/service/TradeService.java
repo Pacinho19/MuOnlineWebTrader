@@ -47,4 +47,9 @@ public class TradeService {
     public void update(Trade trade) {
         tradeRepository.save(trade);
     }
+
+    public void updateReceiverOffer(TradeOffer receiverOffer, String hexTrade) {
+        receiverOffer.setContent(hexTrade);
+        tradeOfferService.update(receiverOffer);
+    }
 }

@@ -17,6 +17,7 @@ public class TradeOffer {
     @GeneratedValue(generator = "tradeOfferIdGen")
     private Long id;
 
+    @Setter
     @Column(length = 1024)
     private String content;
 

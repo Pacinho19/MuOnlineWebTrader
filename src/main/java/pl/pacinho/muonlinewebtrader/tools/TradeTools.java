@@ -248,4 +248,37 @@ public class TradeTools {
                 .forEach(item -> webWarehouseItemService.addItem(tradeOffer.getAccount().getName(), item.getExtendedItemDto().getCode()));
 
     }
+
+    @Transactional
+    public void acceptTradeOffer(String name, String offerId, List<WareCellDto> items) throws IllegalStateException {
+        Optional<Trade> tradeOpt = tradeService.findByAccountAndOfferId(name, offerId);
+        if (tradeOpt.isEmpty())
+            throw new IllegalStateException("Cannot accept this offer !");
+
+        Trade trade = tradeOpt.get();
+        TradeOfferStatus status = trade.getStatus();
+        if (status != TradeOfferStatus.IN_PROGRESS && status != TradeOfferStatus.WAITING)
+            throw new IllegalStateException("Cannot accept this offer in this status!");
+
+        trade.setStatus(status == TradeOfferStatus.IN_PROGRESS ? TradeOfferStatus.WAITING : TradeOfferStatus.ACCEPTED);
+        tradeService.update(trade);
+
+        if (status == TradeOfferStatus.IN_PROGRESS) {
+            tradeService.updateReceiverOffer(trade.getReceiverOffer(), hexTrade(items));
+            removeWebWareItems(trade.getReceiverOffer().getAccount().getName(), items);
+        } else if (status == TradeOfferStatus.WAITING) {
+            tradeItems(trade);
+        }
+
+    }
+
+    private void tradeItems(Trade trade) {
+        moveItems(trade.getSenderOffer().getAccount().getName(), trade.getReceiverOffer().getContent());
+        moveItems(trade.getReceiverOffer().getAccount().getName(), trade.getSenderOffer().getContent());
+    }
+
+    private void moveItems(String name, String content) {
+        warehouseDecoder.decode(content)
+                .forEach(i -> webWarehouseItemService.addItem(name, i.getCode()));
+    }
 }

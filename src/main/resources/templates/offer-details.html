@@ -263,7 +263,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="itemcell">
+                        <td class="itemcell" th:if="${canAccept}">
                             <form class="itemcell" th:method="post"
                                   th:action="@{'/mu-online/web-trader/trade/offers/' + ${offerDetails.uuid} + '/accept'}">
                                 <button type="submit"
@@ -282,7 +282,7 @@
 
         </div>
 
-        <div class="row" th:if="${wareItems!=null}">
+        <div class="row" th:if="${wareItems!=null && offerDetails.status.name=='IN_PROGRESS'}">
             <table id="myTable" style="margin-top:1%;" class="table">
                 <thead>
                 <tr class="table-secondary">

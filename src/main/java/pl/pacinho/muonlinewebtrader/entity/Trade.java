@@ -33,5 +33,6 @@ public class Trade {
     private TradeOffer receiverOffer;
 
     private LocalDateTime offerDate;
+    @Enumerated(EnumType.STRING)
     private TradeOfferStatus status;
 }

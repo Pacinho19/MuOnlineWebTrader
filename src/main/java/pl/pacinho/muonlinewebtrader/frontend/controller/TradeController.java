@@ -2,6 +2,7 @@ package pl.pacinho.muonlinewebtrader.frontend.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.ListUtils;
+import org.apache.el.stream.Stream;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.pacinho.muonlinewebtrader.frontend.config.UIConfig;
 import pl.pacinho.muonlinewebtrader.model.dto.TradeDto;
 import pl.pacinho.muonlinewebtrader.model.dto.TradeImages;
-import pl.pacinho.muonlinewebtrader.model.dto.TradeOfferDto;
 import pl.pacinho.muonlinewebtrader.model.dto.WareCellDto;
 import pl.pacinho.muonlinewebtrader.service.*;
 import pl.pacinho.muonlinewebtrader.tools.CodeUtils;
@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 import static pl.pacinho.muonlinewebtrader.model.enums.TradeOfferStatus.IN_PROGRESS;
+import static pl.pacinho.muonlinewebtrader.model.enums.TradeOfferStatus.WAITING;
 
 @RequiredArgsConstructor
 @Controller
@@ -132,7 +133,16 @@ public class TradeController {
                 }
                 session.setAttribute("tradeOfferItems" + offerId, tradeItems);
                 model.addAttribute("wareItems", tradeTools.filterItems(tradeItems, warehouseDecoder.decodeWebItems(webWarehouseItemService.getWarehouseItemsByAccountName(authentication.getName()))));
+            }else if(tradeDto.getStatus() != IN_PROGRESS){
+                tradeItems = tradeDto.getReceiver().getCells()
+                        .stream()
+                        .flatMap(List::stream)
+                        .toList();
             }
+
+            model.addAttribute("canAccept",
+                    (tradeDto.getSender().getAccountName().equals(authentication.getName()) && tradeDto.getStatus() == WAITING)
+                    || (tradeDto.getReceiver().getAccountName().equals(authentication.getName()) && tradeDto.getStatus() == IN_PROGRESS));
             model.addAttribute("inProgress", tradeDto.getSender().getAccountName().equals(authentication.getName()) && tradeDto.getStatus() == IN_PROGRESS);
             model.addAttribute("tradeItems", ListUtils.partition(tradeItems, CodeUtils.TRADE_COL_COUNT));
 
@@ -170,13 +180,28 @@ public class TradeController {
         return "redirect:" + UIConfig.TRADE_OFFER_DETAILS_URL;
     }
 
-    @PostMapping(UIConfig.TRADE_OFFER_DECLINE_ITEM)
+    @PostMapping(UIConfig.TRADE_OFFER_DECLINE)
     public String declineTradeOffer(@PathVariable("offerId") String offerId,
                                     HttpSession session,
                                     Authentication authentication,
                                     Model model) {
         try {
             tradeTools.declineTradeOffer(authentication.getName(), offerId);
+        } catch (IllegalStateException e) {
+            model.addAttribute("error", e.getMessage());
+            return offerDetails(model, authentication, session, offerId);
+        }
+        session.removeAttribute("tradeOfferItems" + offerId);
+        return "redirect:" + UIConfig.TRADE_OFFERS_URl;
+    }
+
+    @PostMapping(UIConfig.TRADE_OFFER_ACCEPT)
+    public String acceptTradeOffer(@PathVariable("offerId") String offerId,
+                                   HttpSession session,
+                                   Authentication authentication,
+                                   Model model) {
+        try {
+            tradeTools.acceptTradeOffer(authentication.getName(), offerId, (List<WareCellDto>) session.getAttribute("tradeOfferItems" + offerId));
         } catch (IllegalStateException e) {
             model.addAttribute("error", e.getMessage());
             return offerDetails(model, authentication, session, offerId);

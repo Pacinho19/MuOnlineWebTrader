@@ -20,4 +20,8 @@ public class TradeOfferService {
                         .build()
         );
     }
+
+    public void update(TradeOffer receiverOffer) {
+        tradeOfferRepository.save(receiverOffer);
+    }
 }
