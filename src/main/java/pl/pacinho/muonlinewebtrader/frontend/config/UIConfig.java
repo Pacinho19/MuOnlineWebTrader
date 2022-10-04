@@ -37,7 +37,8 @@ public class UIConfig {
     public static final String TRADE_OFFER_DETAILS_URL = TRADE_OFFERS_URl + "/{offerId}";
     public static final String TRADE_OFFER_PUT_ITEM = TRADE_OFFER_DETAILS_URL + "/put-item";
     public static final String TRADE_OFFER_REMOVE_ITEM = TRADE_OFFER_DETAILS_URL + "/remove/{id}";
-    public static final String TRADE_OFFER_DECLINE = TRADE_OFFER_DETAILS_URL + "/decline"
-            ;
+    public static final String TRADE_OFFER_DECLINE = TRADE_OFFER_DETAILS_URL + "/decline";
     public static final String TRADE_OFFER_ACCEPT = TRADE_OFFER_DETAILS_URL + "/accept";
+    public static final String CANTOR_URL = HOME_URL + "/cantor";
+    public static final String CANTOR_EXCHANGE_URL = CANTOR_URL + "/exchange";
 }

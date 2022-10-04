@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MuOnline Web Wallet</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <script type="text/javascript" th:src="@{/js/popover.js}"></script>
+
+    <style>
+         body {
+            background:#333;
+        }
+
+        img{
+            height:150px;
+            width:150px;
+        }
+
+        .popover{
+            min-width:550px;
+        }
+
+        #myBtn {
+          display: none;
+          position: fixed;
+          bottom: 10px;
+          right: 30px;
+          z-index: 99;
+          border: none;
+          outline: none;
+          cursor: pointer;
+          padding: 15px;
+          border-radius: 4px;
+        }
+
+        #myBtn:hover {
+          background-color: #333;
+        }
+
+        .vertical-center {
+          margin: 0;
+          position: absolute;
+          top: 50%;
+          left: 40%;
+          -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+        }
+
+
+
+
+
+    </style>
+</head>
+<body>
+
+<button onclick="topFunction()" id="myBtn" title="Go to top" class="btn">
+    <i style="font-size:40px;font-color:red;color: #705D9D" class="bi bi-arrow-up-square-fill"></i>
+</button>
+
+<div th:replace="fragments/topnav :: navbar"/>
+
+<div class="row" style="margin-top:1%;">
+    <div class="col-sm-2"></div>
+    <div class="col-md-8">
+
+        <div th:if="${error!=null}"
+             style="text-align:center; margin-top:1%" class="alert alert-danger">
+            <h3 class="error" th:text="${error}">Error message</h3>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3 style="text-align:center">Cantor</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card" style="text-align:center">
+                            <div class="card-body" style="text-align:center">
+                                <img style="max-width:100px;max-height:100px;text-align:center" class="rounded"
+                                     th:src="@{${'data:image/jpeg;base64,'+ webWallet.blessIcon}}"/>
+                            </div>
+                            <div class="input-group-append">
+                                <input id="bless" th:value="${webWallet.blessCount}" name="bless"
+                                       readonly
+                                       type="number"
+                                       class="form-control"
+                                       aria-label="Jewel of Bless">
+                            </div>
+                            <div class="card-footer">
+                                <form th:method="post" th:action="@{/mu-online/web-trader/cantor/exchange}">
+                                    <div class="row">
+                                        <input type="hidden" name="type" th:value="BLESS">
+                                        <div class="col-md-4">
+                                            <input type="number" th:max="${webWallet.blessCount}" min="0"
+                                                   style="width:100%;height:100%" name="count">
+                                        </div>
+                                        <div class="col-md-1" style="text-align:left;width:100%">
+                                            <i class="bi bi-arrow-right" style="font-size:30px;text-align:left"></i>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <strong style="font-size:30px;text-align:left"
+                                                    th:text="${currencyRate.blessToSoulRate} + 'x'">2x</strong>
+                                        </div>
+                                        <div class="col-md-1" style="text-align:left">
+                                            <img style="height:40px;width:40px;text-align:left" class="rounded"
+                                                 th:src="@{${'data:image/jpeg;base64,'+ webWallet.soulIcon}}"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button style="height:100%;width:100%" type="submit"
+                                                    class="btn btn-primary">Exchange
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card" style="text-align:center">
+                            <div class="card-body" style="text-align:center">
+                                <img style="max-width:100px;max-height:100px;text-align:center" class="rounded"
+                                     th:src="@{${'data:image/jpeg;base64,'+ webWallet.soulIcon}}"/>
+                            </div>
+                            <div class="input-group-append">
+                                <input id="soul" th:value="${webWallet.soulCount}" name="soul"
+                                       readonly
+                                       type="number"
+                                       class="form-control"
+                                       aria-label="Jewel of Soul">
+                            </div>
+                            <div class="card-footer">
+                                <form th:method="post" th:action="@{/mu-online/web-trader/cantor/exchange}">
+                                    <div class="row">
+                                        <input type="hidden" name="type" th:value="SOUL">
+                                        <div class="col-md-4">
+                                            <input type="number" th:max="${webWallet.soulCount}" min="0"
+                                                   style="width:100%;height:100%" name="count">
+                                        </div>
+                                        <div class="col-md-1" style="text-align:left;width:100%">
+                                            <i class="bi bi-arrow-right" style="font-size:30px;text-align:left"></i>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <strong style="font-size:30px;text-align:left"
+                                                    th:text="${currencyRate.soulToBlessRate} + 'x'">0.25x</strong>
+                                        </div>
+                                        <div class="col-md-1" style="text-align:left">
+                                            <img style="height:40px;width:40px;text-align:left" class="rounded"
+                                                 th:src="@{${'data:image/jpeg;base64,'+ webWallet.blessIcon}}"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button style="height:100%;width:100%" type="submit"
+                                                    class="btn btn-primary">
+                                                Exchange
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2"></div>
+</div>
+
+<div id="source" style="display:none;" th:insert="~{fragments/notifications :: notifications}"/>
+<script>
+    // Get the button
+    let mybutton = document.getElementById("myBtn");
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        mybutton.style.display = "block";
+      } else {
+        mybutton.style.display = "none";
+      }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
