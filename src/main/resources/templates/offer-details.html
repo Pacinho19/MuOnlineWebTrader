@@ -231,7 +231,7 @@
                                 th:rowspan="${cellItem.extendedItemDto.height==0 ? 1 : cellItem.extendedItemDto.height}"
                                 class="itemcell"
                                 th:style="'min-width:'+${cellItem.extendedItemDto.width*40 } + 'px'">
-                                <div class="itemcell2"
+                                <div class="itemcell2"  th:id="${cellItem.extendedItemDto.code}"
                                      th:style="'width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'">
                                 </div>
                             </td>

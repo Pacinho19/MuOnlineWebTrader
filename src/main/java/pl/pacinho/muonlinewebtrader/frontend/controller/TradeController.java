@@ -48,7 +48,7 @@ public class TradeController {
         }
         Object success = session.getAttribute("success");
         if (success != null && (boolean) success) {
-            model.addAttribute("success", false);
+            session.removeAttribute("success");
         }
 
         model.addAttribute("success", success != null && (boolean) success);
