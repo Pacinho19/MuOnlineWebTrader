@@ -5,11 +5,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pl.pacinho.muonlinewebtrader.entity.Account;
 import pl.pacinho.muonlinewebtrader.entity.Trade;
+import pl.pacinho.muonlinewebtrader.entity.TradeOffer;
 import pl.pacinho.muonlinewebtrader.entity.WebWarehouseItem;
 import pl.pacinho.muonlinewebtrader.model.dto.*;
 import pl.pacinho.muonlinewebtrader.model.dto.mapper.TradeDtoMapper;
 import pl.pacinho.muonlinewebtrader.model.enums.CellLocation;
 import pl.pacinho.muonlinewebtrader.model.enums.CellType;
+import pl.pacinho.muonlinewebtrader.model.enums.TradeOfferStatus;
 import pl.pacinho.muonlinewebtrader.service.AccountService;
 import pl.pacinho.muonlinewebtrader.service.TradeService;
 import pl.pacinho.muonlinewebtrader.service.WebWarehouseItemService;
@@ -31,6 +33,7 @@ public class TradeTools {
     private final TradeService tradeService;
     private final WebWarehouseItemService webWarehouseItemService;
     private final ItemDecoder itemDecoder;
+    private final WarehouseDecoder warehouseDecoder;
     private final TradeDtoMapper tradeDtoMapper;
 
     public List<WareCellDto> putItem(String name, List<WareCellDto> tradeItems, String itemCode) throws IllegalStateException {
@@ -216,5 +219,33 @@ public class TradeTools {
             throw new IllegalStateException("Not found selected offer!");
 
         return tradeDtoMapper.parse(tradeOpt.get());
+    }
+
+    @Transactional
+    public void declineTradeOffer(String name, String offerId) throws IllegalStateException {
+        Optional<Trade> tradeOpt = tradeService.findByAccountAndOfferId(name, offerId);
+        if (tradeOpt.isEmpty())
+            throw new IllegalStateException("Cannot decline this offer !");
+
+        Trade trade = tradeOpt.get();
+        if (trade.getStatus() != TradeOfferStatus.IN_PROGRESS && trade.getStatus() != TradeOfferStatus.WAITING)
+            throw new IllegalStateException("Cannot decline this offer in this status!");
+
+        trade.setStatus(TradeOfferStatus.REJECTED);
+        tradeService.update(trade);
+
+        returnItemsToWebWare(trade.getSenderOffer());
+        returnItemsToWebWare(trade.getReceiverOffer());
+    }
+
+    private void returnItemsToWebWare(TradeOffer tradeOffer) {
+        if (tradeOffer.getContent() == null) return;
+
+        warehouseDecoder.decodeExtended(tradeOffer.getContent(), CellLocation.TRADE)
+                .stream()
+                .filter(item -> item.getType() == CellType.ITEM)
+                .map(item -> (ItemWareCellDto) item)
+                .forEach(item -> webWarehouseItemService.addItem(tradeOffer.getAccount().getName(), item.getExtendedItemDto().getCode()));
+
     }
 }

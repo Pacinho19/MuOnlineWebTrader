@@ -43,4 +43,8 @@ public class TradeService {
     public Optional<Trade> findByAccountAndOfferId(String name, String offerId) {
         return tradeRepository.findOfferById(name, offerId);
     }
+
+    public void update(Trade trade) {
+        tradeRepository.save(trade);
+    }
 }

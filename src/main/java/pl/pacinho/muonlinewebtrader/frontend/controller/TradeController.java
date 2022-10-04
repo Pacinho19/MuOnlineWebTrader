@@ -20,6 +20,7 @@ import pl.pacinho.muonlinewebtrader.tools.ItemUtils;
 import pl.pacinho.muonlinewebtrader.tools.TradeTools;
 import pl.pacinho.muonlinewebtrader.tools.WarehouseDecoder;
 
+import javax.resource.spi.IllegalStateException;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -119,6 +120,7 @@ public class TradeController {
                                @PathVariable("offerId") String offerId) {
         try {
             TradeDto tradeDto = tradeTools.offerDetails(authentication.getName(), offerId);
+            model.addAttribute("img", new TradeImages());
             model.addAttribute("offerDetails", tradeDto);
             model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
             model.addAttribute("notifications", notificationService.findUnreadByAccount(authentication.getName()));
@@ -167,5 +169,21 @@ public class TradeController {
         model.addAttribute("offerId", offerId);
         return "redirect:" + UIConfig.TRADE_OFFER_DETAILS_URL;
     }
+
+    @PostMapping(UIConfig.TRADE_OFFER_DECLINE_ITEM)
+    public String declineTradeOffer(@PathVariable("offerId") String offerId,
+                                    HttpSession session,
+                                    Authentication authentication,
+                                    Model model) {
+        try {
+            tradeTools.declineTradeOffer(authentication.getName(), offerId);
+        } catch (IllegalStateException e) {
+            model.addAttribute("error", e.getMessage());
+            return offerDetails(model, authentication, session, offerId);
+        }
+        session.removeAttribute("tradeOfferItems" + offerId);
+        return "redirect:" + UIConfig.TRADE_OFFERS_URl;
+    }
+
 
 }

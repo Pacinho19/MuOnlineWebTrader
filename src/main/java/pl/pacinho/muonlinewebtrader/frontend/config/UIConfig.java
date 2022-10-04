@@ -37,4 +37,6 @@ public class UIConfig {
     public static final String TRADE_OFFER_DETAILS_URL = TRADE_OFFERS_URl + "/{offerId}";
     public static final String TRADE_OFFER_PUT_ITEM = TRADE_OFFER_DETAILS_URL + "/put-item";
     public static final String TRADE_OFFER_REMOVE_ITEM = TRADE_OFFER_DETAILS_URL + "/remove/{id}";
+    public static final String TRADE_OFFER_DECLINE_ITEM = TRADE_OFFER_DETAILS_URL +"/decline"
+            ;
 }
