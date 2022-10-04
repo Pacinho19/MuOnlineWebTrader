@@ -82,12 +82,15 @@
           transform: translateY(-50%);
         }
 
+        .itemDetails{
+            display: none;
+        }
 
+        .itemDetails2{
+            display: none;
+        }
 
-
-
-
-
+       .highlight { border: 1px solid coral; }
 
 
     </style>
@@ -101,8 +104,64 @@
 <div th:replace="fragments/topnav :: navbar"/>
 
 <div class="row" style="margin-top:1%;">
-    <div class="col-2"></div>
-    <div class="col-md-8">
+    <div class="col-md-1"></div>
+    <div class="col-md-2" style="text-align:center;">
+        <div class="row" style="text-align:center">
+            <strong style="text-align:center;width:100%;color:white">Item preview</strong>
+        </div>
+        <th:block th:each="rowItems : ${offerDetails.sender.cells}">
+            <th:block th:each="cellItem : ${rowItems}">
+                <th:block th:if="${cellItem.type.name=='ITEM'}">
+                    <div style="margin-left:1%;margin-top:1%;text-align:center" class="card itemDetails"
+                         th:id="${cellItem.extendedItemDto.code}">
+                        <div class="card-header" style="text-align:center;">
+                            <a th:if="${cellItem.extendedItemDto.luck || cellItem.extendedItemDto.skill || cellItem.extendedItemDto.exc || cellItem.extendedItemDto.icon!=null}"
+                               id="icon1"
+                               style="color:black;display:inline-block;text-align:center;">
+                                <h3 style="display: inline-block"
+                                    data-toggle="tooltip" data-html="true"
+                                    th:title="${cellItem.extendedItemDto.name}"
+                                    class="card-title"
+                                    th:text="${(cellItem.extendedItemDto.exc ? 'Exc ' : '') + cellItem.extendedItemDto.name + (cellItem.extendedItemDto.level>0 ? '+' + cellItem.extendedItemDto.level : '')}">
+                                    Name</h3>
+                            </a>
+
+                            <h3 th:if="${!cellItem.extendedItemDto.luck && !cellItem.extendedItemDto.skill && !cellItem.extendedItemDto.exc && cellItem.extendedItemDto.icon==null}"
+                                style="display: inline-block"
+                                data-toggle="tooltip" data-html="true"
+                                th:title="${cellItem.extendedItemDto.name}"
+                                class="card-title"
+                                th:text="${(cellItem.extendedItemDto.exc ? 'Exc ' : '') + cellItem.extendedItemDto.name + (cellItem.extendedItemDto.level>0 ? '+' + cellItem.extendedItemDto.level : '')}">
+                                Name</h3>
+                        </div>
+                        <div class="card-body">
+                            <img class="rounded"
+                                 th:src="@{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}}"/>
+                            <table id="myTable3" class="table" style="margin-top:5%">
+                                <tbody style="margin-top:1%;">
+                                <tr class="table" th:if="${cellItem.extendedItemDto.luck}">
+                                    <td><strong th:text="${'Luck (success rate of Jewel of Soul +25%)'}"/>
+                                    </td>
+                                </tr>
+                                <tr class="table" th:if="${cellItem.extendedItemDto.luck}">
+                                    <td><strong th:text="${'Luck (critical damage rate +5%)'}"/></td>
+                                </tr>
+                                <tr class="table" th:if="${cellItem.extendedItemDto.skill}">
+                                    <td><strong th:text="${'Skill'}"/></td>
+                                </tr>
+                                <tr class="table" th:if="${cellItem.extendedItemDto.exc}"
+                                    th:each="option : ${cellItem.extendedItemDto.excOptions}">
+                                    <td><label th:text="${option.name}"/></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </th:block>
+            </th:block>
+        </th:block>
+    </div>
+    <div class="col-md-6">
         <div th:if="${error!=null}"
              style="text-align:center; margin-top:1%" class="alert alert-danger">
             <h3 class="error" th:text="${error}">Error message</h3>
@@ -119,16 +178,19 @@
                 <table class="center" style="text-align:center;margin-top:1%;">
                     <tr th:each="rowItems : ${offerDetails.sender.cells}">
                         <th:block th:each="cellItem : ${rowItems}">
-                            <td class="itemcell" th:if="${cellItem.type.name=='FREE'}">
+                            <td onclick="itemDetails(this, 'itemDetails')" class="itemcell"
+                                th:if="${cellItem.type.name=='FREE'}">
                                 <img width="100%" height="100%"
                                      style="display:block;width:100%;height:100%"
                                      th:src="@{${'data:image/jpeg;base64,'+ cellItem.icon}}"/>
                             </td>
-                            <td th:if="${cellItem.type.name=='ITEM'}"
+                            <td onclick="itemDetails(this, 'itemDetails')"
+                                th:id="${cellItem.extendedItemDto.code} + '#Item'"
+                                th:if="${cellItem.type.name=='ITEM'}"
                                 th:colspan="${cellItem.extendedItemDto.width==0 ? 1 : cellItem.extendedItemDto.width}"
                                 th:rowspan="${cellItem.extendedItemDto.height==0 ? 1 : cellItem.extendedItemDto.height}"
                                 class="itemcell"
-                                th:style="'width:'+${cellItem.extendedItemDto.width*40 } + 'px'">
+                                th:style="'min-width:'+${cellItem.extendedItemDto.width*40 } + 'px'">
                                 <div
                                         th:style="'width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'">
                                 </div>
@@ -156,18 +218,20 @@
                 <table class="center" style="text-align:center;margin-top:1%;" th:if="${tradeItems}">
                     <tr th:each="rowItems : ${tradeItems}">
                         <th:block th:each="cellItem : ${rowItems}">
-                            <td class="itemcell" th:if="${cellItem.type.name=='FREE'}">
+                            <td onclick="itemDetails(this, 'itemDetails2')" class="itemcell"
+                                th:if="${cellItem.type.name=='FREE'}">
                                 <img width="100%" height="100%"
                                      style="display:block;width:100%;height:100%"
                                      th:src="@{${'data:image/jpeg;base64,'+ cellItem.icon}}"/>
                             </td>
-                            <td th:if="${cellItem.type.name=='ITEM'}"
+                            <td onclick="itemDetails(this, 'itemDetails2')"
+                                th:id="${cellItem.extendedItemDto.code} + '#Item'"
+                                th:if="${cellItem.type.name=='ITEM'}"
                                 th:colspan="${cellItem.extendedItemDto.width==0 ? 1 : cellItem.extendedItemDto.width}"
                                 th:rowspan="${cellItem.extendedItemDto.height==0 ? 1 : cellItem.extendedItemDto.height}"
                                 class="itemcell"
-                                th:style="'width:'+${cellItem.extendedItemDto.width*40 } + 'px'">
+                                th:style="'min-width:'+${cellItem.extendedItemDto.width*40 } + 'px'">
                                 <div class="itemcell2"
-                                     th:id="${cellItem.extendedItemDto.code}"
                                      th:style="'width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'">
                                 </div>
                             </td>
@@ -182,7 +246,8 @@
                     <div class="col-md-6" style="text-align:left">
                     </div>
                 </div>
-                <table style="margin-top:1%;" th:if="${offerDetails.status.name=='IN_PROGRESS' || offerDetails.status.name=='WAITING'}">
+                <table style="margin-top:1%;"
+                       th:if="${offerDetails.status.name=='IN_PROGRESS' || offerDetails.status.name=='WAITING'}">
                     <tr>
                         <td class="itemcell"></td>
                     </tr>
@@ -253,10 +318,103 @@
             </table>
         </div>
     </div>
-    <div class="col-sm-2"></div>
+    <div class="col-sm-2" style="text-align:center;">
+        <div class="row" style="text-align:center">
+            <strong style="text-align:center;width:100%;color:white">Item preview</strong>
+        </div>
+        <th:block th:each="rowItems : ${tradeItems}">
+            <th:block th:each="cellItem : ${rowItems}">
+                <th:block th:if="${cellItem.type.name=='ITEM'}">
+                    <div style="margin-left:1%;margin-top:1%;text-align:center" class="card itemDetails2"
+                         th:id="${cellItem.extendedItemDto.code}">
+                        <div class="card-header" style="text-align:center;">
+                            <a th:if="${cellItem.extendedItemDto.luck || cellItem.extendedItemDto.skill || cellItem.extendedItemDto.exc || cellItem.extendedItemDto.icon!=null}"
+                               id="icon2"
+                               style="color:black;display:inline-block;text-align:center;">
+                                <h3 style="display: inline-block"
+                                    data-toggle="tooltip" data-html="true"
+                                    th:title="${cellItem.extendedItemDto.name}"
+                                    class="card-title"
+                                    th:text="${(cellItem.extendedItemDto.exc ? 'Exc ' : '') + cellItem.extendedItemDto.name + (cellItem.extendedItemDto.level>0 ? '+' + cellItem.extendedItemDto.level : '')}">
+                                    Name</h3>
+                            </a>
+
+                            <h3 th:if="${!cellItem.extendedItemDto.luck && !cellItem.extendedItemDto.skill && !cellItem.extendedItemDto.exc && cellItem.extendedItemDto.icon==null}"
+                                style="display: inline-block"
+                                data-toggle="tooltip" data-html="true"
+                                th:title="${cellItem.extendedItemDto.name}"
+                                class="card-title"
+                                th:text="${(cellItem.extendedItemDto.exc ? 'Exc ' : '') + cellItem.extendedItemDto.name + (cellItem.extendedItemDto.level>0 ? '+' + cellItem.extendedItemDto.level : '')}">
+                                Name</h3>
+                        </div>
+                        <div class="card-body">
+                            <img class="rounded"
+                                 th:src="@{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}}"/>
+                            <table id="myTable2" class="table" style="margin-top:5%">
+                                <tbody style="margin-top:1%;">
+                                <tr class="table" th:if="${cellItem.extendedItemDto.luck}">
+                                    <td><strong th:text="${'Luck (success rate of Jewel of Soul +25%)'}"/>
+                                    </td>
+                                </tr>
+                                <tr class="table" th:if="${cellItem.extendedItemDto.luck}">
+                                    <td><strong th:text="${'Luck (critical damage rate +5%)'}"/></td>
+                                </tr>
+                                <tr class="table" th:if="${cellItem.extendedItemDto.skill}">
+                                    <td><strong th:text="${'Skill'}"/></td>
+                                </tr>
+                                <tr class="table" th:if="${cellItem.extendedItemDto.exc}"
+                                    th:each="option : ${cellItem.extendedItemDto.excOptions}">
+                                    <td><label th:text="${option.name}"/></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </th:block>
+            </th:block>
+        </th:block>
+    </div>
+    <div class="col-sm-1"></div>
 </div>
 <div id="source" style="display:none;" th:insert="~{fragments/notifications :: notifications}"/>
 
+<script>
+      function itemDetails(item, clazz) {
+        var id = item.id.replace('#Item', '');
+
+        var itemDetails = document.getElementsByClassName('card ' + clazz);
+        Array.prototype.forEach.call(itemDetails, itemDetail => {
+            if(itemDetail.id!=id && itemDetail.style.display !='none')
+                itemDetail.style.display = "none";
+            else if(itemDetail.id!=null && itemDetail.id==id)
+               itemDetail.style.display = "block";
+        })
+      }
+
+
+
+
+
+
+</script>
+<script>
+    $('.itemcell').hover(function() {
+        $('.itemcell').removeClass('highlight');
+        $(this).addClass('highlight');
+    });
+
+    $('.itemcell2').hover(function() {
+        $('.itemcell2').removeClass('highlight');
+        $(this).addClass('highlight');
+    });
+
+
+
+
+
+
+
+</script>
 <script>
     // Get the button
     let mybutton = document.getElementById("myBtn");
@@ -283,6 +441,7 @@
 
 
 
+
 </script>
 
 <script>
@@ -297,6 +456,8 @@
         event.preventDefault()
       });
     });
+
+
 
 
 
@@ -324,6 +485,9 @@
             }
         });
     }
+
+
+
 
 
 
