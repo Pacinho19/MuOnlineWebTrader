@@ -13,6 +13,7 @@ import pl.pacinho.muonlinewebtrader.model.enums.CellLocation;
 import pl.pacinho.muonlinewebtrader.model.enums.CellType;
 import pl.pacinho.muonlinewebtrader.model.enums.TradeOfferStatus;
 import pl.pacinho.muonlinewebtrader.service.AccountService;
+import pl.pacinho.muonlinewebtrader.service.NotificationService;
 import pl.pacinho.muonlinewebtrader.service.TradeService;
 import pl.pacinho.muonlinewebtrader.service.WebWarehouseItemService;
 
@@ -29,6 +30,7 @@ import java.util.stream.Collectors;
 @Component
 public class TradeTools {
 
+    private final NotificationService notificationService;
     private final AccountService accountService;
     private final TradeService tradeService;
     private final WebWarehouseItemService webWarehouseItemService;
@@ -116,6 +118,7 @@ public class TradeTools {
         checkItemsForTrade(items, name, session);
         tradeService.sendOffer(accountService.findByLogin(name), hexTrade(items), targetAccount);
         removeWebWareItems(name, items);
+        notificationService.add("You have new trade offer from " + name, targetAccount);
 
         return true;
     }
@@ -236,6 +239,11 @@ public class TradeTools {
 
         returnItemsToWebWare(trade.getSenderOffer());
         returnItemsToWebWare(trade.getReceiverOffer());
+
+        notificationService.add("Offer " + offerId + " has been canceled!",
+                trade.getSenderOffer().getAccount().getName().equals(name)
+                        ? trade.getReceiverOffer().getAccount()
+                        : trade.getSenderOffer().getAccount());
     }
 
     private void returnItemsToWebWare(TradeOffer tradeOffer) {
@@ -266,7 +274,15 @@ public class TradeTools {
         if (status == TradeOfferStatus.IN_PROGRESS) {
             tradeService.updateReceiverOffer(trade.getReceiverOffer(), hexTrade(items));
             removeWebWareItems(trade.getReceiverOffer().getAccount().getName(), items);
+            notificationService.add("Offer " + offerId + " status has been change to WAITING!",
+                    trade.getSenderOffer().getAccount().getName().equals(name)
+                            ? trade.getReceiverOffer().getAccount()
+                            : trade.getSenderOffer().getAccount());
         } else if (status == TradeOfferStatus.WAITING) {
+            notificationService.add("Offer " + offerId + " status has been accepted! Check your Web warehouse.",
+                    trade.getSenderOffer().getAccount().getName().equals(name)
+                            ? trade.getReceiverOffer().getAccount()
+                            : trade.getSenderOffer().getAccount());
             tradeItems(trade);
         }
 
