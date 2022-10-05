@@ -123,17 +123,16 @@ public class TradeTools {
         return true;
     }
 
-    private void removeWebWareItems(String name, List<WareCellDto> items) {
-        items.stream()
+    @Transactional
+    private void removeWebWareItems(String name, List<WareCellDto> items) throws IllegalStateException {
+        List<ItemWareCellDto> itemWareCellDtos = items.stream()
                 .filter(i -> i.getType() == CellType.ITEM)
                 .map(i -> (ItemWareCellDto) i)
-                .forEach(i -> {
-                    try {
-                        webWarehouseItemService.removeItem(name, i.getExtendedItemDto().getCode());
-                    } catch (IllegalStateException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
+                .toList();
+
+        for (ItemWareCellDto i : itemWareCellDtos) {
+            webWarehouseItemService.removeItem(name, i.getExtendedItemDto().getCode());
+        }
     }
 
     private String hexTrade(List<WareCellDto> items) {
@@ -268,12 +267,9 @@ public class TradeTools {
         if (status != TradeOfferStatus.IN_PROGRESS && status != TradeOfferStatus.WAITING)
             throw new IllegalStateException("Cannot accept this offer in this status!");
 
-        trade.setStatus(status == TradeOfferStatus.IN_PROGRESS ? TradeOfferStatus.WAITING : TradeOfferStatus.ACCEPTED);
-        tradeService.update(trade);
-
         if (status == TradeOfferStatus.IN_PROGRESS) {
-            tradeService.updateReceiverOffer(trade.getReceiverOffer(), hexTrade(items));
             removeWebWareItems(trade.getReceiverOffer().getAccount().getName(), items);
+            tradeService.updateReceiverOffer(trade.getReceiverOffer(), hexTrade(items));
             notificationService.add("Offer " + offerId + " status has been change to WAITING!",
                     trade.getSenderOffer().getAccount().getName().equals(name)
                             ? trade.getReceiverOffer().getAccount()
@@ -286,6 +282,8 @@ public class TradeTools {
             tradeItems(trade);
         }
 
+        trade.setStatus(status == TradeOfferStatus.IN_PROGRESS ? TradeOfferStatus.WAITING : TradeOfferStatus.ACCEPTED);
+        tradeService.update(trade);
     }
 
     private void tradeItems(Trade trade) {
