@@ -68,7 +68,6 @@
         }
 
 
-
 </style>
 <body>
 
@@ -218,7 +217,13 @@
                                     <div
                                             th:style="'min-width:'+${cellItem.extendedItemDto.width*40 } + 'px;min-height:'+${cellItem.extendedItemDto.height*40} + 'px;width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'"
 
-                                    ></div>
+                                    >
+                                        <div style="margin-left:50%;"
+                                             th:if="${cellItem.extendedItemDto.getItemIconExtraInfo()!=null}">
+                                            <strong style="color:white"
+                                                    th:text="${cellItem.extendedItemDto.getItemIconExtraInfo()}">10</strong>
+                                        </div>
+                                    </div>
                                 </a>
                                 <!--                        <img width="100%" height="100%"-->
                                 <!--                             th:src="@{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}}"/>-->
@@ -271,6 +276,9 @@
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
     }
+
+
+
 
 
 

@@ -192,6 +192,11 @@
                                 th:style="'min-width:'+${cellItem.extendedItemDto.width*40} + 'px;min-height:'+${cellItem.extendedItemDto.height*40} + 'px'">
                                 <div
                                         th:style="'min-width:'+${cellItem.extendedItemDto.width*40} + 'px;min-height:'+${cellItem.extendedItemDto.height*40} + 'px;width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'">
+                                    <div style="margin-left:50%;"
+                                         th:if="${cellItem.extendedItemDto.getItemIconExtraInfo()!=null}">
+                                        <strong style="color:white"
+                                                th:text="${cellItem.extendedItemDto.getItemIconExtraInfo()}">10</strong>
+                                    </div>
                                 </div>
                             </td>
                         </th:block>
@@ -232,6 +237,11 @@
                                 th:style="'min-width:'+${cellItem.extendedItemDto.width*40 } + 'px;min-height:'+${cellItem.extendedItemDto.height*40} + 'px'">
                                 <div class="itemcell2"  th:id="${cellItem.extendedItemDto.code}"
                                      th:style="'min-width:'+${cellItem.extendedItemDto.width*40} + 'px;min-height:'+${cellItem.extendedItemDto.height*40} + 'px;width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'">
+                                    <div style="margin-left:50%;"
+                                         th:if="${cellItem.extendedItemDto.getItemIconExtraInfo()!=null}">
+                                        <strong style="color:white"
+                                                th:text="${cellItem.extendedItemDto.getItemIconExtraInfo()}">10</strong>
+                                    </div>
                                 </div>
                             </td>
                         </th:block>
