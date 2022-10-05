@@ -115,6 +115,7 @@
                     <span th:text="${item.name}" style="color:black;text-align:left"></span>
                     <span th:if="${item.luck}" style="color:blue;text-align:left">+Luck</span>
                     <span th:if="${item.skill}" style="color:blue;text-align:left">+Skill</span>
+                    <span th:if="${item.level>0}" th:text="${'+' + item.level}">+lvl</span>
                     <th:block th:if="${item.exc}" th:each="exc :${item.excOptions}">
                         <span th:text="${'+' + exc.name}" style="text-align:left"></span>
                     </th:block>
@@ -136,9 +137,9 @@
         <table class="center" style="text-align:center;margin-top:1%;">
             <tr th:each="rowItems : ${tradeItems}">
                 <th:block th:each="cellItem : ${rowItems}">
-                    <td onclick="itemDetails(this)" class="itemcell" th:if="${cellItem.type.name=='FREE'}">
+                    <td onclick="itemDetails(this)" class="itemcell" th:if="${cellItem.type.name=='FREE'}" style="min-width:40px;min-height:40px">
                         <img width="100%" height="100%"
-                             style="display:block;width:100%;height:100%"
+                             style="display:block;width:100%;height:100%;min-width:40px;min-height:40px"
                              th:src="@{${'data:image/jpeg;base64,'+ cellItem.icon}}"/>
                     </td>
                     <td onclick="itemDetails(this)"
@@ -147,10 +148,10 @@
                         th:colspan="${cellItem.extendedItemDto.width==0 ? 1 : cellItem.extendedItemDto.width}"
                         th:rowspan="${cellItem.extendedItemDto.height==0 ? 1 : cellItem.extendedItemDto.height}"
                         class="itemcell"
-                        th:style="'width:'+${cellItem.extendedItemDto.width*40 } + 'px'">
+                        th:style="'min-width:'+${cellItem.extendedItemDto.width*40 } + 'px;min-height:'+${cellItem.extendedItemDto.height*40} + 'px'">
                         <div class="itemcell2"
                              th:id="${cellItem.extendedItemDto.code}"
-                             th:style="'width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'">
+                             th:style="'min-width:'+${cellItem.extendedItemDto.width*40 } + 'px;min-height:'+${cellItem.extendedItemDto.height*40} + 'px;width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'">
                         </div>
                     </td>
                 </th:block>

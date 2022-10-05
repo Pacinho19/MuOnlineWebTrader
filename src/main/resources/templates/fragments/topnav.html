@@ -56,7 +56,7 @@
             </a>
         </div>
         <div sec:authorize="isAuthenticated()">
-            <a class="nav-link bi bi-power" href="/logout"></a>
+            <a class="nav-link bi bi-power" href="/logout">  <span sec:authentication="name">NAME</span></a>
         </div>
         <div sec:authorize="isAnonymous()">
             <a class="nav-link bi bi-key" href="/login">Login</a>
