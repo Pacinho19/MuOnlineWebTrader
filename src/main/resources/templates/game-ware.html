@@ -159,8 +159,21 @@
                                             <table id="myTable2" style="margin-top:1%;" class="table">
                                                 <tbody>
                                                 <tr th:if="${item.icon!=null}">
-                                                    <img class="rounded"
-                                                         th:src="@{${'data:image/jpeg;base64,'+ item.icon}}"/>
+                                                    <div class="row" style="text-align:center">
+                                                        <div class="col-md-4"></div>
+                                                        <div class="col-md-4"  style="text-align:center;display: flex;justify-content: center;">
+                                                            <div
+                                                                    th:style="'max-height:150px;max-width:150px;min-height:150px;min-width:150px;background-image:url(' + @{${'data:image/jpeg;base64,'+ item.icon}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'"
+                                                            >
+                                                                <div style="margin-left:50%;"
+                                                                     th:if="${item.getItemIconExtraInfo()!=null}">
+                                                                    <strong style="color:white"
+                                                                            th:text="${item.getItemIconExtraInfo()}">10</strong>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4"></div>
+                                                    </div>
                                                 </tr>
                                                 <tr class="table" th:if="${item.luck}">
                                                     <td><strong

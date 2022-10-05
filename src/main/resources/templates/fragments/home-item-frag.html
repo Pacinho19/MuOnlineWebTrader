@@ -5,30 +5,43 @@
             <h4 class="card-title"
                 th:text="${(itemShop.itemDto.exc ? 'Excellent ' : '') + itemShop.itemDto.name + (itemShop.itemDto.level>0 ? '+' + itemShop.itemDto.level : '')}">
                 Name</h4>
-            <img class="rounded"
-                 th:src="@{${'data:image/jpeg;base64,'+ itemShop.itemDto.icon}}"/>
+            <div class="row" style="text-align:center">
+                <div class="col-md-4"></div>
+                <div class="col-md-4"  style="text-align:center;display: flex;justify-content: center;">
+                    <div
+                            th:style="'max-height:100px;max-width:100px;min-height:100px;min-width:100px;background-image:url(' + @{${'data:image/jpeg;base64,'+ itemShop.itemDto.icon}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'"
+                    >
+                        <div style="margin-left:50%;"
+                             th:if="${itemShop.itemDto.getItemIconExtraInfo()!=null}">
+                            <strong style="color:white"
+                                    th:text="${itemShop.itemDto.getItemIconExtraInfo()}">10</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
         </div>
         <div class="card-body">
-<!--            <div class="card" th:if="${itemShop.itemDto.exc}">-->
-<!--                <div class="card-header">-->
-<!--                    <a data-toggle="collapse"-->
-<!--                       th:href="'#collapseOne'+ ${prefix} + ${itemShop.itemDto.serialNumber}">Options</a>-->
-<!--                    <div th:id="'collapseOne'+ ${prefix} + ${itemShop.itemDto.serialNumber}"-->
-<!--                         class="panel-collapse collapse"-->
-<!--                         style="text-align:center;">-->
+            <!--            <div class="card" th:if="${itemShop.itemDto.exc}">-->
+            <!--                <div class="card-header">-->
+            <!--                    <a data-toggle="collapse"-->
+            <!--                       th:href="'#collapseOne'+ ${prefix} + ${itemShop.itemDto.serialNumber}">Options</a>-->
+            <!--                    <div th:id="'collapseOne'+ ${prefix} + ${itemShop.itemDto.serialNumber}"-->
+            <!--                         class="panel-collapse collapse"-->
+            <!--                         style="text-align:center;">-->
 
-<!--                        <table style="margin-top:1%;" class="table">-->
-<!--                            <tbody>-->
-<!--                            <tr style="text-align:center" class="table"-->
-<!--                                th:each="option : ${itemShop.itemDto.excOptions}">-->
-<!--                                <td style="text-align:center"><label-->
-<!--                                        th:text="${option.name}"/></td>-->
-<!--                            </tr>-->
-<!--                            </tbody>-->
-<!--                        </table>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
+            <!--                        <table style="margin-top:1%;" class="table">-->
+            <!--                            <tbody>-->
+            <!--                            <tr style="text-align:center" class="table"-->
+            <!--                                th:each="option : ${itemShop.itemDto.excOptions}">-->
+            <!--                                <td style="text-align:center"><label-->
+            <!--                                        th:text="${option.name}"/></td>-->
+            <!--                            </tr>-->
+            <!--                            </tbody>-->
+            <!--                        </table>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
             <div class="card" style="margin-top:2%;">
                 <div class="card-body">
                     <a data-toggle="collapse"

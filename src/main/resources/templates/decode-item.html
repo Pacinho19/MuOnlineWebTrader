@@ -118,7 +118,21 @@
                         <table id="myTable2" style="margin-top:1%;" class="table">
                             <tbody  style="text-align:center;">
                             <tr th:if="${itemDetails.icon!=null}">
-                                <img class="rounded" th:src="@{${'data:image/jpeg;base64,'+ itemDetails.icon}}"/>
+                                <div class="row" style="text-align:center">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4"  style="text-align:center;display: flex;justify-content: center;">
+                                        <div
+                                                th:style="'max-height:150px;max-width:150px;min-height:150px;min-width:150px;background-image:url(' + @{${'data:image/jpeg;base64,'+ itemDetails.icon}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'"
+                                        >
+                                            <div style="margin-left:50%;"
+                                                 th:if="${itemDetails.getItemIconExtraInfo()!=null}">
+                                                <strong style="color:white"
+                                                        th:text="${itemDetails.getItemIconExtraInfo()}">10</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
                             </tr>
                             <tr class="table" style="margin-top:1%;">
                                 <td><strong>Category</strong></td>
