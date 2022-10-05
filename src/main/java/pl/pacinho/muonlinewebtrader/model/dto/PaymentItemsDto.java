@@ -1,10 +1,12 @@
 package pl.pacinho.muonlinewebtrader.model.dto;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import pl.pacinho.muonlinewebtrader.model.enums.PaymentMethod;
 
 @Getter
+@Setter
 @SuperBuilder(toBuilder = true)
 public class PaymentItemsDto {
     private Long blessCount;

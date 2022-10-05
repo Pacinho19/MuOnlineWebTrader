@@ -4,6 +4,7 @@ public enum TransactionType {
 
     DISBURSEMENT,
     PAYMENT,
-    SHOP
+    SHOP,
+    EXCHANGE;
 
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.pacinho.muonlinewebtrader.frontend.config.UIConfig;
 import pl.pacinho.muonlinewebtrader.model.dto.CurrencyRateDto;
+import pl.pacinho.muonlinewebtrader.model.enums.ExchangeType;
 import pl.pacinho.muonlinewebtrader.model.enums.PaymentMethod;
 import pl.pacinho.muonlinewebtrader.service.NotificationService;
 import pl.pacinho.muonlinewebtrader.service.WebWalletService;
@@ -33,7 +34,7 @@ public class CantorController {
 
     @PostMapping(UIConfig.CANTOR_EXCHANGE_URL)
     public String exchange(@RequestParam("count") Long count,
-                           @RequestParam("type") PaymentMethod type,
+                           @RequestParam("type") ExchangeType type,
                            Model model,
                            Authentication authentication) {
         try {
