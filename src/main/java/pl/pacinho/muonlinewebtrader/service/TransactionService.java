@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.pacinho.muonlinewebtrader.entity.Transaction;
 import pl.pacinho.muonlinewebtrader.model.dto.TransactionDto;
 import pl.pacinho.muonlinewebtrader.model.dto.mapper.TransactionDtoMapper;
+import pl.pacinho.muonlinewebtrader.model.enums.transactions.TransactionType;
 import pl.pacinho.muonlinewebtrader.repository.TransactionRepository;
 
 import java.util.Comparator;
@@ -29,5 +30,13 @@ public class TransactionService {
         Transaction transaction = TransactionDtoMapper.parse(transactionDto);
         transaction.setAccount(accountService.findByLogin(name));
         transactionRepository.save(transaction);
+    }
+
+    public List<TransactionDto> findAllByAccountNameAndType(String name, TransactionType type) {
+        return findAllByAccountName(name)
+                .stream()
+                .filter(t -> t.type() == type)
+                .sorted(Comparator.comparing(TransactionDto::date).reversed())
+                .toList();
     }
 }

@@ -11,7 +11,9 @@ import pl.pacinho.muonlinewebtrader.frontend.config.UIConfig;
 import pl.pacinho.muonlinewebtrader.model.dto.CurrencyRateDto;
 import pl.pacinho.muonlinewebtrader.model.enums.ExchangeType;
 import pl.pacinho.muonlinewebtrader.model.enums.PaymentMethod;
+import pl.pacinho.muonlinewebtrader.model.enums.transactions.TransactionType;
 import pl.pacinho.muonlinewebtrader.service.NotificationService;
+import pl.pacinho.muonlinewebtrader.service.TransactionService;
 import pl.pacinho.muonlinewebtrader.service.WebWalletService;
 import pl.pacinho.muonlinewebtrader.tools.ExchangeTools;
 
@@ -21,6 +23,7 @@ public class CantorController {
 
     private final WebWalletService webWalletService;
     private final NotificationService notificationService;
+    private final TransactionService transactionService;
     private final ExchangeTools exchangeTools;
 
     @GetMapping(UIConfig.CANTOR_URL)
@@ -29,6 +32,7 @@ public class CantorController {
         model.addAttribute("webWallet", webWalletService.findByAccountName(authentication.getName()));
         model.addAttribute("notifications", notificationService.findUnreadByAccount(authentication.getName()));
         model.addAttribute("currencyRate", new CurrencyRateDto());
+        model.addAttribute("transactions", transactionService.findAllByAccountNameAndType(authentication.getName(), TransactionType.EXCHANGE));
         return "cantor";
     }
 
