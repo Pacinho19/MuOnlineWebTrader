@@ -66,6 +66,9 @@
         #myBtn:hover {
           background-color: #333;
         }
+
+
+
 </style>
 <body>
 
@@ -161,7 +164,8 @@
                                                          th:src="@{${'data:image/jpeg;base64,'+ item.icon}}"/>
                                                 </tr>
                                                 <tr class="table" th:if="${item.luck}">
-                                                    <td><strong th:text="${'Luck (success rate of Jewel of Soul +25%)'}"/>
+                                                    <td><strong
+                                                            th:text="${'Luck (success rate of Jewel of Soul +25%)'}"/>
                                                     </td>
                                                 </tr>
                                                 <tr class="table" th:if="${item.luck}">
@@ -192,21 +196,27 @@
                 <table class="center" style="text-align:center;margin-top:1%;">
                     <tr style="height:35px;" th:each="rowItems : ${warehouse}">
                         <th:block th:each="cellItem : ${rowItems}">
-                            <td class="itemcell" th:if="${cellItem.type.name=='FREE'}">
+                            <td class="itemcell" th:if="${cellItem.type.name=='FREE'}"
+                                style="min-width:40px;min-height:40px">
                                 <img width="100%" height="100%"
-                                     style="display:block;width:100%;height:100%"
+                                     style="display:block;width:100%;height:100%;min-width:40px;min-height:40px"
                                      th:src="@{${'data:image/jpeg;base64,'+ cellItem.icon}}"/>
                             </td>
                             <td th:if="${cellItem.type.name=='ITEM'}"
                                 th:colspan="${cellItem.extendedItemDto.width==0 ? 1 : cellItem.extendedItemDto.width}"
                                 th:rowspan="${cellItem.extendedItemDto.height==0 ? 1 : cellItem.extendedItemDto.height}"
-                                class="itemcell">
-                                <a data-toggle="collapse" th:id="'start_collapse' + ${cellItem.extendedItemDto.serialNumber}" style="display:none;" th:href="'#collapse' + ${cellItem.extendedItemDto.serialNumber}" ></a>
+                                class="itemcell"
+                                th:style="'min-width:'+${cellItem.extendedItemDto.width*40 } + 'px;min-height:'+${cellItem.extendedItemDto.height*40} + 'px'">
+                                <a data-toggle="collapse"
+                                   th:id="'start_collapse' + ${cellItem.extendedItemDto.serialNumber}"
+                                   style="display:none;"
+                                   th:href="'#collapse' + ${cellItem.extendedItemDto.serialNumber}"></a>
 
                                 <a th:id="'item_collapse' + ${cellItem.extendedItemDto.serialNumber}"
-                                   onclick="scrollToTarget(this);" style="width:100%;height:100%">
+                                   onclick="scrollToTarget(this);"
+                                   th:style="'min-width:'+${cellItem.extendedItemDto.width*40 } + 'px;min-height:'+${cellItem.extendedItemDto.height*40} + 'px;width:100%;height:100%'">
                                     <div
-                                            th:style="'width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'"
+                                            th:style="'min-width:'+${cellItem.extendedItemDto.width*40 } + 'px;min-height:'+${cellItem.extendedItemDto.height*40} + 'px;width:100%;height:100%;background-image:url(' + @{${'data:image/jpeg;base64,'+ cellItem.extendedItemDto.icon}} + '); background-repeat: no-repeat, repeat; background-size: 100% 100%;'"
 
                                     ></div>
                                 </a>
@@ -237,6 +247,9 @@
         const element = document.getElementById(idTarget);
         element.scrollIntoView();
     };
+
+
+
 </script>
 <script>
     // Get the button
@@ -258,6 +271,9 @@
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
     }
+
+
+
 </script>
 </body>
 <div id="source" style="display:none;" th:insert="~{fragments/notifications :: notifications}"/>
